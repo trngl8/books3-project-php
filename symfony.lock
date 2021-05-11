@@ -221,6 +221,9 @@
     "symfony/http-kernel": {
         "version": "5.x-dev"
     },
+    "symfony/intl": {
+        "version": "v5.2.7"
+    },
     "symfony/mailer": {
         "version": "4.3",
         "recipe": {

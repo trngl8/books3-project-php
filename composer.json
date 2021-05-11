@@ -13,36 +13,24 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "symfony/flex": "1.12.x-dev",
-    "sensio/framework-extra-bundle": "6.1.x-dev",
-    "symfony/asset": "5.x-dev",
-    "symfony/monolog-bundle": "3.x-dev",
-    "symfony/mailer": "5.x-dev",
-    "symfony/form": "5.x-dev",
-    "symfony/security-bundle": "5.x-dev",
-    "symfony/translation": "5.x-dev",
-    "symfony/validator": "5.x-dev",
-    "composer/package-versions-deprecated": "^1.0@dev",
-    "doctrine/doctrine-bundle": "2.4.x-dev",
-    "doctrine/doctrine-migrations-bundle": "3.1.x-dev",
-    "doctrine/orm": "3.0.x-dev",
-    "symfony/proxy-manager-bridge": "5.x-dev",
-    "symfony/twig-bundle": "5.x-dev",
+    "symfony/flex": "^1.12",
+    "sensio/framework-extra-bundle": "^6.1",
+    "symfony/asset": "^5.2",
+    "symfony/monolog-bundle": "^3.7",
+    "symfony/mailer": "^5.2",
+    "symfony/form": "^5.2",
+    "symfony/security-bundle": "^5.2",
+    "symfony/translation": "^5.2",
+    "symfony/validator": "^5.2",
+    "composer/package-versions-deprecated": "1.11.99.1",
+    "doctrine/doctrine-bundle": "^2.3",
+    "doctrine/doctrine-migrations-bundle": "^3.1",
+    "doctrine/orm": "^2.8",
+    "symfony/proxy-manager-bridge": "^5.2",
+    "symfony/twig-bundle": "^5.2",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "auto-scripts": {
-      "cache:clear": "symfony-cmd",
-      "assets:install %PUBLIC_DIR%": "symfony-cmd"
-    }
-  },
-  "require-dev": {
-    "symfony/dotenv": "5.x-dev",
-    "symfony/maker-bundle": "^1.31",
-    "symfony/stopwatch": "5.x-dev",
-    "symfony/web-profiler-bundle": "5.x-dev"
-  }
+  "prefer-stable": true
 }
