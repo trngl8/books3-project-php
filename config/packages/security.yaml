@@ -1,16 +1,52 @@
 security:
     # https://symfony.com/doc/current/security/experimental_authenticators.html
-    enable_authenticator_manager: true
+    #enable_authenticator_manager: true
+
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/
+            anonymous: true
             lazy: true
-            provider: users_in_memory
+
+            # The user provider to use.
+            provider: app_user_provider
+
+            form_login:
+                # The route name that the login form submits to
+                check_path: security_login
+                # The name of the route where the login form lives
+                # When the user tries to access a protected page, they are redirected here
+                login_path: security_login
+                # Secure the login form against CSRF
+                # Reference: https://symfony.com/doc/current/security/csrf.html#csrf-protection-in-login-forms
+                csrf_token_generator: security.csrf.token_manager
+                # The page users are redirect to when there is no previous page stored in the
+                # session (for example when the users access directly to the login page).
+                default_target_path: blog_index
+
+            logout:
+                # The route name the user can go to in order to logout
+                path: security_logout
+                # The name of the route to redirect to after logging out
+                target: homepage
+#
+#            # configure the form authentication as the entry point for unauthenticated users
+#            entry_point: form_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -21,5 +57,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
