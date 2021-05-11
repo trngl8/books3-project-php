@@ -32,6 +32,7 @@
     "twig/twig": "^2.12|^3.0"
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "scripts": {
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
