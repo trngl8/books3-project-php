@@ -1,0 +1,19 @@
+{
+  "name": "mvchn/booking",
+  "type": "library",
+  "description": "Library management system",
+  "keywords": ["framework"],
+  "homepage": "https://booking.somedomain",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "mvchn",
+      "email": "movchan@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "symfony/flex": "1.12.x-dev"
+  },
+  "minimum-stability": "dev"
+}
