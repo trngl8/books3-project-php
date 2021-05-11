@@ -1,7 +1,8 @@
 SHELL := /bin/bash
 
 setup:
-	symfony console doctrine:schema:create
+	php bin/console doctrine:schema:create
+	php bin/console assets:install --symlink
 .PHONY: setup
 
 tests:

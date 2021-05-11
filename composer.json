@@ -13,6 +13,11 @@
       "email": "movchan@gmail.com"
     }
   ],
+  "replace": {
+    "symfony/polyfill-ctype": "*",
+    "symfony/polyfill-iconv": "*",
+    "symfony/polyfill-php72": "*"
+  },
   "require": {
     "php": ">=7.4.0",
     "ext-pgsql": "*",
@@ -22,6 +27,7 @@
     "doctrine/doctrine-bundle": "^2.3",
     "doctrine/doctrine-migrations-bundle": "^3.1",
     "doctrine/orm": "^2.8",
+    "easycorp/easyadmin-bundle": "^3",
     "nelmio/cors-bundle": "^2.1",
     "phpdocumentor/reflection-docblock": "^5.2",
     "sensio/framework-extra-bundle": "^6.1",
@@ -45,10 +51,23 @@
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0"
   },
-    "config": {
+  "require-dev": {
+    "doctrine/doctrine-fixtures-bundle": "^3.4",
+    "symfony/browser-kit": "5.*",
+    "symfony/dotenv": "^5.2",
+    "symfony/http-client": "5.*",
+    "symfony/maker-bundle": "^1.31",
+    "symfony/phpunit-bridge": "^5.2",
+    "symfony/stopwatch": "^5.2",
+    "symfony/web-profiler-bundle": "^5.2"
+  },
+  "config": {
     "optimize-autoloader": true,
     "preferred-install": {
       "*": "dist"
+    },
+    "platform": {
+      "php": "7.4"
     },
     "sort-packages": true
   },
@@ -62,14 +81,11 @@
       "App\\Tests\\": "tests/"
     }
   },
-  "replace": {
-    "symfony/polyfill-ctype": "*",
-    "symfony/polyfill-iconv": "*",
-    "symfony/polyfill-php72": "*"
-  },
   "scripts": {
-    "auto-scripts": [
-    ],
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+    },
     "post-install-cmd": [
       "@auto-scripts"
     ],
@@ -85,15 +101,5 @@
       "allow-contrib": false,
       "require": "5.*"
     }
-  },
-  "require-dev": {
-    "doctrine/doctrine-fixtures-bundle": "^3.4",
-    "symfony/browser-kit": "5.*",
-    "symfony/dotenv": "^5.2",
-    "symfony/http-client": "5.*",
-    "symfony/maker-bundle": "^1.31",
-    "symfony/phpunit-bridge": "^5.2",
-    "symfony/stopwatch": "^5.2",
-    "symfony/web-profiler-bundle": "^5.2"
   }
 }
