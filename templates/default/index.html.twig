@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="list-group">
                     {% for item in cards %}
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ item.title }}</h5>
                                 <small>{{ item.year }}</small>
