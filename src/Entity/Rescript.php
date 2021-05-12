@@ -40,6 +40,11 @@ class Rescript
         $this->loans = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string)$this->card;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -16,6 +16,9 @@
                             </div>
                             <p class="mb-1">{{ item.description }}</p>
                             <small>{{ item.author }}</small>
+                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
+                            <span class="badge bg-secondary">Not available</span>
+                            {% endif %}
                         </a>
                     {% endfor %}
                 </div>
