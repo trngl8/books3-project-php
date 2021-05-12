@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MemberRepository;
+use App\Repository\RescriptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MemberRepository::class)
+ * @ORM\Entity(repositoryClass=RescriptRepository::class)
  */
-class Member
+class Rescript
 {
     /**
      * @ORM\Id
@@ -20,12 +20,18 @@ class Member
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Card::class, inversedBy="rescripts")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $name;
+    private $card;
 
     /**
-     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="member")
+     * @ORM\Column(type="string", length=32)
+     */
+    private $condition;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="rescript")
      */
     private $loans;
 
@@ -39,14 +45,26 @@ class Member
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCard(): ?Card
     {
-        return $this->name;
+        return $this->card;
     }
 
-    public function setName(string $name): self
+    public function setCard(?Card $card): self
     {
-        $this->name = $name;
+        $this->card = $card;
+
+        return $this;
+    }
+
+    public function getCondition(): ?string
+    {
+        return $this->condition;
+    }
+
+    public function setCondition(string $condition): self
+    {
+        $this->condition = $condition;
 
         return $this;
     }
@@ -63,7 +81,7 @@ class Member
     {
         if (!$this->loans->contains($loan)) {
             $this->loans[] = $loan;
-            $loan->setMember($this);
+            $loan->setRescript($this);
         }
 
         return $this;
@@ -73,8 +91,8 @@ class Member
     {
         if ($this->loans->removeElement($loan)) {
             // set the owning side to null (unless already changed)
-            if ($loan->getMember() === $this) {
-                $loan->setMember(null);
+            if ($loan->getRescript() === $this) {
+                $loan->setRescript(null);
             }
         }
 
