@@ -6,7 +6,7 @@ use App\Entity\Card;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+class CardFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {

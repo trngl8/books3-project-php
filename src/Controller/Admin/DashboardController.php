@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Card;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -37,6 +38,7 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::section('Booking'),
             MenuItem::linkToCrud('Cards', 'fa fa-tags', Card::class),
+            MenuItem::linkToCrud('Members', 'fa fa-user', Member::class),
 
             MenuItem::section('Users'),
             //MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
