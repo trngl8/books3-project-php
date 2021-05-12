@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -64,9 +66,15 @@ class Card
      */
     private ?string $language;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rescript::class, mappedBy="card")
+     */
+    private $rescripts;
+
     public function __construct(?string $uuidValue = null)
     {
-        $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();;
+        $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        $this->rescripts = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -166,6 +174,36 @@ class Card
     public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rescript[]
+     */
+    public function getRescripts(): Collection
+    {
+        return $this->rescripts;
+    }
+
+    public function addRescript(Rescript $rescript): self
+    {
+        if (!$this->rescripts->contains($rescript)) {
+            $this->rescripts[] = $rescript;
+            $rescript->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRescript(Rescript $rescript): self
+    {
+        if ($this->rescripts->removeElement($rescript)) {
+            // set the owning side to null (unless already changed)
+            if ($rescript->getCard() === $this) {
+                $rescript->setCard(null);
+            }
+        }
 
         return $this;
     }
