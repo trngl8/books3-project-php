@@ -19,7 +19,7 @@
     "symfony/polyfill-php72": "*"
   },
   "require": {
-    "php": ">=7.4.0",
+    "php": "7.4.*",
     "ext-pgsql": "*",
     "api-platform/core": "^2.6",
     "composer/package-versions-deprecated": "1.11.99.1",
