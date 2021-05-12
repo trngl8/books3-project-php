@@ -15,6 +15,28 @@
                  <link rel="stylesheet" href="/build/app.css"> -->
         {% endblock %}
 
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+
+            .bi {
+                vertical-align: -.125em;
+                fill: currentColor;
+            }
+
+        </style>
+
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
 
@@ -25,6 +47,31 @@
         {% endblock %}
     </head>
     <body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <!--
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            -->
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{{ path('homepage') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">Home</a></li>
+{#                <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>#}
+{#                <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>#}
+                <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">About</a></li>
+            </ul>
+
+            <div class="col-md-3 text-end">
+                {% if app.user %}
+                    <a href="{{ path('security_logout') }}" class="btn btn-outline-primary me-2">Logout</a>
+                {% else %}
+                <a href="{{ path('security_login') }}" class="btn btn-outline-primary me-2">Login</a>
+                <button type="button" class="btn btn-primary">Sign-up</button>
+                {% endif %}
+            </div>
+        </header>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
