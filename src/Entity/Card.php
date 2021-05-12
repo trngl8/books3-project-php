@@ -77,6 +77,11 @@ class Card
         $this->rescripts = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
