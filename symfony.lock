@@ -16,6 +16,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "clue/stream-filter": {
+        "version": "v1.5.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.x-dev"
     },
@@ -132,6 +135,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "1.x-dev"
     },
+    "guzzlehttp/promises": {
+        "version": "1.4.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.8.2"
+    },
+    "http-interop/http-factory-guzzle": {
+        "version": "1.0.0"
+    },
+    "jean85/pretty-package-versions": {
+        "version": "2.0.3"
+    },
     "laminas/laminas-code": {
         "version": "4.3.x-dev"
     },
@@ -159,6 +174,24 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "php-http/client-common": {
+        "version": "2.3.0"
+    },
+    "php-http/discovery": {
+        "version": "1.13.0"
+    },
+    "php-http/httplug": {
+        "version": "2.2.0"
+    },
+    "php-http/message": {
+        "version": "1.11.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/promise": {
+        "version": "1.1.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -177,11 +210,23 @@
     "psr/event-dispatcher": {
         "version": "1.0.x-dev"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.x-dev"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -194,6 +239,21 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "sentry/sdk": {
+        "version": "3.1.0"
+    },
+    "sentry/sentry": {
+        "version": "3.2.2"
+    },
+    "sentry/sentry-symfony": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "9746f0823302d7980e5273ef7a69ef3f5ac80914"
+        }
     },
     "symfony/asset": {
         "version": "5.x-dev"
@@ -408,6 +468,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "5.x-dev"
+    },
+    "symfony/psr-http-message-bridge": {
+        "version": "v2.1.0"
     },
     "symfony/routing": {
         "version": "5.1",

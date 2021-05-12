@@ -31,6 +31,7 @@
     "nelmio/cors-bundle": "^2.1",
     "phpdocumentor/reflection-docblock": "^5.2",
     "sensio/framework-extra-bundle": "^6.1",
+    "sentry/sentry-symfony": "^4.1",
     "symfony/asset": "^5.2",
     "symfony/expression-language": "^5.2",
     "symfony/flex": "^1.12",
