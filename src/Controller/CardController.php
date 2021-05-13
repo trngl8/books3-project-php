@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="card_show")
+     * @Route("/cards/{id}", name="card_show")
      */
     public function index(Card $card): Response
     {
