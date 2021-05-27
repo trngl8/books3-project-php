@@ -10,7 +10,7 @@ In the copying process, there was typically a division of labor among the monks 
 
 ## Examples
 
-- [scriptorium-digital](https://scriptorium-digital.herokuapp.com/) - Simple MVP.
+- [scriptorium.cloud](https://scriptorium.cloud/) - Simple MVP.
 
 
 For Developers
