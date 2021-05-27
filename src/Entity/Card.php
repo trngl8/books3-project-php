@@ -71,6 +71,16 @@ class Card
      */
     private $rescripts;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $publishing;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $copyrights;
+
     public function __construct(?string $uuidValue = null)
     {
         $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
@@ -209,6 +219,30 @@ class Card
                 $rescript->setCard(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPublishing(): ?string
+    {
+        return $this->publishing;
+    }
+
+    public function setPublishing(?string $publishing): self
+    {
+        $this->publishing = $publishing;
+
+        return $this;
+    }
+
+    public function getCopyrights(): ?string
+    {
+        return $this->copyrights;
+    }
+
+    public function setCopyrights(?string $copyrights): self
+    {
+        $this->copyrights = $copyrights;
 
         return $this;
     }
