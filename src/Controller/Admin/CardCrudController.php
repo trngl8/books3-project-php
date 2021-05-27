@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Card;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CardCrudController extends AbstractCrudController
@@ -18,8 +19,12 @@ class CardCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            TextField::new('description'),
+            TextField::new('publishing'),
             TextField::new('author'),
+            TextField::new('language'),
             IntegerField::new('year'),
+            TextareaField::new('copyrights'),
         ];
     }
 }
