@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Loan;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class LoanCrudController extends AbstractCrudController
 {
@@ -19,7 +19,7 @@ class LoanCrudController extends AbstractCrudController
         return [
             AssociationField::new('member'),
             AssociationField::new('rescript'),
-            Field::new('createdAt'),
+            DateTimeField::new('createdAt')->setFormat('Y-MM-dd HH:mm')->renderAsChoice()
         ];
     }
 }
