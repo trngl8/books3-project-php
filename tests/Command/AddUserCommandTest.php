@@ -11,7 +11,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 class AddUserCommandTest extends KernelTestCase
 {
     private $userData = [
-        'email' => 'chuck12332323@norris.com',
+        'email' => 'test@test.com',
         'password' => 'foobar',
     ];
 
