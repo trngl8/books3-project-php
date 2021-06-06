@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MemberCrudController extends AbstractCrudController
@@ -17,6 +19,8 @@ class MemberCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
+            EmailField::new('email'),
+            TextareaField::new('note'),
         ];
     }
 }
