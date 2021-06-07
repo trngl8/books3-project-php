@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/welcome.html.twig' %}
+
+{% block page_title 'Admin Dashboard' %}
+
+{% block page_content %}
+
+
+    <p>
+        <strong>You mus configure dashboard widgets</strong>
+    </p>
+
+    <p>
+        You are seeing this example page because you haven't configured the start page
+        of your Dashboard. To do that, open the following file in your editor:
+    </p>
+
+    <pre>{{ dashboard_controller_filepath }}</pre>
+
+    <p>
+        Then, add the following method to it to customize the Dashboard start page:
+    </p>
+
+    <pre>{{ dashboard_controller_class }}</pre>
+
+{% endblock %}
