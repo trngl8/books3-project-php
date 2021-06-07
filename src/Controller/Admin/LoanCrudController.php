@@ -19,7 +19,9 @@ class LoanCrudController extends AbstractCrudController
         return [
             AssociationField::new('member'),
             AssociationField::new('rescript'),
-            DateTimeField::new('createdAt')->setFormat('Y-MM-dd HH:mm')->renderAsChoice()
+            DateTimeField::new('createdAt')->setFormat('Y-MM-dd HH:mm')->renderAsChoice(),
+            DateTimeField::new('finishAt')->setFormat('Y-MM-dd HH:mm')->renderAsChoice(),
+            DateTimeField::new('closedAt')->setFormat('Y-MM-dd HH:mm')->renderAsChoice()
         ];
     }
 }

@@ -34,6 +34,16 @@ class Loan
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $finishAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $closedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,30 @@ class Loan
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getFinishAt(): ?\DateTimeInterface
+    {
+        return $this->finishAt;
+    }
+
+    public function setFinishAt(\DateTimeInterface $finishAt): self
+    {
+        $this->finishAt = $finishAt;
+
+        return $this;
+    }
+
+    public function getClosedAt(): ?\DateTimeInterface
+    {
+        return $this->closedAt;
+    }
+
+    public function setClosedAt(?\DateTimeInterface $closedAt): self
+    {
+        $this->closedAt = $closedAt;
 
         return $this;
     }
