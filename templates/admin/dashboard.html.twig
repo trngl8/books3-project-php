@@ -4,22 +4,29 @@
 
 {% block page_content %}
 
-
-    <p>
-        <strong>You mus configure dashboard widgets</strong>
-    </p>
-
-    <p>
-        You are seeing this example page because you haven't configured the start page
-        of your Dashboard. To do that, open the following file in your editor:
-    </p>
-
-    <pre>{{ dashboard_controller_filepath }}</pre>
-
-    <p>
-        Then, add the following method to it to customize the Dashboard start page:
-    </p>
-
-    <pre>{{ dashboard_controller_class }}</pre>
+    {% if loans|length > 0 %}
+    <table  class="table">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Date</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in loans %}
+            <tr>
+                <td>{{ item.member.name }}</td>
+                <td>{{ item.member.email }}</td>
+                <td>{{ item.finishAt|date }}</td>
+                <td><a href="{{ path('admin_loans_remind', {'id': item.id}) }}" class="btn btn-primary">Remind</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No items</p>
+    {% endif %}
 
 {% endblock %}

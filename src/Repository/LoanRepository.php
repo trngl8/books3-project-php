@@ -19,14 +19,10 @@ class LoanRepository extends ServiceEntityRepository
         parent::__construct($registry, Loan::class);
     }
 
-    // /**
-    //  * @return Loan[] Returns an array of Loan objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findExpired($value)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
+            ->andWhere('l.finishAt < :val')
             ->setParameter('val', $value)
             ->orderBy('l.id', 'ASC')
             ->setMaxResults(10)
@@ -34,7 +30,6 @@ class LoanRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Loan
