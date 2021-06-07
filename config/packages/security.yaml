@@ -44,6 +44,11 @@ security:
                 path: security_logout
                 # The name of the route to redirect to after logging out
                 target: homepage
+
+            remember_me:
+                secret: '%kernel.secret%'
+                path: /
+                always_remember_me: true
 #
 #            # configure the form authentication as the entry point for unauthenticated users
 #            entry_point: form_login
