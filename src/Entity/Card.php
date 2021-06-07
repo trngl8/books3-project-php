@@ -81,10 +81,16 @@ class Card
      */
     private ?string $copyrights;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="cards")
+     */
+    private $orders;
+
     public function __construct(?string $uuidValue = null)
     {
         $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
         $this->rescripts = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function __toString()
@@ -243,6 +249,33 @@ class Card
     public function setCopyrights(?string $copyrights): self
     {
         $this->copyrights = $copyrights;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            $order->removeCard($this);
+        }
 
         return $this;
     }
