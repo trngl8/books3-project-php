@@ -3,20 +3,24 @@
 {% block title %}{{ card.title }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mb-4">{{ card.title }}</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <p><b>{{ card.title }}</b></p>
-                        <p>{{ card.author }}</p>
-                        <p>{{ card.year }}</p>
-                        <p>{{ card.description }}</p>
-                    </div>
-                </div>
-                <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.to_book' }}</a>
-            </div>
-        </div>
+
+<h1 class="mb-4">{{ card.title }}</h1>
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p><b>{{ card.title }}</b></p>
+        <p>{{ card.author }}</p>
+        <p>{{ card.year }}</p>
+        <p>{{ card.description }}</p>
     </div>
+</div>
+
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.to_book' }}</a>
+    </div>
+</div>
+
 {% endblock %}

@@ -5,6 +5,7 @@
 {% block page_content %}
 
     {% if loans|length > 0 %}
+
     <table  class="table">
         <thead>
             <tr>
@@ -25,8 +26,11 @@
         {% endfor %}
         </tbody>
     </table>
+
     {% else %}
+
         <p>No items</p>
+
     {% endif %}
 
 {% endblock %}
