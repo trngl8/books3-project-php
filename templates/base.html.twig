@@ -64,22 +64,16 @@
 
             <div class="col-md-3 text-end">
                 {% if app.user %}
-                    <a href="{{ path('security_logout') }}" class="btn btn-outline-primary me-2">Logout</a>
+                    <a href="{{ path('security_logout') }}" class="btn btn-outline-primary me-2">{{ 'action.logout'|trans }}</a>
                 {% else %}
-                <a href="{{ path('security_login') }}" class="btn btn-outline-primary me-2">Login</a>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+                <a href="{{ path('security_login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>
                 {% endif %}
             </div>
         </header>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                {% block body %}{% endblock %}
-            </div>
-        </div>
-    </div>
 
+    {% block body %}{% endblock %}
     </body>
 </html>

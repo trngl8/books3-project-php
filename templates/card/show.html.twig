@@ -7,7 +7,7 @@
         <h1 class="mb-4">{{ card.title }}</h1>
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-body">
                         <p><b>{{ card.title }}</b></p>
                         <p>{{ card.author }}</p>
@@ -15,10 +15,7 @@
                         <p>{{ card.description }}</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-primary">To Book</a>
+                <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.to_book' }}</a>
             </div>
         </div>
     </div>

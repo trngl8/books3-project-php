@@ -4,11 +4,18 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mb-4">Order placed</h1>
+        <h1 class="mb-4">{{ 'title.order_placed'|trans }}</h1>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'label.close'|trans }}"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
         <div class="row">
             <div class="col-md-6">
-                <p class="mb-4">Order <i>{{ order.id }}</i> placed successfully</p>
-                <h3>Set delivery options for NovaPoshta</h3>
+                <h3>{{ 'title.options.delivery'|trans }}</h3>
                 {{ form(form) }}
             </div>
         </div>

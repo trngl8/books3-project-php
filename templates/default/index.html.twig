@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mb-4">List books</h1>
+        <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
         <div class="row">
             <div class="col-md-6">
                 <div class="list-group">
@@ -17,7 +17,7 @@
                             <p class="mb-1">{{ item.description }}</p>
                             <small>{{ item.author }}</small>
                             {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
-                            <span class="badge bg-secondary">Not available</span>
+                            <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
                             {% endif %}
                         </a>
                     {% endfor %}

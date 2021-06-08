@@ -20,7 +20,7 @@
                 <td>{{ item.member.name }}</td>
                 <td>{{ item.member.email }}</td>
                 <td>{{ item.finishAt|date }}</td>
-                <td><a href="{{ path('admin_loans_remind', {'id': item.id}) }}" class="btn btn-primary">Remind</a></td>
+                <td><a href="{{ path('admin_loans_remind', {'id': item.id}) }}" class="btn btn-primary">{{ 'action.remind'|trans }}</a></td>
             </tr>
         {% endfor %}
         </tbody>

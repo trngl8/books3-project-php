@@ -34,9 +34,9 @@ class CardController extends AbstractController
         $order = new Order();
 
         $form = $this->createFormBuilder($order)
-            ->add('name', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('save', SubmitType::class)
+            ->add('name', TextType::class, ['label' => 'label.name'])
+            ->add('email', EmailType::class, ['label' => 'label.email'])
+            ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
         $form->handleRequest($request);
@@ -48,6 +48,11 @@ class CardController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'flash.order_placed'
+            );
 
             return $this->redirectToRoute('card_success', ['id' => $order->getId()]);
         }
@@ -65,10 +70,10 @@ class CardController extends AbstractController
     public function success(Order $order, Request $request): Response
     {
         $form = $this->createFormBuilder()
-            ->add('city', TextType::class)
-            ->add('number', IntegerType::class)
-            ->add('name', TextType::class)
-            ->add('save', SubmitType::class)
+            ->add('city', TextType::class, ['label' => 'label.city'])
+            ->add('number', IntegerType::class, ['label' => 'label.number'])
+            ->add('name', TextType::class, ['label' => 'label.name'])
+            ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
         $form->handleRequest($request);
