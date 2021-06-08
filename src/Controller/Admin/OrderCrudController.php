@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -22,6 +23,7 @@ class OrderCrudController extends AbstractCrudController
             TextField::new('name'),
             EmailField::new('email'),
             CollectionField::new('cards'),
+            ArrayField::new('options'),
         ];
     }
 }

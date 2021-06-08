@@ -2,11 +2,20 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mb-4">{{ card.title }}</h1>
+        <h1 class="mb-4">Order book</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p><b>{{ card.title }}</b></p>
+                <p>{{ card.year }}</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
+                <h3>Please, fill contact data</h3>
                 {% form_theme form 'bootstrap_5_layout.html.twig' %}
-                {{ form(form) }}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
