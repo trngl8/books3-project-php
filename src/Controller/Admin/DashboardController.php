@@ -81,7 +81,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Members', 'fa fa-user', Member::class),
             MenuItem::linkToCrud('Rescripts', 'fas fa-clone', Rescript::class),
             MenuItem::linkToCrud('Loans', 'fas fa-sign-language', Loan::class),
-            MenuItem::linkToCrud('Orders', 'fa fa-tags', Order::class),
+            MenuItem::linkToCrud('Orders', 'fas fa-bookmark', Order::class),
 
             MenuItem::section('Users'),
             //MenuItem::linkToCrud('Users', 'fa fa-user', User::class),

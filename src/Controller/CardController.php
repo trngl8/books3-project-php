@@ -6,6 +6,7 @@ use App\Entity\Card;
 use App\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,7 @@ class CardController extends AbstractController
         $form = $this->createFormBuilder($order)
             ->add('name', TextType::class)
             ->add('email', EmailType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Order'])
+            ->add('save', SubmitType::class)
             ->getForm();
 
         $form->handleRequest($request);
@@ -61,10 +62,31 @@ class CardController extends AbstractController
     /**
      * @Route("/orders/{id}/success", name="card_success")
      */
-    public function success(Order $order): Response
+    public function success(Order $order, Request $request): Response
     {
+        $form = $this->createFormBuilder()
+            ->add('city', TextType::class)
+            ->add('number', IntegerType::class)
+            ->add('name', TextType::class)
+            ->add('save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $options = $form->getData();
+
+            $order->setOptions($options);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
+        }
+
         return $this->render('card/success.html.twig', [
             'order' => $order,
+            'form' => $form->createView(),
             'controller_name' => 'CardController',
         ]);
     }
