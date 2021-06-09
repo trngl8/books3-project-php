@@ -49,4 +49,24 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
         ]);
     }
+
+    /**
+     * @Route("/donation", name="donation")
+     */
+    public function donation(): Response
+    {
+        return $this->render('default/donation.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(): Response
+    {
+        return $this->render('default/contact.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
 }
