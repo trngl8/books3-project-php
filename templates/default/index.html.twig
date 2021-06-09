@@ -5,9 +5,20 @@
 {% block body %}
 
 <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
+    <div class="row mb-4">
+    <form action="{{ path('search') }}">
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}">
+{#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+        </div>
+        <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
+    </form>
+    </div>
 
 <div class="row mb-4">
     <div class="col-md-6">
+        {% if cards|length > 0 %}
         <div class="list-group">
             {% for item in cards %}
                 <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
@@ -23,6 +34,9 @@
                 </a>
             {% endfor %}
         </div>
+        {% else %}
+            <p>{{ 'text.no_items_found'|trans }}</p>
+        {% endif %}
     </div>
 </div>
 

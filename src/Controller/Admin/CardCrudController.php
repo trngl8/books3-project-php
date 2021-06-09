@@ -21,6 +21,7 @@ class CardCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('description'),
             TextField::new('author'),
+            TextField::new('isbn'),
             LanguageField::new('language'),
             IntegerField::new('year'),
         ];
