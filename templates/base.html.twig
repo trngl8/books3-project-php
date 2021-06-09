@@ -31,11 +31,6 @@
                 }
             }
 
-            .bi {
-                vertical-align: -.125em;
-                fill: currentColor;
-            }
-
             /*
              * Footer
              */
@@ -74,6 +69,7 @@
                 <li><a href="{{ path('homepage') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">Home</a></li>
 {#                <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>#}
 {#                <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>#}
+                <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">Donation</a></li>
                 <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">About</a></li>
             </ul>
 
@@ -107,7 +103,7 @@
                             <span class="text-muted">{{ 'article.about'|trans }}</span>
                         </li>
                         <li>
-                            <a href="#donate">{{ 'article.donate'|trans }}</a>
+                            <a href="{{ path('donation')}}">{{ 'article.donate'|trans }}</a>
                         </li>
                     </ul>
                 </div>

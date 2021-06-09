@@ -7,9 +7,8 @@
     <h1 class="mb-4">Order checkout</h1>
     <div class="row">
         <div class="col-md-6">
-            <p class="mb-4">Order <i>{{ order.id }}</i> need checkout</p>
-            <h2 class="mb-4">100 UAH</h2>
-            <a href="https://secure.wayforpay.com/button/b1c3dc4af7841" class="btn btn-primary btn-lg"><i class="bi bi-credit-card"></i>&nbsp;&nbsp;Оплатити</a>
+            <p class="mb-4">Order <i>{{ order.id }}</i> complete</p>
+            <p class="mb-4">You can <a href="{{ path('donation') }}">donate</a> for service.</p>
         </div>
     </div>
 
