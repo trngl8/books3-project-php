@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CardRepository::class)
@@ -43,6 +44,7 @@ class Card
 
     /**
      * @ORM\Column(type="string", length=13, nullable=true)
+     * @Assert\Isbn()
      */
     private ?string $isbn;
 
