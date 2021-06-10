@@ -34,3 +34,10 @@ services:
               event: 'postPersist'
               priority: 500
               connection: 'default'
+
+    App\EventListener\InviteCreation:
+        tags:
+            - name: 'doctrine.event_listener'
+              event: 'prePersist'
+              priority: 490
+              connection: 'default'

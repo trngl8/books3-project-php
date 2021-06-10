@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Card;
+use App\Entity\Invite;
 use App\Entity\Loan;
 use App\Entity\Member;
 use App\Entity\Order;
@@ -82,6 +83,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Rescripts', 'fas fa-clone', Rescript::class),
             MenuItem::linkToCrud('Loans', 'fas fa-sign-language', Loan::class),
             MenuItem::linkToCrud('Orders', 'fas fa-bookmark', Order::class),
+            MenuItem::linkToCrud('Invites', 'fas fa-user-plus', Invite::class),
 
             MenuItem::section('Users'),
             //MenuItem::linkToCrud('Users', 'fa fa-user', User::class),

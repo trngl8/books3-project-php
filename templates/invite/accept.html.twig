@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ invite.id }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.invite'|trans }}</h1>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'label.close'|trans }}"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="row ">
+        <div class="col-md-6">
+            {{ form(form) }}
+        </div>
+    </div>
+
+{% endblock %}
