@@ -52,7 +52,10 @@ class Order
 
     public function __construct(?string $uuidValue = null)
     {
-        $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        if(!$this->id) {
+            $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        }
+
         $this->cards = new ArrayCollection();
     }
 

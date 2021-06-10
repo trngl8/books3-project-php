@@ -40,9 +40,12 @@ class Invite
 
     public function __construct(?string $uuidValue = null)
     {
+        if(!$this->id) {
+            $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        }
+
         $this->createdAt = new \DateTime();
         $this->expiresAt = (new \DateTime())->modify('+1 month');
-        $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
     }
 
     public function getId(): ?Uuid

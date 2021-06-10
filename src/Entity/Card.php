@@ -90,7 +90,10 @@ class Card
 
     public function __construct(?string $uuidValue = null)
     {
-        $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        if(!$this->id) {
+            $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        }
+
         $this->rescripts = new ArrayCollection();
         $this->orders = new ArrayCollection();
     }
