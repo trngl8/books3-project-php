@@ -33,7 +33,7 @@ class InviteCreation
         }
 
         $user = $this->security->getUser();
-        $entity->setCreatedBy($user->getUsername());
+        $entity->setCreatedBy($user->getUserIdentifier());
 
         //TODO: set text template
         $email = (new TemplatedEmail())
