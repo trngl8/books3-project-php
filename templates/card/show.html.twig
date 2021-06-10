@@ -9,6 +9,7 @@
 <div class="card mb-4">
     <div class="card-body">
         <p><b>{{ card.title }}</b> {% if card.orders|length > 0 %}<span class="badge bg-info text-dark">{{ card.orders|length }} orders</span>{% endif %}</p>
+        <p>ISBN: {{ card.isbn }}</p>
         <p>{{ card.author }}</p>
         <p>{{ card.year }}</p>
         <p>{{ card.language }}</p>
