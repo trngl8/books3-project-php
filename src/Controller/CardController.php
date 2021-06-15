@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Card;
 use App\Entity\Order;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -16,7 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardController extends AbstractController
 {
     /**
-     * @Route("/cards/{id}", name="card_show")
+     * @Route("/cards/{id}/show", name="card_show")
+     * @ParamConverter("card", class="App:Card")
      */
     public function index(Card $card): Response
     {

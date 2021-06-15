@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Card;
-use App\Entity\Invite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,7 +21,7 @@ class CardRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Invite::class);
+        parent::__construct($registry, Card::class);
     }
 
     public function createQueryWithPaginator(int $firstResult = 0, int $maxResult = self::MAX_RESULT) : Query
