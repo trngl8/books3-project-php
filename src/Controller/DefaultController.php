@@ -34,7 +34,7 @@ class DefaultController extends AbstractController
 
         $c = count($paginator);
 
-        $pages = $c < $max ? [1] : range(1, intdiv($c, $max));
+        $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
 
         return $this->render('default/index.html.twig', [
             'count' => $c,
