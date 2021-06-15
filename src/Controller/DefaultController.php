@@ -25,7 +25,7 @@ class DefaultController extends AbstractController
     public function index(Request $request): Response
     {
         $page = $request->get('page', 1);
-        $max = $request->get('max', 1);
+        $max = $request->get('max', 20);
         $first = ($page - 1) * $max;
 
         $query = $this->repository->createQueryWithPaginator($first, $max);
