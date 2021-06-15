@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Card;
+use App\Entity\Invite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,37 +16,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CardRepository extends ServiceEntityRepository
 {
+    private CONST DQL = 'SELECT c FROM App\Entity\Card c left join c.rescripts r';
+
+    private CONST MAX_RESULT = 20;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Card::class);
+        parent::__construct($registry, Invite::class);
     }
 
-    // /**
-    //  * @return Card[] Returns an array of Card objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function createQueryWithPaginator(int $firstResult = 0, int $maxResult = self::MAX_RESULT) : Query
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->getEntityManager()->createQuery(self::DQL)
+            ->setFirstResult($firstResult)
+            ->setMaxResults($maxResult);
 
-    /*
-    public function findOneBySomeField($value): ?Card
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
 }

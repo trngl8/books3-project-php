@@ -19,7 +19,7 @@
 <div class="row mb-4">
     <div class="col-md-6">
         {% if cards|length > 0 %}
-        <div class="list-group">
+        <div class="list-group mb-5">
             {% for item in cards %}
                 <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
@@ -34,6 +34,15 @@
                 </a>
             {% endfor %}
         </div>
+
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                {% for page in pages %}
+                <a href="{{ path('homepage', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
         {% else %}
             <p>{{ 'text.no_items_found'|trans }}</p>
         {% endif %}

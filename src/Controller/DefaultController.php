@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\CardRepository;
+use App\Entity\Card;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,16 +12,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    private $repository;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->repository = $em->getRepository(Card::class);
+    }
+
     /**
      * @Route("/", name="homepage")
      */
-    public function index(CardRepository $repository): Response
+    public function index(Request $request): Response
     {
+        $page = $request->get('page', 1);
+        $max = $request->get('max', 1);
+        $first = ($page - 1) * $max;
 
-        $cards = $repository->findAll();
+        $query = $this->repository->createQueryWithPaginator($first, $max);
+
+        $paginator = new Paginator($query, true);
+
+        $c = count($paginator);
+
+        $pages = $c < $max ? [1] : range(1, intdiv($c, $max));
 
         return $this->render('default/index.html.twig', [
-            'cards' => $cards,
+            'count' => $c,
+            'pages' => $pages,
+            'cards' => $paginator,
             'controller_name' => 'DefaultController',
         ]);
     }
@@ -27,11 +47,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/search", name="search")
      */
-    public function search(CardRepository $repository, Request $request) : Response
+    public function search(Request $request) : Response
     {
         $isbn = $request->get('isbn');
 
-        $cards = $repository->findBy(['isbn' => $isbn]);
+        $cards = $this->repository->findBy(['isbn' => $isbn]);
 
         return $this->render('default/index.html.twig', [
             'cards' => $cards,
