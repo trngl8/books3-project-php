@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List books{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
+    <div class="row mb-4">
+        <form action="{{ path('search') }}">
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}">
+                {#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+            </div>
+            <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
+        </form>
+    </div>
+
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% if cards|length > 0 %}
+                {% for item in cards %}
+                    <div class="card" style="width: 18rem;">
+                        <img width="100"  class="card-img-top" src="{{ asset('uploads/images/cover/' ~ item.cover) }}" alt="">
+                        <div class="card-body">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ item.title }}</h5>
+                                    <small>{{ item.year }}</small>
+                                </div>
+                                <p class="mb-1">{{ item.description }}</p>
+                                <small>{{ item.author }}</small>
+                                {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
+                                    <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
+                                {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        {% for page in pages %}
+                            <a href="{{ path('homepage', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            {% else %}
+                <p>{{ 'text.no_items_found'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

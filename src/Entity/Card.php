@@ -88,6 +88,11 @@ class Card
      */
     private $orders;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cover;
+
     public function __construct(?string $uuidValue = null)
     {
         if(!$this->id) {
@@ -283,5 +288,17 @@ class Card
         }
 
         return $this;
+    }
+
+    public function setCover(?string $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
     }
 }
