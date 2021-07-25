@@ -7,7 +7,7 @@
     <form action="{{ path('search') }}">
         <div class="mb-3">
             <label for="isbn" class="form-label">ISBN</label>
-            <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}">
+            <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}" placeholder="13-digit number">
 {#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
         </div>
         <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
