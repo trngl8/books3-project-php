@@ -138,6 +138,7 @@
                 <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">Donation</a></li>
                 <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">About</a></li>
                 <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">Docs</a></li>
+
                 {% if 'message1' in app.request.cookies|keys %}
                     <li><a href="{{ path('messages') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
                 {% endif %}
@@ -145,7 +146,16 @@
 
             <div class="col-md-3 text-end">
                 {% if app.user %}
-                    <a href="{{ path('security_logout') }}" class="btn btn-outline-primary me-2">{{ 'action.logout'|trans }}</a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">{{ 'action.profile'|trans }}</a>
+                            <a href="{{ path('security_logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
+                        </div>
+                    </div>
+
                 {% else %}
                 <a href="{{ path('security_login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
 {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
@@ -180,6 +190,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     </body>
 </html>
