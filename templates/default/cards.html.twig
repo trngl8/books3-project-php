@@ -16,7 +16,17 @@
         </form>
     </div>
 
-    {% set bgs = ['isometric', 'diagonal', 'lines'] %}
+    {% block breadcrumbs %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Index</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('cards') }}">Cards</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </nav>
+    {% endblock %}
+
+    {% set bgs = ['isometric', 'lines', 'wavy', 'rhombus', 'zigzag', 'moon', 'diagonal', 'paper'] %}
 
 
     <div class="row mb-4">
@@ -56,7 +66,7 @@
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         {% for page in pages %}
-                            <a href="{{ path('homepage', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                            <a href="{{ path('cards', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
                         {% endfor %}
                     </div>
                 </div>
