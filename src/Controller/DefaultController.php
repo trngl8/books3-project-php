@@ -45,6 +45,31 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/cards", name="cards")
+     */
+    public function cards(Request $request): Response
+    {
+        $page = $request->get('page', 1);
+        $max = $request->get('max', 20);
+        $first = ($page - 1) * $max;
+
+        $query = $this->repository->createQueryWithPaginator($first, $max);
+
+        $paginator = new Paginator($query, true);
+
+        $c = count($paginator);
+
+        $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
+
+        return $this->render('default/cards.html.twig', [
+            'count' => $c,
+            'pages' => $pages,
+            'cards' => $paginator,
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
+    /**
      * @Route("/search", name="search")
      */
     public function search(Request $request) : Response
