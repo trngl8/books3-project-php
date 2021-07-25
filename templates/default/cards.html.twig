@@ -23,10 +23,11 @@
         <div class="col-md-6">
             {% if cards|length > 0 %}
                 {% for item in cards %}
-                    {% set card_style = attribute(bgs, item.title|length % 4 ) %}
+                    {% set index = item.title|length % 3 %}
+                    {% set card_style = attribute(bgs, index) %}
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col-md-4 bg-{{ card_style }}">
+                            <div class="col-md-4 bg-{{ card_style }}" id="#{{ index }}">
                                 {% if item.cover  %}
                                     <img class="img-fluid rounded-start" src="{{ asset('uploads/images/cover/' ~ item.cover) }}" alt="">
                                 {% endif %}
