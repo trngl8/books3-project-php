@@ -174,4 +174,14 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
         ]);
     }
+    /**
+     * @Route("/docs", name="docs")
+     */
+    public function docs(): Response
+    {
+        return $this->render('default/docs.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
 }
