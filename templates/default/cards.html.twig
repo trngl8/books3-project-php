@@ -1,30 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'default/index.html.twig' %}
 
 {% block title %}List books{% endblock %}
 
-{% block body %}
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Index</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('cards') }}">Cards</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data</li>
+        </ol>
+    </nav>
+{% endblock %}
 
-    <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
-    <div class="row mb-4">
-        <form action="{{ path('search') }}">
-            <div class="mb-3">
-                <label for="isbn" class="form-label">ISBN</label>
-                <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}">
-                {#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
-            </div>
-            <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
-        </form>
-    </div>
-
-    {% block breadcrumbs %}
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Index</a></li>
-                <li class="breadcrumb-item"><a href="{{ path('cards') }}">Cards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
-        </nav>
-    {% endblock %}
+{% block content %}
 
     {% set bgs = ['isometric', 'lines', 'wavy', 'rhombus', 'zigzag', 'moon', 'diagonal', 'paper'] %}
 
