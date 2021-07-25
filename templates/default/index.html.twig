@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1 class="mb-4">{{ 'title.index'|trans }}</h1>
+    <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
     <div class="row mb-4">
     <form action="{{ path('search') }}">
         <div class="mb-3">
@@ -15,6 +15,9 @@
         <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
     </form>
     </div>
+
+    {% block breadcrumbs %}
+    {% endblock %}
 
 <div class="row mb-4">
     <div class="col-md-6">
