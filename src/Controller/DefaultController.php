@@ -9,9 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class DefaultController extends AbstractController
 {
+    private static $cookies = [
+        'message1' =>  'Accept cookie policy',
+        'message2' =>  'Accept personal data agreement',
+        'message3' =>  'Read the docs',
+        'message4' =>  'Test cards',
+    ];
+
     private $repository;
 
     public function __construct(EntityManagerInterface $em)
@@ -36,12 +44,16 @@ class DefaultController extends AbstractController
 
         $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
 
-        return $this->render('default/index.html.twig', [
+        $response = $this->render('default/index.html.twig', [
             'count' => $c,
             'pages' => $pages,
             'cards' => $paginator,
             'controller_name' => 'DefaultController',
         ]);
+
+        $response->headers->setCookie(Cookie::create('foo', 'bar'));
+
+        return $response;
     }
 
     /**
@@ -61,12 +73,19 @@ class DefaultController extends AbstractController
 
         $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
 
-        return $this->render('default/cards.html.twig', [
+        $response = $this->render('default/cards.html.twig', [
             'count' => $c,
             'pages' => $pages,
             'cards' => $paginator,
             'controller_name' => 'DefaultController',
         ]);
+
+        //TODO: get data to store cookie from request
+        foreach (self::$cookies as $key => $cookie) {
+            $response->headers->setCookie(Cookie::create($key, $cookie));
+        }
+
+        return $response;
     }
 
     /**
@@ -82,7 +101,48 @@ class DefaultController extends AbstractController
             'cards' => $cards,
             'controller_name' => 'DefaultController',
         ]);
+    }
 
+    /**
+     * @Route("/messages", name="messages")
+     */
+    public function messages(Request $request): Response
+    {
+        $cookies = $request->cookies;
+
+        $form = $this->createFormBuilder()
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->addFlash(
+                'success',
+                'flash.messages_cleared'
+            );
+
+            $response = $this->redirectToRoute('messages');
+
+            foreach (self::$cookies as $key => $cookie) {
+                $response->headers->clearCookie($key);
+            }
+
+            return $response;
+        }
+
+        $messages = [];
+
+        foreach ($cookies as $key => $cookie) {
+            if (in_array($key, array_keys(self::$cookies))) {
+                $messages[$key] = $request->cookies->get($key);
+            }
+        }
+
+        return $this->render('default/messages.html.twig', [
+            'messages' => $messages,
+            'form' => $form->createView(),
+            'controller_name' => 'DefaultController',
+        ]);
     }
 
     /**
