@@ -16,23 +16,38 @@
         </form>
     </div>
 
+    {% set bgs = ['isometric', 'diagonal', 'lines'] %}
+
 
     <div class="row mb-4">
         <div class="col-md-6">
             {% if cards|length > 0 %}
                 {% for item in cards %}
-                    <div class="card" style="width: 18rem;">
-                        <img width="100"  class="card-img-top" src="{{ asset('uploads/images/cover/' ~ item.cover) }}" alt="">
-                        <div class="card-body">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{{ item.title }}</h5>
-                                    <small>{{ item.year }}</small>
-                                </div>
-                                <p class="mb-1">{{ item.description }}</p>
-                                <small>{{ item.author }}</small>
-                                {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
-                                    <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
+                    {% set card_style = attribute(bgs, item.title|length % 4 ) %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-{{ card_style }}">
+                                {% if item.cover  %}
+                                    <img class="img-fluid rounded-start" src="{{ asset('uploads/images/cover/' ~ item.cover) }}" alt="">
                                 {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ item.title }}</h5>
+                                        <small>{{ item.year }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ item.description }}</p>
+                                    <small>{{ item.author }}</small>
+                                    {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
+                                        <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
+                                    {% endif %}
+
+{#                                    <h5 class="card-title">Card title</h5>#}
+{#                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
+{#                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>#}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
