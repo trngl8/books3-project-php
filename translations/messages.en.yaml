@@ -1,0 +1,38 @@
+action:
+  remind: Remind
+  do: Do
+  ok: OK
+  logout: Logout
+  login: Login
+  profile: Profile
+  search: Search
+  sign_in: Sign in
+
+title:
+  invite: Invite
+  login: Login
+  index: Index
+  order_placed: Order placed
+  order: Order
+  options:
+    delivery: Delivery options
+
+label:
+  label: Close
+  label.username: Username
+  label.password: Password
+  label.remember_me: Remember me
+
+article:
+  personal_data: Personal data
+  service: Service
+  about: About
+  donate: Donate
+
+text:
+  not_available: Not available
+  no_items_found: No items found
+
+form:
+  member:
+    title: Member title
