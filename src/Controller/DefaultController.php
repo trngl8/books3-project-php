@@ -95,6 +95,10 @@ class DefaultController extends AbstractController
     {
         $isbn = $request->get('isbn');
 
+        if(!$isbn) {
+            return $this->redirectToRoute('homepage');
+        }
+
         $cards = $this->repository->findBy(['isbn' => $isbn]);
 
         return $this->render('default/index.html.twig', [
