@@ -134,10 +134,13 @@
             -->
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{ path('homepage') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">Home</a></li>
-{#                <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>#}
+                <li><a href="{{ path('cards') }}" class="nav-link px-2 link-dark">Cards</a></li>
 {#                <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>#}
                 <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">Donation</a></li>
                 <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">About</a></li>
+                {% if 'message1' in app.request.cookies|keys %}
+                    <li><a href="{{ path('messages') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
+                {% endif %}
             </ul>
 
             <div class="col-md-3 text-end">
