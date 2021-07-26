@@ -17,7 +17,15 @@
         </div>
     {% endblock %}
 
-    {% block breadcrumbs %}{% endblock %}
+    {% block breadcrumbs %}
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Index</li>
+            <li class="breadcrumb-item active"><a href="{{ path('cards') }}">Cards</a></li>
+            {#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
+        </ol>
+        </nav>
+    {% endblock %}
 
     {% block content %}
         <div class="row mb-4">

@@ -6,8 +6,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Index</a></li>
-            <li class="breadcrumb-item"><a href="{{ path('cards') }}">Cards</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data</li>
+            <li class="breadcrumb-item active" aria-current="page">Cards</li>
+{#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
         </ol>
     </nav>
 {% endblock %}
@@ -22,7 +22,7 @@
                 {% for item in cards %}
                     {% set index = item.title|length % 3 %}
                     {% set card_style = attribute(bgs, index) %}
-                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="card mb-4">
                         <div class="row g-0">
                             {% if item.cover %}
                                 <div class="col-md-4" id="#{{ index }}" style="padding: 50px;">
