@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.order'|trans }}</h1>
+    {% if cards|length > 0 %}
+        <div class="row">
+            <div class="col-md-4">
+                <h3>{{ 'form.member.title'|trans }}</h3>
+                {% form_theme form 'bootstrap_5_layout.html.twig' %}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy crap!</strong> There is no items in cart
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
