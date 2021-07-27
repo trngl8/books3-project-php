@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -110,7 +111,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/messages", name="messages")
      */
-    public function messages(Request $request): Response
+    public function messages(Request $request, TranslatorInterface $translator): Response
     {
         $cookies = $request->cookies;
 
@@ -122,7 +123,7 @@ class DefaultController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'flash.messages_cleared'
+                $translator->trans('flash.messages_cleared')
             );
 
             $response = $this->redirectToRoute('messages');
