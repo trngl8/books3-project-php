@@ -19,9 +19,18 @@ title:
 
 label:
   label: Close
-  label.username: Username
-  label.password: Password
-  label.remember_me: Remember me
+  username: Username
+  password: Password
+  remember_me: Remember me
+  name: Name
+  email: Email
+  close: x
+
+submit:
+  save: Save
+
+flash:
+  messages_cleared: Cleared
 
 article:
   personal_data: Personal data
