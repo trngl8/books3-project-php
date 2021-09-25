@@ -34,6 +34,12 @@
             "config/packages/test/dama_doctrine_test_bundle.yaml"
         ]
     },
+    "deployer/deployer": {
+        "version": "v6.8.0"
+    },
+    "deployer/phar-update": {
+        "version": "v2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -206,6 +212,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "pimple/pimple": {
+        "version": "v3.4.0"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -465,6 +474,9 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.22.1"
+    },
+    "symfony/process": {
+        "version": "v5.3.7"
     },
     "symfony/profiler-pack": {
         "version": "dev-main"
