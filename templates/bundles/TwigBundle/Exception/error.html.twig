@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ exception.getStatusText }} {{ exception.getStatusCode }}</h1>
+
+    <p>{{ exception.getMessage }}.</p>
+    <p>{{ exception.getClass }}.</p>
+    <p>{{ exception.getFile }}.</p>
+    <p>{{ exception.getLine }}.</p>
+
+{% endblock %}
