@@ -49,8 +49,9 @@ article:
   donate: Інвестору
 
 text:
-  not_available: Not available
+  not_available: Недоступно
   no_items_found: Нічого не знайдено
+  page_not_found: Сторінка не знайдена
 
 form:
   member:

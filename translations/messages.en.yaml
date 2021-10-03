@@ -51,6 +51,7 @@ article:
 text:
   not_available: Not available
   no_items_found: No items found
+  page_not_found: Page not found
 
 form:
   member:
