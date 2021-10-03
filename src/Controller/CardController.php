@@ -142,11 +142,9 @@ class CardController extends AbstractController
 
         $c = count($paginator);
 
-        if(0 == intdiv($c, $max)) {
-            $pages = $c < $max ? [1] : range(1, (intdiv($c, $max)));
-        } else {
-            $pages = $c < $max ? [1] : range(1, (intdiv($c, $max) + 1));
-        }
+        $totalPages = (int)(($c + $max - 1) / $max);
+
+        $pages = $c < $max ? [1] : range(1, $totalPages);
 
         return [
             'count' => $c,
