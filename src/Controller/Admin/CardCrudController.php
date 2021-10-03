@@ -35,10 +35,11 @@ class CardCrudController extends AbstractCrudController
             TextField::new('isbn'),
             LanguageField::new('language'),
             IntegerField::new('year'),
-            ImageField::new('cover')
-                ->setUploadDir('public/uploads/images/cover')
-                ->setBasePath('uploads/images/cover')
-                ->setUploadedFileNamePattern('[contenthash].[extension]')
+            //TODO: ser cover in true way
+//            ImageField::new('cover')
+//                ->setUploadDir('public/uploads/images/cover')
+//                ->setBasePath('uploads/images/cover')
+//                ->setUploadedFileNamePattern('[contenthash].[extension]')
         ];
     }
 
