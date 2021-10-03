@@ -11,11 +11,6 @@
 
 <div class="row">
     <div class="col-md-12">
-{#        {% if error %}#}
-{#            <div class="alert alert-danger">#}
-{#                {{ error.messageKey|trans(error.messageData, 'security') }}#}
-{#            </div>#}
-{#        {% endif %}#}
         <h1 class="mb-4"><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</h1>
         <p>
             <a href="{{ path('register') }}">Register</a>
