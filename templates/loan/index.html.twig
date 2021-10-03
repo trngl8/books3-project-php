@@ -1,8 +1,8 @@
-{% extends '@EasyAdmin/welcome.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block page_title 'Admin Dashboard' %}
+{% block title %}Loans{% endblock %}
 
-{% block page_content %}
+{% block body %}
 
     {% if loans|length > 0 %}
 
