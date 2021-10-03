@@ -6,7 +6,10 @@ use App\Entity\Card;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -35,12 +38,23 @@ class CardCrudController extends AbstractCrudController
             TextField::new('isbn'),
             LanguageField::new('language'),
             IntegerField::new('year'),
-            //TODO: ser cover in true way
+            //TODO: set cover in true way
 //            ImageField::new('cover')
 //                ->setUploadDir('public/uploads/images/cover')
 //                ->setBasePath('uploads/images/cover')
 //                ->setUploadedFileNamePattern('[contenthash].[extension]')
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            // ...
+            ->addBatchAction(Action::new('approve', 'Export Cards')
+                ->linkToCrudAction('export')
+                ->addCssClass('btn btn-primary')
+                ->setIcon('fa fa-user-check'))
+            ;
     }
 
     protected function processUploadedFiles(FormInterface $form): void
@@ -95,5 +109,21 @@ class CardCrudController extends AbstractCrudController
         ;
 
         return $qb;
+    }
+
+    public function export(BatchActionDto $batchActionDto)
+    {
+        $entityManager = $this->getDoctrine()->getManagerForClass($batchActionDto->getEntityFqcn());
+//        foreach ($batchActionDto->getEntityIds() as $id) {
+//            $user = $entityManager->find($id);
+//            $user->approve();
+//        }
+//
+//        $entityManager->flush();
+
+        $this->addFlash('success', 'Cards exported');
+
+        //TODO: generate csv file
+        return $this->redirect($batchActionDto->getReferrerUrl());
     }
 }
