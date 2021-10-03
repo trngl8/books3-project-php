@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'app.title.account'|trans }}{% endblock %}
+
+{% block body %}
+    {% if subscriptions|length > 0 %}
+        <div class="list-group">
+            {% for item in subscriptions %}
+                <a href="" class="list-group-item list-group-item-action" aria-current="true">
+                    #{{ item.id }}
+                    {{ item.name }}
+
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            {{ 'message.no_subscriptions'|trans }}
+        </p>
+    {% endif %}
+{% endblock  %}

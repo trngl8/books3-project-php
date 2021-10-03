@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'app.title.profile'|trans }}{% endblock %}
+
+{% block body %}
+    <p><span class="badge bg-light text-dark small">{{ profile.id }}</span></p>
+    <p>{{ 'caption.language'|trans }}: {{ profile.locale|locale_name(app.request.locale)|u.title }}</p>
+    <p><i class="bi bi-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+    <p><i class="bi bi-globe2"></i> {{ profile.timezone }}</p>
+
+    {% if app.user %}
+        <div>
+            <a href="{{ path('profile_edit') }}" class="btn btn-outline-primary btn-lg">{{ 'user.actions.edit'|trans }}</a>
+        </div>
+    {% endif %}
+{% endblock  %}

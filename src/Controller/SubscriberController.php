@@ -15,7 +15,7 @@ class SubscriberController extends AbstractController
      */
     public function profile(AccountRepository $repo): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ACCOUNT');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->getUser();
 

@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Model\Registration;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
+use App\Security\AppLoginAuthenticator;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -34,7 +36,7 @@ class RegistrationController extends AbstractController
         $this->em = $em;
     }
 
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserAuthenticatorInterface $authenticator, AppLoginAuthenticator $formAuthenticator): Response
     {
         $registration = new Registration();
         $form = $this->createForm(RegistrationFormType::class, $registration);
@@ -93,7 +95,9 @@ class RegistrationController extends AbstractController
             //TODO: message to config
             $this->addFlash('success', 'Your subscribed successfully. Please confirm your mail to complete subscribe.');
 
-            return $this->redirectToRoute('account');
+            return $authenticator->authenticateUser($user, $formAuthenticator, $request);
+
+            //return $this->redirectToRoute('account');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -103,7 +107,7 @@ class RegistrationController extends AbstractController
 
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {
-        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         //TODO: verify user
         try {
