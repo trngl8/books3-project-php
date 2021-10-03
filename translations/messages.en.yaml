@@ -16,6 +16,7 @@ action:
   profile: Profile
   search: Search
   sign_in: Sign in
+  register: Register
 
 title:
   invite: Invite
@@ -24,6 +25,7 @@ title:
   order_placed: Order placed
   order: Order
   cards: Cards
+  register: Registration
   options:
     delivery: Delivery options
 
@@ -54,6 +56,12 @@ text:
   page_not_found: Page not found
 
 form:
+  label:
+    email: Email
+    name: Name
+    password: Password
+    repeat_password: Password again
+    agree_terms_privacy: I am agree with data privacy policy
   member:
     title: Member title
 

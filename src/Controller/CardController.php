@@ -56,7 +56,6 @@ class CardController extends AbstractController
     {
         return $this->render('card/show.html.twig', [
             'card' => $card,
-            'controller_name' => 'CardController',
         ]);
     }
 
@@ -68,8 +67,8 @@ class CardController extends AbstractController
         $order = new Order();
 
         $form = $this->createFormBuilder($order)
-            ->add('name', TextType::class, ['label' => 'label.name'])
-            ->add('email', EmailType::class, ['label' => 'label.email'])
+            ->add('name', TextType::class, ['label' => 'form.label.name'])
+            ->add('email', EmailType::class, ['label' => 'form.label.email'])
             ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
@@ -94,7 +93,6 @@ class CardController extends AbstractController
         return $this->render('card/order.html.twig', [
             'card' => $card,
             'form' => $form->createView(),
-            'controller_name' => 'CardController',
         ]);
     }
 
@@ -126,7 +124,6 @@ class CardController extends AbstractController
         return $this->render('card/success.html.twig', [
             'order' => $order,
             'form' => $form->createView(),
-            'controller_name' => 'CardController',
         ]);
     }
 

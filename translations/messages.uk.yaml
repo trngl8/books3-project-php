@@ -16,6 +16,7 @@ action:
   profile: Профіль
   search: Пошук
   sign_in: Вхід
+  register: Реєстрація
 
 title:
   invite: Запрошення
@@ -24,6 +25,7 @@ title:
   order_placed: Замовлення прийнято
   order: Замовити
   cards: Картки
+  register: Реєстрація
   options:
     delivery: Опції доставки
 
@@ -54,6 +56,12 @@ text:
   page_not_found: Сторінка не знайдена
 
 form:
+  label:
+    email: Email
+    name: Ім'я
+    password: Пароль
+    repeat_password: Пароль ще раз
+    agree_terms_privacy: Погоджуюсь з політикою приватності
   member:
     title: Member title
 

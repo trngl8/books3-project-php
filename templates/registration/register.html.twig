@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'app.title.register'|trans }}{% endblock %}
+{% block title %}{{ 'title.register'|trans }}{% endblock %}
 
 {% block page_header %}
-    <h1 class="h1 mb-5 fw-normal">{{ 'app.h1.register'|trans }}</h1>
+    <h1 class="h1 mb-5 fw-normal">{{ 'title.register'|trans }}</h1>
 {% endblock %}
 
 {% block body %}
@@ -13,12 +13,12 @@
 
             <div>
                 {{ form_start(registrationForm, { attr: {novalidate: 'novalidate'}}) }}
-                    {{ form_row(registrationForm.username, { label: 'form.email' }) }}
-                    {{ form_row(registrationForm.name, { label: 'form.name' }) }}
-                    {{ form_row(registrationForm.password.first, { label: 'form.password' }) }}
-                    {{ form_row(registrationForm.password.second, { label: 'form.repeat_password' }) }}
-                    {{ form_row(registrationForm.agreeTerms, { label: 'form.agree_terms_privacy' }) }}
-                    <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'button.action.register'|trans }}</button>
+                    {{ form_row(registrationForm.username, { label: 'form.label.email' }) }}
+                    {{ form_row(registrationForm.name, { label: 'form.label.name' }) }}
+                    {{ form_row(registrationForm.password.first, { label: 'form.label.password' }) }}
+                    {{ form_row(registrationForm.password.second, { label: 'form.label.repeat_password' }) }}
+                    {{ form_row(registrationForm.agreeTerms, { label: 'form.label.agree_terms_privacy' }) }}
+                    <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.register'|trans }}</button>
                 {{ form_end(registrationForm) }}
             </div>
         </div>

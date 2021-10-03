@@ -4,20 +4,22 @@
 
 <h1 class="mb-4">{{ 'title.order'|trans }}</h1>
 
-<div class="card mb-4">
-    <div class="card-body">
-        <p><b>{{ card.title }}</b></p>
-        <p>{{ card.year }}</p>
-    </div>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h3>{{ 'form.member.title'|trans }}</h3>
+    <div class="col-md-8">
         {% form_theme form 'bootstrap_5_layout.html.twig' %}
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             {{ form_widget(form) }}
         {{ form_end(form) }}
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p><b>{{ card.title }}</b></p>
+                <p>{{ card.description }}</p>
+                <p>{{ card.author }}</p>
+                <p>{{ card.year }}</p>
+            </div>
+        </div>
     </div>
 </div>
 
