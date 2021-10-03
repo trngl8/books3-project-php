@@ -6,6 +6,7 @@ use App\Entity\Rescript;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class RescriptCrudController extends AbstractCrudController
 {
@@ -19,6 +20,7 @@ class RescriptCrudController extends AbstractCrudController
         return [
             AssociationField::new('card'),
             Field::new('condition'),
+            TextField::new('uri'),
         ];
     }
 }

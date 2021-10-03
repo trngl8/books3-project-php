@@ -35,6 +35,11 @@ class Rescript
      */
     private $loans;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $uri;
+
     public function __construct()
     {
         $this->loans = new ArrayCollection();
@@ -100,6 +105,18 @@ class Rescript
                 $loan->setRescript(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUri(): ?string
+    {
+        return $this->uri;
+    }
+
+    public function setUri(?string $uri): self
+    {
+        $this->uri = $uri;
 
         return $this;
     }
