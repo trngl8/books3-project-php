@@ -33,24 +33,9 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $page = $request->get('page', 1);
-        $max = $request->get('max', 20);
-        $first = ($page - 1) * $max;
+        $result = $this->getCardsPaginator($request);
 
-        $query = $this->repository->createQueryWithPaginator($first, $max);
-
-        $paginator = new Paginator($query, true);
-
-        $c = count($paginator);
-
-        $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
-
-        $response = $this->render('default/index.html.twig', [
-            'count' => $c,
-            'pages' => $pages,
-            'cards' => $paginator,
-            'controller_name' => 'DefaultController',
-        ]);
+        $response = $this->render('default/index.html.twig', $result);
 
         $response->headers->setCookie(Cookie::create('foo', 'bar'));
 
@@ -62,24 +47,9 @@ class DefaultController extends AbstractController
      */
     public function cards(Request $request): Response
     {
-        $page = $request->get('page', 1);
-        $max = $request->get('max', 20);
-        $first = ($page - 1) * $max;
+        $result = $this->getCardsPaginator($request);
 
-        $query = $this->repository->createQueryWithPaginator($first, $max);
-
-        $paginator = new Paginator($query, true);
-
-        $c = count($paginator);
-
-        $pages = $c < $max ? [1] : range(1, intdiv($c, $max) + 1);
-
-        $response = $this->render('default/cards.html.twig', [
-            'count' => $c,
-            'pages' => $pages,
-            'cards' => $paginator,
-            'controller_name' => 'DefaultController',
-        ]);
+        $response = $this->render('default/cards.html.twig', $result);
 
         //TODO: get data to store cookie from request
         foreach (self::$cookies as $key => $cookie) {
@@ -104,7 +74,6 @@ class DefaultController extends AbstractController
 
         return $this->render('default/index.html.twig', [
             'cards' => $cards,
-            'controller_name' => 'DefaultController',
         ]);
     }
 
@@ -187,6 +156,27 @@ class DefaultController extends AbstractController
         return $this->render('default/docs.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
+    }
+
+    private function getCardsPaginator(Request $request) : array
+    {
+        $page = $request->get('page', 1);
+        $max = $request->get('max', 20);
+        $first = ($page - 1) * $max;
+
+        $query = $this->repository->createQueryWithPaginator($first, $max);
+
+        $paginator = new Paginator($query, true);
+
+        $c = count($paginator);
+
+        $pages = $c < $max ? [1] : range(1, intdiv($c, $max));
+
+        return [
+            'count' => $c,
+            'pages' => $pages,
+            'cards' => $paginator,
+        ];
     }
 
 }
