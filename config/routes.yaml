@@ -1,3 +1,26 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+login:
+  path: /{_locale}/login
+  requirements:
+    _locale: uk|en|ru|bg
+  controller: App\Controller\SecurityController::login
+
+logout:
+  path: /logout
+  methods: GET
+  controller: App\Controller\SecurityController::logout
+
+register:
+  path: /{_locale}/subscribe
+  requirements:
+    _locale: uk|en|ru|bg
+  controller: App\Controller\RegistrationController::register
+
+verify_email:
+  path: /{_locale}/verify/email
+  requirements:
+    _locale: uk|en|ru|bg
+  controller: App\Controller\RegistrationController::verifyUserEmail

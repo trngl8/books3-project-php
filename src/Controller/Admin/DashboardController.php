@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin", name="admin_dashboard")
+     * @Route("/admin")
      */
     public function index(): Response
     {
@@ -29,11 +29,13 @@ class DashboardController extends AbstractDashboardController
 
         $loans = $this->getDoctrine()->getRepository(Loan::class)->findExpired(new \DateTime());
 
-        return $this->render('admin/dashboard.html.twig', [
-            'dashboard_controller_filepath' => (new \ReflectionClass(static::class))->getFileName(),
-            'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
-            'loans' => $loans
-        ]);
+        return $this->render('admin_dashboard.html.twig');
+
+//        return $this->render('admin/dashboard.html.twig', [
+//            'dashboard_controller_filepath' => (new \ReflectionClass(static::class))->getFileName(),
+//            'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
+//            'loans' => $loans
+//        ]);
     }
 
     /**

@@ -1,8 +1,9 @@
 security:
     # https://symfony.com/doc/current/security/experimental_authenticators.html
-    #enable_authenticator_manager: true
+    enable_authenticator_manager: true
 
-    encoders:
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
         App\Entity\User:
             algorithm: auto
 
@@ -12,7 +13,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: username
 
     firewalls:
         dev:
@@ -20,34 +21,31 @@ security:
             security: false
         main:
             pattern: ^/
-            anonymous: true
             lazy: true
 
             # The user provider to use.
             provider: app_user_provider
-
-            form_login:
-                # The route name that the login form submits to
-                check_path: security_login
-                # The name of the route where the login form lives
-                # When the user tries to access a protected page, they are redirected here
-                login_path: security_login
-                # Secure the login form against CSRF
-                # Reference: https://symfony.com/doc/current/security/csrf.html#csrf-protection-in-login-forms
-                csrf_token_generator: security.csrf.token_manager
-                # The page users are redirect to when there is no previous page stored in the
-                # session (for example when the users access directly to the login page).
-                default_target_path: blog_index
+            custom_authenticator: App\Security\AppLoginAuthenticator
+#            form_login:
+#                # The route name that the login form submits to
+#                check_path: security_login
+#                # The name of the route where the login form lives
+#                # When the user tries to access a protected page, they are redirected here
+#                login_path: security_login
+#                # Secure the login form against CSRF
+#                # Reference: https://symfony.com/doc/current/security/csrf.html#csrf-protection-in-login-forms
+#                csrf_token_generator: security.csrf.token_manager
+#                # The page users are redirect to when there is no previous page stored in the
+#                # session (for example when the users access directly to the login page).
+#                default_target_path: blog_index
 
             logout:
-                # The route name the user can go to in order to logout
-                path: security_logout
-                # The name of the route to redirect to after logging out
+                path: logout
                 target: homepage
-
             remember_me:
-                secret: '%kernel.secret%'
-                path: /
+                secret:   '%kernel.secret%'
+                #lifetime: 604800 # 1 week in seconds
+                path:     /
                 always_remember_me: true
 #
 #            # configure the form authentication as the entry point for unauthenticated users

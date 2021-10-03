@@ -152,12 +152,12 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">{{ 'action.profile'|trans }}</a>
-                            <a href="{{ path('security_logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
+                            <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
                         </div>
                     </div>
 
                 {% else %}
-                <a href="{{ path('security_login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+                <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
 {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
                 {% endif %}
             </div>

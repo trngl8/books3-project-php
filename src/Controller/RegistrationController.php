@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
         $this->em = $em;
     }
 
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $defaultTimezone): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $registration = new Registration();
         $form = $this->createForm(RegistrationFormType::class, $registration);
@@ -53,7 +53,7 @@ class RegistrationController extends AbstractController
                 ->setName($registration->getUsername())
                 ->setEmail($registration->getUsername())
                 ->setLocale($request->getLocale())
-                ->setTimezone($defaultTimezone)
+                ->setTimezone('Europe\London')
             ;
 
             $user = (new User())
@@ -77,7 +77,7 @@ class RegistrationController extends AbstractController
             try {
                 $this->emailVerifier->sendEmailConfirmation('verify_email', $user,
                     (new TemplatedEmail())
-                        ->from(new Address($this->adminEmail, 'Suspilne Media'))
+                        ->from(new Address($this->adminEmail, 'Project Name or Owner Name'))
                         ->to($user->getEmail())
                         ->subject('Please Confirm your Email')
                         ->htmlTemplate('registration/confirmation_email.html.twig')
@@ -86,7 +86,7 @@ class RegistrationController extends AbstractController
                 //TODO:
                 $this->addFlash('danger', $exception->getMessage());
 
-                return $this->redirectToRoute('index');
+                return $this->redirectToRoute('homepage');
             }
 
             //TODO: send detailed flash
@@ -103,7 +103,7 @@ class RegistrationController extends AbstractController
 
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         //TODO: verify user
         try {
@@ -111,11 +111,11 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('danger', $exception->getReason());
 
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('account');
         }
 
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('profile');
+        return $this->redirectToRoute('account');
     }
 }
