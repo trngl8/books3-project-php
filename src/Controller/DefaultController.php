@@ -149,7 +149,9 @@ class DefaultController extends AbstractController
 
         $c = count($paginator);
 
-        $pages = $c < $max ? [1] : range(1, intdiv($c, $max));
+        $totalPages = (int)(($c + $max - 1) / $max);
+
+        $pages = $c < $max ? [1] : range(1, $totalPages);
 
         return [
             'count' => $c,
