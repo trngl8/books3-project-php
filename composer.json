@@ -21,9 +21,9 @@
   "require": {
     "php": "7.4.*",
     "ext-intl": "*",
+    "ext-mbstring": "*",
     "ext-pgsql": "*",
     "ext-xml": "*",
-    "ext-mbstring": "*",
     "api-platform/core": "^2.6",
     "composer/package-versions-deprecated": "1.11.99.1",
     "doctrine/annotations": "^1.0",
@@ -54,6 +54,7 @@
     "symfony/validator": "^5.2",
     "symfony/webpack-encore-bundle": "^1.11",
     "symfony/yaml": "^5.2",
+    "symfonycasts/verify-email-bundle": "^1.5",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/intl-extra": "^3.3",
     "twig/twig": "^2.12|^3.0"

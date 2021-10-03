@@ -11,6 +11,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * @deprecated
+ */
 class ListUsersCommand extends Command
 {
     // a good practice is to use the 'app:' prefix to group all your custom application commands

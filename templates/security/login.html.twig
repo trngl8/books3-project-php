@@ -11,36 +11,43 @@
 
 <div class="row">
     <div class="col-md-12">
-        {% if error %}
-            <div class="alert alert-danger">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
-        {% endif %}
         <h1 class="mb-4"><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</h1>
+        <p>
+            <a href="{{ path('register') }}">Register</a>
+        </p>
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        <div id="form">
-            <form action="{{ path('security_login') }}" method="post">
+            {% if app.user %}
+                <div class="mb-3">
+                    {{ 'user.messages.logged_as'|trans }} {{ app.user.userIdentifier }}, <a href="{{ path('logout') }}">{{ 'user.actions.exit'|trans }}</a>
+                </div>
+            {% endif %}
+
             <div class="mb-3">
                 <label class="form-label required" for="username">{{ 'label.username'|trans }}</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
             </div>
+
             <div class="mb-3">
                 <label class="form-label required" for="password">{{ 'label.password'|trans }}</label>
                 <input type="password" id="password" name="_password" class="form-control" />
             </div>
             <div class="mb-3">
-                <input class="form-check-input" type="checkbox" id="remember_me" name="_remember_me" checked/>
-                <label class="form-check-label" for="remember_me">{{ 'label.remember_me'|trans }}
-                {#                Keep me logged in#}
+                <input class="form-check-input" type="checkbox" id="remember_me" name="_remember_me" />
+                <label class="form-check-label" for="remember_me">
+                    {{ 'label.remember_me'|trans }}{# Keep me logged in #}
                 </label>
             </div>
             <div class="mb-3">
-                <button type="submit" id="form_save" name="submit" class="btn-outline-primary btn-lg btn"><i class="bi bi-check-lg"></i> {{ 'action.sign_in'|trans }}</button>
+                <button type="submit" id="form_save" name="submit" class="btn-outline-primary btn-lg btn">
+                    <i class="bi bi-check-lg"></i> {{ 'action.sign_in'|trans }}
+                </button>
             </div>
-                <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 

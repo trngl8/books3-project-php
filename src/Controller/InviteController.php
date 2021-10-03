@@ -66,7 +66,7 @@ class InviteController extends AbstractController
                 'flash.invite_confirmed'
             );
 
-            return $this->redirectToRoute('security_login');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('invite/accept.html.twig', [
