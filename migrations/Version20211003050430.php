@@ -30,8 +30,6 @@ final class Version20211003050430 extends AbstractMigration
         $this->addSql('CREATE TABLE users (id INT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9F85E0677 ON users (username)');
         $this->addSql('DROP TABLE "user"');
-        $this->addSql('ALTER TABLE loan ALTER finish_at SET NOT NULL');
-        $this->addSql('ALTER TABLE member ALTER email SET NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -46,7 +44,5 @@ final class Version20211003050430 extends AbstractMigration
         $this->addSql('DROP TABLE accounts');
         $this->addSql('DROP TABLE profiles');
         $this->addSql('DROP TABLE users');
-        $this->addSql('ALTER TABLE loan ALTER finish_at DROP NOT NULL');
-        $this->addSql('ALTER TABLE member ALTER email DROP NOT NULL');
     }
 }
