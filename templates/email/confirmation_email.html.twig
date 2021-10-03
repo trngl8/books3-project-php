@@ -1,7 +1,7 @@
 <h1>{{ 'email.message.hello'|trans }}</h1>
 
 <p>
-    {{ 'email.message.please confirm_address_clicking_link'|trans }}  <br><br>
+    {{ 'email.message.please_confirm_address_clicking_link'|trans }}  <br><br>
     <a href="{{ signedUrl }}">{{ 'email.message.confirm_email'|trans }}</a>.
     {{ 'email.message.link_will_expire'|trans }} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>

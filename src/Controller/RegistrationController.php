@@ -82,13 +82,13 @@ class RegistrationController extends AbstractController
                         ->from(new Address($this->adminEmail, 'Project Name or Owner Name'))
                         ->to($user->getEmail())
                         ->subject('Please Confirm your Email')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                        ->htmlTemplate('email/confirmation_email.html.twig')
                 );
             } catch (TransportExceptionInterface $exception) {
                 //TODO:
                 $this->addFlash('danger', $exception->getMessage());
 
-                return $this->redirectToRoute('homepage');
+                return $this->redirectToRoute('index');
             }
 
             //TODO: send detailed flash

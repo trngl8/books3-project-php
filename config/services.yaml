@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     default_admin_email: admin@example.com
+    default_locale: uk
 
 services:
     # default configuration for services in *this* file
@@ -14,6 +15,8 @@ services:
 
         bind:
             $adminEmail: "%env(string:default:default_admin_email:ADMIN_EMAIL)%"
+            $defaultTimezone: "%env(DEFAULT_TIMEZONE)%"
+            $defaultLocale: "%env(string:default:default_locale:LOCALE)%"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -27,6 +30,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
 
     App\EventListener\LoanVerification:
         tags:

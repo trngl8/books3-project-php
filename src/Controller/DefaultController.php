@@ -28,33 +28,13 @@ class DefaultController extends AbstractController
         $this->repository = $em->getRepository(Card::class);
     }
 
-    /**
-     * @Route("/", name="homepage")
-     */
     public function index(Request $request): Response
     {
         $result = $this->getCardsPaginator($request);
 
         $response = $this->render('default/index.html.twig', $result);
 
-        $response->headers->setCookie(Cookie::create('foo', 'bar'));
-
-        return $response;
-    }
-
-    /**
-     * @Route("/cards", name="cards")
-     */
-    public function cards(Request $request): Response
-    {
-        $result = $this->getCardsPaginator($request);
-
-        $response = $this->render('default/cards.html.twig', $result);
-
-        //TODO: get data to store cookie from request
-        foreach (self::$cookies as $key => $cookie) {
-            $response->headers->setCookie(Cookie::create($key, $cookie));
-        }
+        //$response->headers->setCookie(Cookie::create('foo', 'bar'));
 
         return $response;
     }
@@ -67,7 +47,7 @@ class DefaultController extends AbstractController
         $isbn = $request->get('isbn');
 
         if(!$isbn) {
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('index');
         }
 
         $cards = $this->repository->findBy(['isbn' => $isbn]);
@@ -115,7 +95,6 @@ class DefaultController extends AbstractController
         return $this->render('default/messages.html.twig', [
             'messages' => $messages,
             'form' => $form->createView(),
-            'controller_name' => 'DefaultController',
         ]);
     }
 
@@ -178,5 +157,4 @@ class DefaultController extends AbstractController
             'cards' => $paginator,
         ];
     }
-
 }

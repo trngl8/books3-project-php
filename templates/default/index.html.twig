@@ -20,8 +20,8 @@
     {% block breadcrumbs %}
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Index</li>
-            <li class="breadcrumb-item active"><a href="{{ path('cards') }}">Cards</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ 'title.index'|trans }}</li>
+            <li class="breadcrumb-item active"><a href="{{ path('cards') }}">{{ 'title.cards'|trans }}</a></li>
             {#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
         </ol>
         </nav>
@@ -50,7 +50,7 @@
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         {% for page in pages %}
-                        <a href="{{ path('homepage', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                        <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
                         {% endfor %}
                     </div>
                 </div>

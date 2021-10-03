@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
         <link type="image/x-icon" rel="shortcut icon" href="{{ asset('favicon.ico') }}">
@@ -133,11 +133,11 @@
             </a>
             -->
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ path('homepage') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">Home</a></li>
-                <li><a href="{{ path('cards') }}" class="nav-link px-2 {% if app.request.pathInfo == '/cards' %}link-secondary{% else %}link-dark{% endif %}">Cards</a></li>
-                <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">Donation</a></li>
-                <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">About</a></li>
-                <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">Docs</a></li>
+                <li><a href="{{ path('index') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.home'|trans }}</a></li>
+                <li><a href="{{ path('cards') }}" class="nav-link px-2 {% if app.request.pathInfo == '/cards' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.cards'|trans }}</a></li>
+                <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.donate'|trans }}</a></li>
+                <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.about'|trans }}</a></li>
+                <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>
 
                 {% if 'message1' in app.request.cookies|keys %}
                     <li><a href="{{ path('messages') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
@@ -146,19 +146,34 @@
 
             <div class="col-md-3 text-end">
                 {% if app.user %}
+
                     <div class="dropdown">
                         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ app.user.username }}
+                            {{ app.user.userIdentifier }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">{{ 'action.profile'|trans }}</a>
+                            <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
                             <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
                         </div>
                     </div>
 
                 {% else %}
-                <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuLocales" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            {{ app.request.locale|locale_name(app.request.locale)|u.title }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLocales">
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'uk'}) }}"> Ukrainian</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'en'}) }}"> English</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'ru'}) }}"> Russian</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'bg'}) }}"> Bulgarian</a></li>
+                        </ul>
+                        <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+                    </div>
+
 {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
+
                 {% endif %}
             </div>
         </header>

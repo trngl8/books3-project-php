@@ -1,0 +1,68 @@
+menu:
+  home: Головна
+  cards: Картки
+  donate: Пожертви
+  about: Про нас
+  docs: Документація
+
+action:
+  remind: Remind
+  edit: Edit
+  save: Save
+  do: Виконати
+  ok: OK
+  logout: Вихід
+  login: Вхід
+  profile: Профіль
+  search: Пошук
+  sign_in: Вхід
+
+title:
+  invite: Запрошення
+  login: Вхід
+  index: Індекс
+  order_placed: Замовлення прийнято
+  order: Замовити
+  cards: Картки
+  options:
+    delivery: Опції доставки
+
+label:
+  label: Закрити
+  username: Email
+  password: Пароль
+  remember_me: Запам'ятати мене
+  name: Ім'я
+  email: Email
+  close: x
+
+submit:
+  save: Зберегти
+
+flash:
+  messages_cleared: Очищено
+
+article:
+  personal_data: Політика збереження персональних даних
+  service: Сервіс
+  about: Про нас
+  donate: Інвестору
+
+text:
+  not_available: Not available
+  no_items_found: Нічого не знайдено
+
+form:
+  member:
+    title: Member title
+
+email:
+  message:
+    hello: Привіт
+    please_confirm_address_clicking_link: Будь ласка, підтвердіть адресу, натиснувши на лінк
+    confirm_email: Підтвердити
+    link_will_expire: Лінк буде діяти протягом
+    thanks: Дякуємо
+
+caption:
+  language: Мова

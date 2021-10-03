@@ -1,6 +1,12 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+index_locale:
+  path: /{_locale}
+  requirements:
+    _locale: uk|en|ru|bg
+  controller: App\Controller\DefaultController::index
 
 login:
   path: /{_locale}/login

@@ -1,5 +1,14 @@
+menu:
+  home: Home
+  cards: Cards
+  donate: Donate
+  about: About
+  docs: Docs
+
 action:
   remind: Remind
+  edit: Edit
+  save: Save
   do: Do
   ok: OK
   logout: Logout
@@ -14,6 +23,7 @@ title:
   index: Index
   order_placed: Order placed
   order: Order
+  cards: Cards
   options:
     delivery: Delivery options
 
@@ -45,3 +55,14 @@ text:
 form:
   member:
     title: Member title
+
+email:
+  message:
+    hello: Hello
+    please_confirm_address_clicking_link: Please, confirm address by clicking link
+    confirm_email: Confirm
+    link_will_expire: Link will expire after
+    thanks: Thanks
+
+caption:
+  language: Language
