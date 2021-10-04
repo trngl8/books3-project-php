@@ -35,7 +35,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/cards", name="cards")
+     * @Route("/{_locale}/cards", name="cards")
      */
     public function cards(Request $request): Response
     {
@@ -52,7 +52,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/cards/{id}", name="card_show")
+     * @Route("/{_locale}/cards/{id}", name="card_show")
      */
     public function index(Card $card): Response
     {
@@ -62,7 +62,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/cards/{id}/order", name="card_order")
+     * @Route("/{_locale}/cards/{id}/order", name="card_order")
      */
     public function order(Card $card, Request $request): Response
     {

@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
@@ -30,13 +29,9 @@ class DefaultController extends AbstractController
 
     public function index(Request $request): Response
     {
-        $result = $this->getCardsPaginator($request);
+        //TODO: check referrer to route locales
 
-        $response = $this->render('default/index.html.twig', $result);
-
-        //$response->headers->setCookie(Cookie::create('foo', 'bar'));
-
-        return $response;
+        return $this->render('default/index.html.twig', $this->getCardsPaginator($request));
     }
 
     /**
@@ -99,7 +94,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/{_locale}/about", name="about")
      */
     public function about(): Response
     {
@@ -109,7 +104,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/donation", name="donation")
+     * @Route("/{_locale}/donation", name="donation")
      */
     public function donation(): Response
     {
@@ -119,7 +114,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/{_locale}/contact", name="contact")
      */
     public function contact(): Response
     {
@@ -128,7 +123,7 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/docs", name="docs")
+     * @Route("/{_locale}/docs", name="docs")
      */
     public function docs(): Response
     {
