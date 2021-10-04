@@ -42,9 +42,10 @@
                                     </div>
                                     <p class="mb-1">{{ item.description }}</p>
                                     <small>{{ item.author }}</small>
-                                    {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
-                                        <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
-                                    {% endif %}
+                                    {# TODO: add count of resctipts functionality #}
+{#                                    {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}#}
+{#                                        <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
+{#                                    {% endif %}#}
 
 {#                                    <h5 class="card-title">Card title</h5>#}
 {#                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}

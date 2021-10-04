@@ -19,6 +19,9 @@ action:
   register: Реєстрація
   can_login: Ввійти
   can_register: Зареєструватись
+  to_book: Замовити
+  disabled: Недоступно
+  admin: Панель управління
 
 title:
   invite: Запрошення
@@ -70,6 +73,8 @@ form:
     agree_terms_privacy: Погоджуюсь з політикою приватності
   member:
     title: Member title
+  placeholder:
+    13_digit: 13-значний номер
 
 email:
   message:

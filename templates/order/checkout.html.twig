@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Order checkout{% endblock %}
+{% block title %}{{ 'title.order_checkout'|trans }}{% endblock %}
 
 {% block body %}
 
-    <h1 class="mb-4">Order checkout</h1>
+    <h1 class="mb-4">{{ 'title.order_checkout'|trans }}</h1>
     <div class="row">
         <div class="col-md-6">
             <p class="mb-4">Order <i>{{ order.id }}</i> complete</p>

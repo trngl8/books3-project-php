@@ -47,7 +47,11 @@
 
 <div class="row mb-4">
     <div class="col-md-6">
-        <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.to_book' }}</a>
+        {% if card.orders|length == 0 %}
+            <a href="{{ path('card_order', { 'id' : card.id }) }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.to_book'|trans }}</a>
+        {% else %}
+            <a href="#" class="btn btn-outline-primary btn-lg disabled"><i class="bi bi-book"></i>&nbsp;&nbsp;{{ 'action.disabled'|trans }}</a>
+        {% endif %}
     </div>
 </div>
 

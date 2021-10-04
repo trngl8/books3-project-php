@@ -19,6 +19,9 @@ action:
   register: Register
   can_login: Login
   can_register: Register
+  to_book: Order
+  disabled: Disabled
+  admin: Admin panel
 
 title:
   invite: Invite
@@ -70,6 +73,8 @@ form:
     agree_terms_privacy: I am agree with data privacy policy
   member:
     title: Member title
+  placeholder:
+    13_digit: 13-digit number
 
 email:
   message:

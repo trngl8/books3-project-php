@@ -9,7 +9,7 @@
             <form action="{{ path('search') }}">
                 <div class="mb-3">
                     <label for="isbn" class="form-label">ISBN</label>
-                    <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}" placeholder="13-digit number">
+                    <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}" placeholder="{{ 'form.placeholder.13_digit'|trans }}">
                     {#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
                 </div>
                 <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
@@ -40,9 +40,10 @@
                             </div>
                             <p class="mb-1">{{ item.description }}</p>
                             <small>{{ item.author }}</small>
-                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}
-                            <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>
-                            {% endif %}
+                            {# TODO: add count of resctipts functionality #}
+{#                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}#}
+{#                                <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
+{#                            {% endif %}#}
                         </a>
                     {% endfor %}
                 </div>

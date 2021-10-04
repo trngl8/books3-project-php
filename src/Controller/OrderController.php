@@ -21,7 +21,6 @@ class OrderController extends AbstractController
     {
         return $this->render('order/show.html.twig', [
             'card' => $card,
-            'controller_name' => 'OrderController',
         ]);
     }
 
@@ -32,7 +31,6 @@ class OrderController extends AbstractController
     {
         return $this->render('order/checkout.html.twig', [
             'order' => $order,
-            'controller_name' => 'OrderController',
         ]);
     }
 
@@ -43,7 +41,6 @@ class OrderController extends AbstractController
     {
         return $this->render('order/success.html.twig', [
             'order' => $order,
-            'controller_name' => 'OrderController',
         ]);
     }
 

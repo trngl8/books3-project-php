@@ -153,6 +153,10 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">{{ 'action.admin'|trans }}</a>
+                            {% endif %}
+                            <hr class="dropdown-divider">
                             <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
                         </div>
                     </div>
@@ -177,6 +181,17 @@
                 {% endif %}
             </div>
         </header>
+    </div>
+
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message|trans }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'user.actions.close'|trans }}"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
     </div>
 
     <main class="container">
