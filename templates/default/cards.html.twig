@@ -3,7 +3,7 @@
 {% block title %}List books{% endblock %}
 
 {% block breadcrumbs %}
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" id="filter">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('index') }}">{{ 'title.index'|trans }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ 'title.cards'|trans }}</li>
