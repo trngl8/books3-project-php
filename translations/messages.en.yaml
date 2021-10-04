@@ -17,6 +17,8 @@ action:
   search: Search
   sign_in: Sign in
   register: Register
+  can_login: Login
+  can_register: Register
 
 title:
   invite: Invite
@@ -26,6 +28,7 @@ title:
   order: Order
   cards: Cards
   register: Registration
+  profile: Profile
   options:
     delivery: Delivery options
 
@@ -37,6 +40,9 @@ label:
   name: Name
   email: Email
   close: x
+  phone: Phone
+  city: City
+  number: Post number
 
 submit:
   save: Save

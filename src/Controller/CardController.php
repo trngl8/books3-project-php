@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class CardController extends AbstractController
 {
@@ -64,18 +66,59 @@ class CardController extends AbstractController
      */
     public function order(Card $card, Request $request): Response
     {
-        $order = new Order();
+        $values = [];
+        if($user = $this->getUser()) {
+            //TODO: get from profile
+            $values['name'] = $user->getUserIdentifier();
+            $values['email'] =$user->getUserIdentifier();
+        }
 
-        $form = $this->createFormBuilder($order)
-            ->add('name', TextType::class, ['label' => 'form.label.name'])
-            ->add('email', EmailType::class, ['label' => 'form.label.email'])
+        $form = $this->createFormBuilder($values)
+            ->add('name', TextType::class, [
+                'label' => 'form.label.name',
+                'constraints' => [
+                    new NotNull(),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'form.label.email',
+                'constraints' => [
+                    new NotNull(),
+                    new Email()
+                ]
+            ])
+            ->add('phone', TextType::class, [
+                'label' => 'label.phone',
+                'constraints' => [
+                    new NotNull(),
+                ]
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'label.city',
+                'constraints' => [
+                    new NotNull(),
+                ]
+            ])
+            ->add('number', IntegerType::class, [
+                'label' => 'label.number',
+                'constraints' => [
+                    new NotNull(),
+                ]
+            ])
             ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Order $order */
-            $order = $form->getData();
+            $result = $form->getData();
+
+            $order = (new Order())
+                ->setEmail($result['email'])
+                ->setName($result['name'])
+                ->setOptions($result)
+            ;
+
             $order->addCard($card);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -87,42 +130,12 @@ class CardController extends AbstractController
                 'flash.order_placed'
             );
 
-            return $this->redirectToRoute('card_success', ['id' => $order->getId()]);
+            return $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
+
         }
 
         return $this->render('card/order.html.twig', [
             'card' => $card,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/orders/{id}/success", name="card_success")
-     */
-    public function success(Order $order, Request $request): Response
-    {
-        $form = $this->createFormBuilder()
-            ->add('city', TextType::class, ['label' => 'label.city'])
-            ->add('number', IntegerType::class, ['label' => 'label.number'])
-            ->add('name', TextType::class, ['label' => 'label.name'])
-            ->add('save', SubmitType::class, ['label' => 'submit.save'])
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $options = $form->getData();
-
-            $order->setOptions($options);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-
-            return $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
-        }
-
-        return $this->render('card/success.html.twig', [
-            'order' => $order,
             'form' => $form->createView(),
         ]);
     }

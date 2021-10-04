@@ -17,6 +17,8 @@ action:
   search: Пошук
   sign_in: Вхід
   register: Реєстрація
+  can_login: Ввійти
+  can_register: Зареєструватись
 
 title:
   invite: Запрошення
@@ -26,6 +28,7 @@ title:
   order: Замовити
   cards: Картки
   register: Реєстрація
+  profile: Профіль
   options:
     delivery: Опції доставки
 
@@ -37,6 +40,9 @@ label:
   name: Ім'я
   email: Email
   close: x
+  phone: Телефон
+  city: Місто (Нова Пошта)
+  number: Номер відділення (Нова Пошта)
 
 submit:
   save: Зберегти
