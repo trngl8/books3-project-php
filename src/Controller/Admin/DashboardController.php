@@ -62,7 +62,9 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Booking');
+            ->setTitle('Booking')
+            ->disableUrlSignatures()
+        ;
 
     }
 
@@ -72,6 +74,7 @@ class DashboardController extends AbstractDashboardController
             // this defines the pagination size for all CRUD controllers
             // (each CRUD controller can override this value if needed)
             ->setPaginatorPageSize(20)
+
             ;
     }
 
