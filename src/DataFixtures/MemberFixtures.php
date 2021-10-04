@@ -12,6 +12,7 @@ class MemberFixtures extends Fixture
     {
         $member = (new Member())
             ->setName('Me')
+            ->setEmail('Me')
         ;
 
         $manager->persist($member);
