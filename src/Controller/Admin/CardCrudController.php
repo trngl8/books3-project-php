@@ -105,7 +105,7 @@ class CardCrudController extends AbstractCrudController
         $qb = $this->get(EntityRepository::class)->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
         $qb
             ->leftJoin('entity.rescripts', 'r')
-            ->leftJoin('entity.orders', 'o')
+            ->leftJoin('entity.orderItems', 'o')
         ;
 
         return $qb;

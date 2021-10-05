@@ -23,11 +23,6 @@ class Order
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Card::class, inversedBy="orders")
-     */
-    private $cards;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
@@ -45,6 +40,11 @@ class Order
      */
     private $options = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="purchase", cascade={"persist"})
+     */
+    private $items;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -56,31 +56,7 @@ class Order
             $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
         }
 
-        $this->cards = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection|Card[]
-     */
-    public function getCards(): Collection
-    {
-        return $this->cards;
-    }
-
-    public function addCard(Card $card): self
-    {
-        if (!$this->cards->contains($card)) {
-            $this->cards[] = $card;
-        }
-
-        return $this;
-    }
-
-    public function removeCard(Card $card): self
-    {
-        $this->cards->removeElement($card);
-
-        return $this;
+        $this->items = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -115,6 +91,36 @@ class Order
     public function setOptions(?array $options): self
     {
         $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(OrderItem $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setPurchase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(OrderItem $item): self
+    {
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getPurchase() === $this) {
+                $item->setPurchase(null);
+            }
+        }
 
         return $this;
     }

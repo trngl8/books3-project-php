@@ -84,14 +84,14 @@ class Card
     private ?string $copyrights;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="cards")
-     */
-    private $orders;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cover;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="card")
+     */
+    private $orderItems;
 
     public function __construct(?string $uuidValue = null)
     {
@@ -100,7 +100,7 @@ class Card
         }
 
         $this->rescripts = new ArrayCollection();
-        $this->orders = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     public function __toString()
@@ -263,33 +263,6 @@ class Card
         return $this;
     }
 
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addCard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->removeElement($order)) {
-            $order->removeCard($this);
-        }
-
-        return $this;
-    }
-
     public function setCover(?string $cover): self
     {
         $this->cover = $cover;
@@ -300,5 +273,35 @@ class Card
     public function getCover(): ?string
     {
         return $this->cover;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->removeElement($orderItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getCard() === $this) {
+                $orderItem->setCard(null);
+            }
+        }
+
+        return $this;
     }
 }

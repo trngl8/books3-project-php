@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Card;
 use App\Entity\Order;
+use App\Entity\OrderItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,13 +114,18 @@ class CardController extends AbstractController
             /** @var Order $order */
             $result = $form->getData();
 
+
             $order = (new Order())
                 ->setEmail($result['email'])
                 ->setName($result['name'])
                 ->setOptions($result)
             ;
 
-            $order->addCard($card);
+            $orderItem = (new OrderItem())
+                ->setCard($card);
+            ;
+
+            $order->addItem($orderItem);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);
