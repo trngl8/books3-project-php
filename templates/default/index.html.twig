@@ -48,16 +48,18 @@
                     {% endfor %}
                 </div>
 
-                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                        {% for page in pages %}
-                        <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
-                        {% endfor %}
-                    </div>
-                </div>
-
                 {% else %}
                     <p>{{ 'text.no_items_found'|trans }}</p>
+                {% endif %}
+
+                {% if pages|length > 1 %}
+                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            {% for page in pages %}
+                                <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>
