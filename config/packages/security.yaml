@@ -32,9 +32,8 @@ security:
                 target: index
             remember_me:
                 secret:   '%kernel.secret%'
-                #lifetime: 604800 # 1 week in seconds
                 path:     /
-                always_remember_me: true
+                #always_remember_me: true
 #
 #            # configure the form authentication as the entry point for unauthenticated users
 #            entry_point: form_login
