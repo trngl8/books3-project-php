@@ -6,7 +6,7 @@ require 'recipe/symfony4.php';
 
 set('application', 'booking');
 
-set('repository', '{{git_url}}');
+//set('repository', '{{git_url}}');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -14,9 +14,11 @@ set('git_tty', true);
 set('allow_anonymous_stats', false);
 set('clear_use_sudo', true);
 
-host('{{hostname}}') //TODO: maybe alias here
+host('{{host}}') //TODO: maybe alias here
+    ->stage('dev')
+    ->set('repository', '{{git_url}}')
     ->user('dev')
-    //->stage('dev')
+    ->set('branch', 'dev')
     ->port(22)
     ->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa')
@@ -24,7 +26,7 @@ host('{{hostname}}') //TODO: maybe alias here
     ->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '~/.ssh/known_hosts')
     ->addSshOption('StrictHostKeyChecking', 'no')
-    ->set('deploy_path', '~/projects/{{domain}}') //TODO: maybe git repo here
+    ->set('deploy_path', '~/projects/{{project_dir}}') //TODO: maybe git repo here
 ;
 
 // Tasks
