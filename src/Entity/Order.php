@@ -41,7 +41,9 @@ class Order
     private $options = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="purchase", cascade={"persist"})
+     * Deletion all items when order is deleted
+     *
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="purchase", cascade={"persist", "remove"})
      */
     private $items;
 
