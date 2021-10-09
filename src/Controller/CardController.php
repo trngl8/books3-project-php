@@ -7,6 +7,7 @@ use App\Entity\Order;
 use App\Entity\OrderItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -15,19 +16,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CardController extends AbstractController
 {
-    private static $cookies = [
-        'message1' =>  'Accept cookie policy',
-        'message2' =>  'Accept personal data agreement',
-        'message3' =>  'Read the docs',
-        'message4' =>  'Test cards',
-    ];
-
     private $repository;
 
     public function __construct(EntityManagerInterface $em)
@@ -42,14 +39,8 @@ class CardController extends AbstractController
     {
         $result = $this->getCardsPaginator($request);
 
-        $response = $this->render('default/cards.html.twig', $result);
+        return $this->render('default/cards.html.twig', $result);
 
-        //TODO: get data to store cookie from request
-        foreach (self::$cookies as $key => $cookie) {
-            $response->headers->setCookie(Cookie::create($key, $cookie));
-        }
-
-        return $response;
     }
 
     /**
@@ -65,7 +56,7 @@ class CardController extends AbstractController
     /**
      * @Route("/{_locale}/cards/{id}/order", name="card_order")
      */
-    public function order(Card $card, Request $request): Response
+    public function order(Card $card, Request $request, MailerInterface $mailer, string $adminEmail): Response
     {
         $values = [];
         if($user = $this->getUser()) {
@@ -78,38 +69,44 @@ class CardController extends AbstractController
             ->add('name', TextType::class, [
                 'label' => 'form.label.name',
                 'constraints' => [
-                    new NotNull(),
+                    new Assert\NotNull(),
                 ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'form.label.email',
                 'constraints' => [
-                    new NotNull(),
-                    new Email()
+                    new Assert\NotNull(),
+                    new Assert\Email()
                 ]
             ])
             ->add('phone', TextType::class, [
                 'label' => 'label.phone',
                 'constraints' => [
-                    new NotNull(),
+                    new Assert\NotNull(),
                 ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'label.city',
                 'constraints' => [
-                    new NotNull(),
+                    new Assert\NotNull(),
                 ]
             ])
             ->add('number', IntegerType::class, [
                 'label' => 'label.number',
                 'constraints' => [
-                    new NotNull(),
+                    new Assert\NotNull(),
                 ]
             ])
             ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
+        $response = $this->render('card/order.html.twig', [
+            'card' => $card,
+            'form' => $form->createView(),
+        ]);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Order $order */
             $result = $form->getData();
@@ -131,19 +128,60 @@ class CardController extends AbstractController
             $entityManager->persist($order);
             $entityManager->flush();
 
+            //TODO: maybe notice
+            $email = (new Email())
+                ->from($adminEmail)
+                ->to($adminEmail)
+                ->priority(Email::PRIORITY_HIGH)
+                ->subject('Order created')
+                //->text(sprintf('To confirm book order you must click this link: %d', $path))
+                ->html(sprintf('<p>Someone create new order: <a href="%s">see details</a></p>',
+                    $this->generateUrl('orders_list', [], UrlGeneratorInterface::ABSOLUTE_URL)));
+
+            $mailer->send($email);
+
+            //$path = $this->generateUrl('orders_confirm', ['hash' => base64_encode(random_bytes(18)) ]);
+            $path = $this->generateUrl('orders_confirm', ['hash' => $order->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $email = (new TemplatedEmail())
+                ->from($adminEmail)
+                ->to(new Address($order->getEmail()))
+                ->priority(Email::PRIORITY_HIGH) //get from order type maybe
+                ->subject(sprintf('Verify your book order #%s', $order->getId()))
+                ->htmlTemplate('email/order_verify.html.twig')
+                ->context([
+                    'confirm_url' => $path,
+                    'name' => $order->getName()
+                ])
+            ;
+
+            $mailer->send($email);
+
             $this->addFlash(
                 'success',
                 'flash.order_placed'
             );
 
-            return $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
+            $this->addFlash(
+                'warning',
+                'flash.please_confirm'
+            );
+
+            $response = $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
+
+            $cookies = [
+                'message1' =>  'message.please_confirm_order',
+            ];
+
+            foreach ($cookies as $key => $cookie) {
+                $response->headers->setCookie(Cookie::create($key, $cookie));
+            }
+
+            return $response;
 
         }
 
-        return $this->render('card/order.html.twig', [
-            'card' => $card,
-            'form' => $form->createView(),
-        ]);
+        return $response;
     }
 
     private function getCardsPaginator(Request $request) : array

@@ -26,6 +26,7 @@ action:
   remove: Видалити
   yes: Так
   no: Ні
+  close: Закрити
 
 title:
   invite: Запрошення
@@ -38,6 +39,7 @@ title:
   profile: Профіль
   remove: Видалити
   orders: Замовлення
+  order_checkout: Замовлення
   options:
     delivery: Опції доставки
 
@@ -58,6 +60,8 @@ submit:
 
 flash:
   messages_cleared: Очищено
+  please_confirm: Будь ласка, підтвердіть замовлення
+  order_placed: Замовлення створене
 
 article:
   personal_data: Політика збереження персональних даних

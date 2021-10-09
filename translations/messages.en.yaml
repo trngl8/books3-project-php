@@ -26,6 +26,7 @@ action:
   remove: Remove
   yes: Yes
   no: No
+  close: Close
 
 title:
   invite: Invite
@@ -38,6 +39,7 @@ title:
   profile: Profile
   remove: Remove
   orders: Orders
+  order_checkout: Order checkout
   options:
     delivery: Delivery options
 
@@ -58,6 +60,8 @@ submit:
 
 flash:
   messages_cleared: Cleared
+  please_confirm: Please, confirm order
+  order_placed: Order created
 
 article:
   personal_data: Personal data

@@ -47,6 +47,16 @@ class Order
      */
     private $items;
 
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $createdAt;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -57,7 +67,8 @@ class Order
         if(!$this->id) {
             $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
         }
-
+        $this->status = 'new';
+        $this->createdAt = new \DateTimeImmutable();
         $this->items = new ArrayCollection();
     }
 
@@ -123,6 +134,30 @@ class Order
                 $item->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

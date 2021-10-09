@@ -12,8 +12,10 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Created</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,10 +23,16 @@
                 <tr>
                     <th scope="row"><a href="{{ path('orders_show', { id: item.id }) }}">{{ item.id }}</a></th>
                     <td>
+                        {{ item.createdAt|date }}
+                    </td>
+                    <td>
                         {{ item.name }}
                     </td>
                     <td>
                         {{ item.email }}
+                    </td>
+                    <td>
+                        {{ item.status }}
                     </td>
                 </tr>
                 {% endfor %}
