@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Slot;
 use App\Form\ChangePasswordType;
 use App\Form\ProfileType;
+use App\Form\SlotType;
 use App\Repository\ProfileRepository;
+use App\Repository\SlotRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,15 +20,50 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      */
-    public function profile(ProfileRepository $repo): Response
+    public function profile(Request $request, ProfileRepository $profileRepo, SlotRepository $slotRepo): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->getUser();
-        $profile = $repo->findOneBy(['email' => $user->getUserIdentifier()]);
+        $profile = $profileRepo->findOneBy(['email' => $user->getUserIdentifier()]);
+
+        $events = $slotRepo->findBy(['owner' => $user]);
+
+        $slot = new Slot();
+        $form = $this->createForm(SlotType::class, $slot);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $slot->setOwner($user); //TODO: maybe profile
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->persist($slot);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'message.event_created'
+            );
+
+            return $this->redirectToRoute('profile');
+        }
 
         return $this->render('account/profile.html.twig', [
-            'profile' => $profile
+            'form' => $form->createView(),
+            'profile' => $profile,
+            'events' => $events
+        ]);
+    }
+
+    /**
+     * @Route("/slots/{id}/show", name="slots_show")
+     */
+    public function slots(Slot $slot): Response
+    {
+        return $this->render('slot/show.html.twig', [
+            'slot' => $slot
         ]);
     }
 

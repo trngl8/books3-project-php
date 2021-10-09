@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.slot'|trans }} #{{ slot.id }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.slot'|trans }} #{{ slot.id }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Start At: {{ slot.startAt|date }}</p>
+            <p>Duration: {{ slot.duration }}</p>
+
+        </div>
+    </div>
+
+{% endblock %}

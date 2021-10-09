@@ -13,4 +13,20 @@
             <a href="{{ path('profile_edit') }}" class="btn btn-outline-primary btn-lg">{{ 'action.edit'|trans }}</a>
         </div>
     {% endif %}
+
+    <h2 class="mt-5">Events</h2>
+    {% if events|length > 0 %}
+        <ul>
+        {% for item in events %}
+            <li><a href="{{ path('slots_show', { id: item.id }) }}">{{ item.startAt|date }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ 'text.no_items_found'|trans }}</p>
+        {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+            {{ form_row(form.startAt) }}
+            {{ form_row(form.duration) }}
+            <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
+        {{ form_end(form) }}
+    {% endif %}
 {% endblock  %}

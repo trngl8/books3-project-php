@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SlotRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SlotRepository::class)
@@ -25,12 +26,14 @@ class Slot
     private $uuid;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull()
      */
     private $startAt;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull()
      */
     private $duration;
 
@@ -73,12 +76,12 @@ class Slot
         return $this;
     }
 
-    public function getStartAt(): ?\DateTimeImmutable
+    public function getStartAt(): ?\DateTime
     {
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeImmutable $startAt): self
+    public function setStartAt(?\DateTime $startAt): self
     {
         $this->startAt = $startAt;
 
