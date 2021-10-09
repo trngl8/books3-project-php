@@ -26,6 +26,8 @@ class OrderController extends AbstractController
      */
     public function list(OrderRepository $repo): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $orders = $repo->findAll();
 
         return $this->render('order/list.html.twig', [
