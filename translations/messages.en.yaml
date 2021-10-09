@@ -4,6 +4,7 @@ menu:
   donate: Donate
   about: About
   docs: Docs
+  orders: Orders
 
 action:
   remind: Remind
@@ -22,6 +23,9 @@ action:
   to_book: Order
   disabled: Disabled
   admin: Admin panel
+  remove: Remove
+  yes: Yes
+  no: No
 
 title:
   invite: Invite
@@ -32,6 +36,8 @@ title:
   cards: Cards
   register: Registration
   profile: Profile
+  remove: Remove
+  orders: Orders
   options:
     delivery: Delivery options
 

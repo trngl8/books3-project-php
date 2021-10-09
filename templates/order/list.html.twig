@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.orders'|trans }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.orders'|trans }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            {% if orders|length > 0 %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in orders %}
+                <tr>
+                    <th scope="row"><a href="{{ path('orders_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                    <td>
+                        {{ item.name }}
+                    </td>
+                    <td>
+                        {{ item.email }}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>{{ 'text.no_items_found'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

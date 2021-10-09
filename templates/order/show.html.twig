@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.order'|trans }} #{{ order.id }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.order'|trans }} #{{ order.id }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Name: {{ order.name }}</p>
+            <p>Email: {{ order.email }}</p>
+            <p>Options:</p>
+            <ul>
+            {% for option in order.options %}
+                <li>{{ option }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Cards:</p>
+            <ul>
+            {% for item in order.items %}
+                <li><a href="#">{{ item.card.title }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <a href="{{ path('orders_remove', { id: order.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+
+{% endblock %}

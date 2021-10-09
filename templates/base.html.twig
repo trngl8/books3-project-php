@@ -138,6 +138,7 @@
                 <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.donate'|trans }}</a></li>
                 <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.about'|trans }}</a></li>
                 <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>
+                <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>
 
                 {% if 'message1' in app.request.cookies|keys %}
                     <li><a href="{{ path('messages') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
