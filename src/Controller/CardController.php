@@ -100,11 +100,6 @@ class CardController extends AbstractController
             ->add('save', SubmitType::class, ['label' => 'submit.save'])
             ->getForm();
 
-        $response = $this->render('card/order.html.twig', [
-            'card' => $card,
-            'form' => $form->createView(),
-        ]);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,16 +173,18 @@ class CardController extends AbstractController
             }
 
             return $response;
-
         }
 
-        return $response;
+        return $this->render('card/order.html.twig', [
+            'card' => $card,
+            'form' => $form->createView(),
+        ]);
     }
 
     private function getCardsPaginator(Request $request) : array
     {
         $page = $request->get('page', 1);
-        $max = $request->get('max', 20);
+        $max = $request->get('max', 40);
         $first = ($page - 1) * $max;
 
         $query = $this->repository->createQueryWithPaginator($first, $max);

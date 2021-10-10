@@ -11,6 +11,8 @@
             <p>Duration: {{ slot.duration }}</p>
 
         </div>
+
     </div>
+    <a href="{{ path('slots_order', { id: slot.id }) }}" class="btn btn-outline-primary">{{ 'action.order'|trans }}</a>
 
 {% endblock %}

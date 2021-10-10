@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Entity\Slot;
 use App\Form\ChangePasswordType;
 use App\Form\ProfileType;
@@ -36,7 +37,7 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $slot->setOwner($user); //TODO: maybe profile
+            $slot->setOwner($profile);
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($slot);
@@ -144,6 +145,18 @@ class ProfileController extends AbstractController
         return $this->render('account/change_password.html.twig', [
             'form' => $form->createView()
         ]);
+    }
 
+    /**
+     * @Route("/profile/{id}/show", name="profile_show")
+     */
+    public function show(Profile $profile, SlotRepository $slotRepo): Response
+    {
+        $events = $slotRepo->findBy(['owner' => $profile]);
+
+        return $this->render('account/profile.html.twig', [
+            'profile' => $profile,
+            'events' => $events
+        ]);
     }
 }

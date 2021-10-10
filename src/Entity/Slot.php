@@ -43,7 +43,7 @@ class Slot
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="slots")
+     * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="slots")
      */
     private $owner;
 
@@ -112,12 +112,12 @@ class Slot
         return $this;
     }
 
-    public function getOwner(): ?User
+    public function getOwner(): ?Profile
     {
         return $this->owner;
     }
 
-    public function setOwner(?User $owner): self
+    public function setOwner(?Profile $owner): self
     {
         $this->owner = $owner;
 
