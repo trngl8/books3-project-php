@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.remove'|trans }} #{{ slot.id }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.remove'|trans }} #{{ slot.id }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Do you really want remove slot #{{ slot.id }}?</p>
+            <form action="{{ url('slots_remove', { id: slot.id }) }}" method="post" data-confirmation="true" id="delete-form">
+                <input type="hidden" name="token" value="{{ csrf_token('remove') }}" />
+                <button type="submit" class="btn btn-outline-danger">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    {{ 'action.yes'|trans }}
+                </button>
+                <a href="{{ path('slots_show', { id: slot.id }) }}" class="btn btn-outline-primary">{{ 'action.no'|trans }}</a>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
