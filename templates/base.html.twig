@@ -141,7 +141,7 @@
                 <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>
                 <li><a href="{{ path('slots_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/events' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.slots'|trans }}</a></li>
 
-                {% if 'message1' in app.request.cookies|keys %}
+                {% if 'message1' in app.request.cookies|keys or  'message2' in app.request.cookies|keys %}
                     <li><a href="{{ path('messages') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
                 {% endif %}
             </ul>

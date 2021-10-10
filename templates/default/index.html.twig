@@ -29,10 +29,12 @@
 
     {% block content %}
         <div class="row mb-4">
-            <div class="col-md-6">
+
+            <div class="col-md-4">
                 {% if cards|length > 0 %}
                 <div class="list-group mb-5">
                     {% for item in cards %}
+                        {% if loop.index is divisible by(2)  %}
                         <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ item.title }}</h5>
@@ -45,23 +47,53 @@
 {#                                <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
 {#                            {% endif %}#}
                         </a>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
                 {% else %}
                     <p>{{ 'text.no_items_found'|trans }}</p>
                 {% endif %}
+            </div>
 
-                {% if pages|length > 1 %}
-                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-                            {% for page in pages %}
-                                <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
-                            {% endfor %}
-                        </div>
+            <div class="col-md-4">
+                {% if cards|length > 0 %}
+                    <div class="list-group mb-5">
+                        {% for item in cards %}
+                            {% if not loop.index is divisible by(2)  %}
+                                <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ item.title }}</h5>
+                                        <small>{{ item.year }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ item.description }}</p>
+                                    <small>{{ item.author }}</small>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 {% endif %}
             </div>
+
+            <div class="col-md-4">
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <ul>
+                    {% for profile in profiles %}
+                    <li><a href="{{ path('profile_show', { id: profile.id }) }}">{{ profile.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            {% if pages|length > 1 %}
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        {% for page in pages %}
+                            <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endblock %}
 

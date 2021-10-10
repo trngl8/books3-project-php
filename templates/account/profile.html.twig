@@ -3,30 +3,38 @@
 {% block title %}{{ 'title.profile'|trans }}{% endblock %}
 
 {% block body %}
-    <p><span class="badge bg-light text-dark small">{{ profile.id }}</span></p>
+    <p><span class="badge bg-light text-dark small">{{ profile.name }}</span></p>
     <p>{{ 'caption.language'|trans }}: {{ profile.locale|locale_name(app.request.locale)|u.title }}</p>
     <p><i class="bi bi-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
     <p><i class="bi bi-globe2"></i> {{ profile.timezone }}</p>
 
-    {% if app.user %}
+    {% if 'ROLE_ADMIN' in app.user.roles %}
         <div>
-            <a href="{{ path('profile_edit') }}" class="btn btn-outline-primary btn-lg">{{ 'action.edit'|trans }}</a>
+            <a href="{{ path('profile_edit') }}" class="btn btn-outline-primary">{{ 'action.edit'|trans }}</a>
         </div>
     {% endif %}
 
-    <h2 class="mt-5">Events</h2>
-    {% if events|length > 0 %}
+    <div class="mt-5">
+        <a href="" class="btn btn-outline-secondary">Message</a>
+        <a href="" class="btn btn-outline-secondary">Task</a>
+        <a href="" class="btn btn-outline-secondary">Event</a>
+    </div>
+
+    {% if events is defined and events|length > 0 %}
+        <h2 class="mt-5">Events</h2>
         <ul>
         {% for item in events %}
             <li><a href="{{ path('slots_show', { id: item.id }) }}">{{ item.startAt|date }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>{{ 'text.no_items_found'|trans }}</p>
-        {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
-            {{ form_row(form.startAt) }}
-            {{ form_row(form.duration) }}
-            <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
-        {{ form_end(form) }}
+        {% if form is defined %}
+            <p>{{ 'text.no_items_found'|trans }}</p>
+            {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+                {{ form_row(form.startAt) }}
+                {{ form_row(form.duration) }}
+                <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
+            {{ form_end(form) }}
+        {% endif %}
     {% endif %}
 {% endblock  %}

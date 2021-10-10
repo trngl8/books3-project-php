@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
 use App\Entity\Slot;
 use App\Repository\OrderRepository;
 use App\Repository\SlotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -77,6 +77,34 @@ class SlotController extends AbstractController
         $this->addFlash('success', 'User subscribed');
 
         return $this->redirectToRoute('slots_list');
+    }
+
+    /**
+     * @Route ("/slot/{id}/order", name="slots_order")
+     */
+    public function order(Slot $slot): Response
+    {
+        $slot->setStatus('ordered');
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'Ordered');
+
+        $this->addFlash(
+            'warning',
+            'flash.please_confirm'
+        );
+
+        $response = $this->redirectToRoute('profile_show', ['id' => $slot->getOwner()->getId()]);
+
+        $cookies = [
+            'message2' =>  'message.please_confirm_slot_order',
+        ];
+
+        foreach ($cookies as $key => $cookie) {
+            $response->headers->setCookie(Cookie::create($key, $cookie));
+        }
+
+        return $response;
     }
 
     /**

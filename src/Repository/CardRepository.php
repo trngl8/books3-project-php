@@ -15,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CardRepository extends ServiceEntityRepository
 {
-    private CONST DQL = 'SELECT c FROM App\Entity\Card c left join c.rescripts r';
+    private CONST DQL = 'SELECT c FROM App\Entity\Card c left join c.rescripts r ORDER BY c.updatedAt DESC';
 
     private CONST MAX_RESULT = 20;
 
@@ -29,6 +29,5 @@ class CardRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery(self::DQL)
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult);
-
     }
 }
