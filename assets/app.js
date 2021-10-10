@@ -10,11 +10,11 @@ import './styles/app.css';
 import './styles/global.scss';
 
 // start the Stimulus application
-import './bootstrap';
+//import './bootstrap';
 
 
 const $ = require('jquery');
-
+//global.$ = global.jQuery = $;
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
@@ -24,6 +24,7 @@ require('bootstrap');
 require('bootstrap/js/dist/popover');
 
 
-// $(document).ready(function() {
-//     $('[data-toggle="popover"]').popover();
-// });
+$(document).ready(function() {
+    console.log('I am jQuery');
+    $('[data-toggle="popover"]').popover();
+});
