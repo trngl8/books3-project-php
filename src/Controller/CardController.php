@@ -123,6 +123,11 @@ class CardController extends AbstractController
             $entityManager->persist($order);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                'flash.order_placed'
+            );
+
             //TODO: maybe notice
             $email = (new Email())
                 ->from($adminEmail)
@@ -152,10 +157,7 @@ class CardController extends AbstractController
 
             $mailer->send($email);
 
-            $this->addFlash(
-                'success',
-                'flash.order_placed'
-            );
+            //TODO: put email to the users inbox
 
             $this->addFlash(
                 'warning',

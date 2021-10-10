@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Entity\Slot;
 use App\Repository\OrderRepository;
 use App\Repository\SlotRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SlotController extends AbstractController
@@ -82,19 +86,41 @@ class SlotController extends AbstractController
     /**
      * @Route ("/slot/{id}/order", name="slots_order")
      */
-    public function order(Slot $slot): Response
+    public function order(Slot $slot, MailerInterface $mailer, string $adminEmail): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $slot->setStatus('ordered');
         $this->getDoctrine()->getManager()->flush();
 
+        $user = $this->getUser();
+        $owner = $slot->getOwner();
+
+        $email = (new TemplatedEmail())
+            ->from($adminEmail)
+            ->to(new Address($owner->getEmail()))
+            ->priority(Email::PRIORITY_HIGH) //get from order type maybe
+            ->subject(sprintf('User ordered slot #%s', $slot->getId()))
+            ->htmlTemplate('email/slot_ordered.html.twig')
+            ->context([
+                'name' => $owner->getName(),
+                'username' => $user->getUserIdentifier(),
+                'slot' => $slot
+            ])
+        ;
+
+        $mailer->send($email);
+
         $this->addFlash('success', 'Ordered');
+
+        //TODO: put message to users inbox
 
         $this->addFlash(
             'warning',
             'flash.please_confirm'
         );
 
-        $response = $this->redirectToRoute('profile_show', ['id' => $slot->getOwner()->getId()]);
+        $response = $this->redirectToRoute('profile_show', ['id' => $owner->getId()]);
 
         $cookies = [
             'message2' =>  'message.please_confirm_slot_order',

@@ -5,6 +5,7 @@ menu:
   about: About
   docs: Docs
   orders: Orders
+  slots: Events
 
 action:
   remind: Remind
@@ -27,6 +28,7 @@ action:
   yes: Yes
   no: No
   close: Close
+  order: Order
 
 title:
   invite: Invite
@@ -40,6 +42,8 @@ title:
   remove: Remove
   orders: Orders
   order_checkout: Order checkout
+  slots: Events
+  slot: Event
   options:
     delivery: Delivery options
 

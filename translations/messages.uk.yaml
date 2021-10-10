@@ -5,6 +5,7 @@ menu:
   about: Про нас
   docs: Документація
   orders: Замовлення
+  slots: Події
 
 action:
   remind: Remind
@@ -27,6 +28,7 @@ action:
   yes: Так
   no: Ні
   close: Закрити
+  order: Замовити
 
 title:
   invite: Запрошення
@@ -40,6 +42,8 @@ title:
   remove: Видалити
   orders: Замовлення
   order_checkout: Замовлення
+  slots: Події
+  slot: Подія
   options:
     delivery: Опції доставки
 
