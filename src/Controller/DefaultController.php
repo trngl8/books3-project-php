@@ -132,10 +132,11 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    //TODO: must be in train or in abstract class
     private function getCardsPaginator(Request $request) : array
     {
         $page = $request->get('page', 1);
-        $max = $request->get('max', 20);
+        $max = $request->get('max', 40);
         $first = ($page - 1) * $max;
 
         $query = $this->repository->createQueryWithPaginator($first, $max);
