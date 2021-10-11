@@ -33,6 +33,11 @@ class Subscription
      */
     private $externalCode;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="subscriptions")
+     */
+    private $profile;
+
     public function __construct(string $type, $externalcode)
     {
         $this->type = $type;
@@ -76,6 +81,18 @@ class Subscription
     public function setExternalCode(string $externalCode): self
     {
         $this->externalCode = $externalCode;
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }

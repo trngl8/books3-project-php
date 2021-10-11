@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Inbox;
 use App\Entity\Slot;
-use App\Repository\OrderRepository;
+use App\Entity\Subscription;
+use App\Repository\ProfileRepository;
 use App\Repository\SlotRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -66,40 +67,32 @@ class SlotController extends AbstractController
     }
 
     /**
-     * @Route ("/slot/{hash}/subscribe", name="slots_subscribe")
-     */
-    public function subscribe(string $hash, SlotRepository $repo)
-    {
-        $slot = $repo->findOneBy(['id' => $hash]);
-
-        if(!$slot) {
-            throw new NotFoundHttpException(sprintf("Slot with id %s not found", $hash));
-        }
-
-        //TODO: add subscription process
-
-        $this->addFlash('success', 'User subscribed');
-
-        return $this->redirectToRoute('slots_list');
-    }
-
-    /**
      * @Route ("/slot/{id}/order", name="slots_order")
      */
-    public function order(Slot $slot, MailerInterface $mailer, string $adminEmail): Response
+    public function order(ProfileRepository $repository, Slot $slot, MailerInterface $mailer, string $adminEmail): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $slot->setStatus('ordered');
-        $this->getDoctrine()->getManager()->flush();
 
         $user = $this->getUser();
+
+        $profile = $repository->findOneBy(['email' => $user->getUserIdentifier()]);
+
         $owner = $slot->getOwner();
 
+        $subscription = (new Subscription('slot', $slot->getUuid()))
+            ->setProfile($profile)
+        ;
+
+        $this->getDoctrine()->getManager()->persist($subscription);
+        $this->getDoctrine()->getManager()->flush();
+
+        //Message to the owner for the first
         $email = (new TemplatedEmail())
             ->from($adminEmail)
             ->to(new Address($owner->getEmail()))
-            ->priority(Email::PRIORITY_HIGH) //get from order type maybe
+            ->priority(Email::PRIORITY_HIGH) //get from order type or slot status
             ->subject(sprintf('User ordered slot #%s', $slot->getId()))
             ->htmlTemplate('email/slot_ordered.html.twig')
             ->context([
@@ -111,34 +104,45 @@ class SlotController extends AbstractController
 
         $mailer->send($email);
 
-        $this->addFlash('success', 'Ordered');
+        $this->addFlash('success', 'flash.ordered');
 
-        //TODO: put message to users inbox
+        //And message to subscriber to confirm
+        $email = (new TemplatedEmail())
+            ->from($adminEmail)
+            ->to(new Address($profile->getEmail()))
+            ->priority(Email::PRIORITY_HIGH) //get from order type or slot status
+            ->subject(sprintf('You ordered slot #%s', $slot->getId()))
+            ->htmlTemplate('email/confirm_subscription.html.twig')
+            ->context([
+                'name' => $profile->getName(),
+                'hash' => $slot->getUuid(),
+                'slot' => $slot
+            ])
+        ;
 
-        $this->addFlash(
-            'warning',
-            'flash.please_confirm'
-        );
+        $mailer->send($email);
 
-        $response = $this->redirectToRoute('profile_show', ['id' => $owner->getId()]);
+        $this->addFlash('warning','flash.please_confirm');
 
-        $cookies = [
-            'message2' =>  'message.please_confirm_slot_order',
-        ];
+        $message = (new Inbox())
+            ->setProvider('email')
+            ->setSender($adminEmail)
+            ->setSubject(sprintf('You ordered slot #%s', $slot->getId())) //TODO: translate this
+            ->setText('message.please_confirm_slot_order')
+        ;
 
-        foreach ($cookies as $key => $cookie) {
-            $response->headers->setCookie(Cookie::create($key, $cookie));
-        }
+        $this->getDoctrine()->getManager()->persist($message);
+        $this->getDoctrine()->getManager()->flush();
 
-        return $response;
+        return $this->redirectToRoute('profile_show', ['id' => $owner->getId()]);
     }
 
     /**
      * @Route ("/slot/{hash}/confirm", name="slots_confirm")
      */
-    public function confirm(string $hash, OrderRepository $repo)
+    public function confirm(string $hash, SlotRepository $repo)
     {
-        $slot = $repo->findOneBy(['id' => $hash]);
+        $slot = $repo->findOneBy(['uuid' => $hash]);
 
         if(!$slot) {
             throw new NotFoundHttpException(sprintf("Slot with id %s not found", $hash));

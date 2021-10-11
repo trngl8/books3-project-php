@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Entity\Inbox;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CardController extends AbstractController
 {
@@ -56,7 +57,7 @@ class CardController extends AbstractController
     /**
      * @Route("/{_locale}/cards/{id}/order", name="card_order")
      */
-    public function order(Card $card, Request $request, MailerInterface $mailer, string $adminEmail): Response
+    public function order(Card $card, Request $request, MailerInterface $mailer, HttpClientInterface $httpClient, string $adminEmail): Response
     {
         $values = [];
         if($user = $this->getUser()) {
@@ -157,24 +158,36 @@ class CardController extends AbstractController
 
             $mailer->send($email);
 
-            //TODO: put email to the users inbox
+            $message = (new Inbox())
+                ->setProvider('email')
+                ->setSender($adminEmail)
+                ->setSubject(sprintf('You ordered book #%s', $order->getId()))
+                ->setText('message.please_confirm')
+            ;
+
+            $params = [
+                'space' => 'AAAAd3mcHPY',
+                'key' => 'AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI',
+                'token' => 'dzdkXBFgWRu3DnE9Wp1LNYvNR326oTUZ_VeBgfzW37I%3D'
+            ];
+
+            $format = 'https://chat.googleapis.com/v1/spaces/%s/messages?key=%s&token=%s';
+            $path = $this->generateUrl('orders_show', ['id' => $order->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $httpClient->request('POST', sprintf($format, $params['space'], $params['key'], $params['token']), [
+                'json' => [
+                    'text' => sprintf('New order for *%s* from %s. Details: <%s|%s>', $orderItem->getCard()->getTitle(), $order->getName(), $path, $order->getId())
+                ]
+            ]);
+
+//            $this->getDoctrine()->getManager()->persist($message);
+//            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
                 'warning',
                 'flash.please_confirm'
             );
 
-            $response = $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
-
-            $cookies = [
-                'message1' =>  'message.please_confirm_order',
-            ];
-
-            foreach ($cookies as $key => $cookie) {
-                $response->headers->setCookie(Cookie::create($key, $cookie));
-            }
-
-            return $response;
+            return $this->redirectToRoute('order_checkout', ['id' => $order->getId()]);
         }
 
         return $this->render('card/order.html.twig', [

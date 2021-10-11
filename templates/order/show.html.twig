@@ -29,6 +29,8 @@
             </ul>
         </div>
     </div>
-    <a href="{{ path('orders_remove', { id: order.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('orders_remove', { id: order.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+    {% endif %}
 
 {% endblock %}
