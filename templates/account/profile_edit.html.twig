@@ -1,15 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'app.title.profile_edit'|trans }}{% endblock %}
+{% block title %}{{ 'title.profile_edit'|trans }}{% endblock %}
 
 {% block body %}
-    {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.locale) }}
-        {{ form_row(form.timezone) }}
-        {{ form_row(form.emoji) }}
-        {{ form_row(form.status) }}
-        <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4"><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.profile_edit'|trans }}</h1>
+            <div>
+                {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+                    {{ form_row(form.name, { label: 'label.name' }) }}
+                    {{ form_row(form.email, { label: 'label.email' }) }}
+                    {{ form_row(form.locale, { label: 'label.locale' }) }}
+                    {{ form_row(form.timezone, { label: 'label.timezone' }) }}
+                    {{ form_row(form.emoji, { label: 'label.emoji' }) }}
+                    {{ form_row(form.status, { label: 'label.status', help: 'help.status'}) }}
+                    <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

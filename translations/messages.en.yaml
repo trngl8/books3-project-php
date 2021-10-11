@@ -44,6 +44,7 @@ title:
   order_checkout: Order checkout
   slots: Events
   slot: Event
+  profile_edit: Profile edit
   options:
     delivery: Delivery options
 
@@ -58,6 +59,13 @@ label:
   phone: Phone
   city: City
   number: Post number
+  locale: Locale
+  timezone: Time zone
+  emoji: Emoji
+  status: Status
+
+help:
+  status: Describe yourself
 
 submit:
   save: Save

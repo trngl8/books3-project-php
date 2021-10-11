@@ -12,6 +12,7 @@ use App\Repository\SlotRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,7 +72,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/edit", name="profile_edit")
      */
-    public function edit(Request $request, ProfileRepository $repo): Response
+    public function edit(Request $request, RequestStack $requestStack, ProfileRepository $repo): Response
     {
         //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); //TODO: maybe redirect to password enter
 
@@ -86,6 +87,8 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $session = $requestStack->getSession();
+            $session->set('_locale', $profile->getLocale());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
