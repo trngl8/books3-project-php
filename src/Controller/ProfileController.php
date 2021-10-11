@@ -73,7 +73,9 @@ class ProfileController extends AbstractController
      */
     public function edit(Request $request, ProfileRepository $repo): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); //TODO: maybe redirect to password enter
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->getUser();
         $profile = $repo->findOneBy(['email' => $user->getUserIdentifier()]);
