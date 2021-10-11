@@ -83,7 +83,7 @@
                 {% if 'ROLE_ADMIN' in app.user.roles %}
                 <ul>
                     {% for profile in profiles %}
-                    <li><a href="{{ path('profile_show', { id: profile.id }) }}">{{ profile.name }}</a></li>
+                    <li><a href="{{ path('profile_show', { id: profile.id }) }}">&#x1F4D9; {{ profile.name }}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}

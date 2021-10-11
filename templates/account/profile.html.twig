@@ -28,13 +28,18 @@
         {% endfor %}
         </ul>
     {% else %}
-        {% if form is defined %}
-            <p>{{ 'text.no_items_found'|trans }}</p>
-            {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
-                {{ form_row(form.startAt) }}
-                {{ form_row(form.duration) }}
-                <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
-            {{ form_end(form) }}
-        {% endif %}
+{#        <p>{{ 'text.no_items_found'|trans }}</p>#}
     {% endif %}
+
+    <hr class="mt-5">
+
+    {% if form is defined %}
+        <p><b>{{ 'Add event'|trans }}</b></p>
+        {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+            {{ form_row(form.startAt) }}
+            {{ form_row(form.duration, {label : 'Duration, minutes'}) }}
+            <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
+        {{ form_end(form) }}
+    {% endif %}
+
 {% endblock  %}
