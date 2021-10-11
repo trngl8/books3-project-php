@@ -179,8 +179,8 @@ class CardController extends AbstractController
                 ]
             ]);
 
-//            $this->getDoctrine()->getManager()->persist($message);
-//            $this->getDoctrine()->getManager()->flush();
+            $this->getDoctrine()->getManager()->persist($message);
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
                 'warning',

@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\InboxRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=InboxRepository::class)
@@ -42,6 +44,13 @@ class Inbox
      * @ORM\Column(type="text", nullable=true)
      */
     private $text;
+
+    public function __construct(?string $uuidValue = null)
+    {
+        if(!$this->uuid) {
+            $this->uuid = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
+        }
+    }
 
     public function getId(): ?int
     {
