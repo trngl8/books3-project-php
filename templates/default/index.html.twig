@@ -80,10 +80,10 @@
             </div>
 
             <div class="col-md-4">
-                {% if 'ROLE_ADMIN' in app.user.roles %}
+                {% if 'ROLE_MANAGER' in app.user.roles %}
                 <ul>
                     {% for profile in profiles %}
-                    <li><a href="{{ path('profile_show', { id: profile.id }) }}">&#x1F4D9; {{ profile.name }}</a></li>
+                        <li>{{ profile.emoji|trans({}, 'emoji')|raw }} <a title="{{ profile.status }}" href="{{ path('profile_show', { id: profile.id }) }}"> {{ profile.name }}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}

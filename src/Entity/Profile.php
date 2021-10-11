@@ -50,6 +50,21 @@ class Profile
      */
     private $slots;
 
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true)
+     */
+    private $emoji;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->slots = new ArrayCollection();
@@ -139,6 +154,42 @@ class Profile
                 $slot->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmoji(): ?string
+    {
+        return $this->emoji;
+    }
+
+    public function setEmoji(?string $emoji): self
+    {
+        $this->emoji = $emoji;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

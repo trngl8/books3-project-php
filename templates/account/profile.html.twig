@@ -7,6 +7,7 @@
     <p>{{ 'caption.language'|trans }}: {{ profile.locale|locale_name(app.request.locale)|u.title }}</p>
     <p><i class="bi bi-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
     <p><i class="bi bi-globe2"></i> {{ profile.timezone }}</p>
+    <p>{{ profile.emoji|trans({}, 'emoji')|raw }} {{ profile.status }}</p>
 
     {% if 'ROLE_ADMIN' in app.user.roles %}
         <div>
