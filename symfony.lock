@@ -367,6 +367,15 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/google-chat-notifier": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.3",
+            "ref": "b114c8d95c4e187d8ea186be9ac3839602fec5ee"
+        }
+    },
     "symfony/http-client": {
         "version": "v5.2.7"
     },
@@ -422,6 +431,18 @@
             "config/packages/prod/deprecations.yaml",
             "config/packages/prod/monolog.yaml",
             "config/packages/test/monolog.yaml"
+        ]
+    },
+    "symfony/notifier": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "c31585e252b32fe0e1f30b1f256af553f4a06eb9"
+        },
+        "files": [
+            "config/packages/notifier.yaml"
         ]
     },
     "symfony/options-resolver": {

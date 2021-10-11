@@ -6,6 +6,7 @@ use App\Entity\Card;
 use App\Entity\Inbox;
 use App\Entity\Order;
 use App\Entity\OrderItem;
+use App\Repository\ProfileRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -18,6 +19,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -57,13 +61,13 @@ class CardController extends AbstractController
     /**
      * @Route("/{_locale}/cards/{id}/order", name="card_order")
      */
-    public function order(Card $card, Request $request, MailerInterface $mailer, HttpClientInterface $httpClient, string $adminEmail): Response
+    public function order(Card $card, ProfileRepository $repo, Request $request, MailerInterface $mailer, NotifierInterface $notifier, string $adminEmail): Response
     {
         $values = [];
         if($user = $this->getUser()) {
-            //TODO: get from profile
-            $values['name'] = $user->getUserIdentifier();
-            $values['email'] =$user->getUserIdentifier();
+            $profile = $repo->findOneBy(['email' => $user->getUserIdentifier()]);
+            $values['name'] = $profile->getName();
+            $values['email'] = $profile->getEmail();
         }
 
         $form = $this->createFormBuilder($values)
@@ -168,19 +172,16 @@ class CardController extends AbstractController
             $this->getDoctrine()->getManager()->persist($message);
             $this->getDoctrine()->getManager()->flush();
 
-            //TODO: move to service
-            $params = [
-                'space' => 'AAAAd3mcHPY',
-                'key' => 'AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI',
-                'token' => 'dzdkXBFgWRu3DnE9Wp1LNYvNR326oTUZ_VeBgfzW37I%3D'
-            ];
-            $format = 'https://chat.googleapis.com/v1/spaces/%s/messages?key=%s&token=%s';
             $path = $this->generateUrl('orders_show', ['id' => $order->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-            $httpClient->request('POST', sprintf($format, $params['space'], $params['key'], $params['token']), [
-                'json' => [
-                    'text' => sprintf('New order for *%s* from %s. <%s|Details>', $orderItem->getCard()->getTitle(), $order->getName(), $path)
-                ]
-            ]);
+
+            $notification = (new Notification('New order in Scriptorium', ['chat']))
+                ->content(sprintf('Request to order book *%s* from %s. <%s|Details>', $orderItem->getCard()->getTitle(), $order->getName(), $path));
+
+            $recipient = new Recipient(
+                $result['email'], //TODO: get from profile
+            );
+
+            $notifier->send($notification, $recipient);
 
             $this->addFlash(
                 'warning',
