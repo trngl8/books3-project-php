@@ -165,22 +165,22 @@ class CardController extends AbstractController
                 ->setText('message.please_confirm')
             ;
 
+            $this->getDoctrine()->getManager()->persist($message);
+            $this->getDoctrine()->getManager()->flush();
+
+            //TODO: move to service
             $params = [
                 'space' => 'AAAAd3mcHPY',
                 'key' => 'AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI',
                 'token' => 'dzdkXBFgWRu3DnE9Wp1LNYvNR326oTUZ_VeBgfzW37I%3D'
             ];
-
             $format = 'https://chat.googleapis.com/v1/spaces/%s/messages?key=%s&token=%s';
             $path = $this->generateUrl('orders_show', ['id' => $order->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
             $httpClient->request('POST', sprintf($format, $params['space'], $params['key'], $params['token']), [
                 'json' => [
-                    'text' => sprintf('New order for *%s* from %s. Details: <%s|%s>', $orderItem->getCard()->getTitle(), $order->getName(), $path, $order->getId())
+                    'text' => sprintf('New order for *%s* from %s. <%s|Details>', $orderItem->getCard()->getTitle(), $order->getName(), $path)
                 ]
             ]);
-
-            $this->getDoctrine()->getManager()->persist($message);
-            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
                 'warning',
