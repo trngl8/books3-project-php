@@ -80,7 +80,7 @@
             </div>
 
             <div class="col-md-4">
-                {% if 'ROLE_MANAGER' in app.user.roles %}
+                {% if is_granted('ROLE_MANAGER') %}
                 <ul>
                     {% for profile in profiles %}
                         <li>{{ profile.emoji|trans({}, 'emoji')|raw }} <a title="{{ profile.status }}" href="{{ path('profile_show', { id: profile.id }) }}"> {{ profile.name }}</a></li>
