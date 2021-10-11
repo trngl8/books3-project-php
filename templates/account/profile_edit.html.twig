@@ -12,7 +12,7 @@
                     {{ form_row(form.email, { label: 'label.email' }) }}
                     {{ form_row(form.locale, { label: 'label.locale' }) }}
                     {{ form_row(form.timezone, { label: 'label.timezone' }) }}
-                    {{ form_row(form.emoji, { label: 'label.emoji' }) }}
+                    {{ form_row(form.emoji, { label: 'label.emoji', help: 'help.book_color'}) }}
                     {{ form_row(form.status, { label: 'label.status', help: 'help.status'}) }}
                     <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
                 {{ form_end(form) }}

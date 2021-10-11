@@ -45,6 +45,7 @@ title:
   slots: Events
   slot: Event
   profile_edit: Profile edit
+  add_event: Add event
   options:
     delivery: Delivery options
 
@@ -63,9 +64,14 @@ label:
   timezone: Time zone
   emoji: Emoji
   status: Status
+  title: Title
+  start: Start
+  duration: Duration
+  url: Url
 
 help:
   status: Describe yourself
+  book_color: Book color
 
 submit:
   save: Save

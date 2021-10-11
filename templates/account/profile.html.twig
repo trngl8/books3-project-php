@@ -15,11 +15,11 @@
         </div>
     {% endif %}
 
-    <div class="mt-5">
-        <a href="" class="btn btn-outline-secondary">Message</a>
-        <a href="" class="btn btn-outline-secondary">Task</a>
-        <a href="" class="btn btn-outline-secondary">Event</a>
-    </div>
+{#    <div class="mt-5">#}
+{#        <a href="" class="btn btn-outline-secondary">Message</a>#}
+{#        <a href="" class="btn btn-outline-secondary">Task</a>#}
+{#        <a href="" class="btn btn-outline-secondary">Event</a>#}
+{#    </div>#}
 
     {% if events is defined and events|length > 0 %}
         <h2 class="mt-5">Events</h2>
@@ -35,12 +35,12 @@
     <hr class="mt-5">
 
     {% if form is defined %}
-        <p><b>{{ 'Add event'|trans }}</b></p>
+        <p><b>{{ 'title.add_event'|trans }}</b></p>
         {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
-            {{ form_row(form.title) }}
-            {{ form_row(form.startAt) }}
-            {{ form_row(form.duration, {label : 'Duration, minutes'}) }}
-            {{ form_row(form.url) }}
+            {{ form_row(form.title, { label: 'label.title'}) }}
+            {{ form_row(form.startAt, { label: 'label.start'}) }}
+            {{ form_row(form.duration, {label : 'label.duration'}) }}
+            {{ form_row(form.url, { label: 'label.url'}) }}
             <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
         {{ form_end(form) }}
     {% endif %}

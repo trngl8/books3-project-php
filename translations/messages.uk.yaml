@@ -45,6 +45,7 @@ title:
   slots: Події
   slot: Подія
   profile_edit: Редагування профілю
+  add_event: Додати подію
   options:
     delivery: Опції доставки
 
@@ -63,9 +64,14 @@ label:
   timezone: Часовий пояс
   emoji: Emoji
   status: Статус
+  title: Заголовок
+  start: Початок
+  duration: Час, хв.
+  url: Лінк
 
 help:
   status: Опишіть коротко словами поточний стан, дію або персонажа
+  book_color: Колір книжки
 
 submit:
   save: Зберегти
