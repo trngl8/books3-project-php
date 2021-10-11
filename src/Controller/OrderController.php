@@ -27,7 +27,8 @@ class OrderController extends AbstractController
      */
     public function list(OrderRepository $repo): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
         $orders = $repo->findBy([], ['createdAt' => 'DESC']);
 

@@ -23,7 +23,7 @@ class SlotController extends AbstractController
      */
     public function list(SlotRepository $repo): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
         $slots = $repo->findBy([], ['createdAt' => 'DESC']);
 
