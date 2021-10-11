@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="orders")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Order
 {
@@ -68,9 +69,17 @@ class Order
             $this->id = $uuidValue ? Uuid::fromString($uuidValue) : Uuid::v4();
         }
         $this->status = 'new';
-        $this->createdAt = new \DateTimeImmutable();
         $this->items = new ArrayCollection();
     }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
 
     public function getName(): ?string
     {
