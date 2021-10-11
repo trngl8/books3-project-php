@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.remove'|trans }} #{{ slot.id }}{% endblock %}
+{% block title %}{{ 'title.remove'|trans }} {{ slot.title }}{% endblock %}
 
 {% block body %}
 
-    <h1 class="mb-4">{{ 'title.remove'|trans }} #{{ slot.id }}</h1>
+    <h1 class="mb-4">{{ 'title.remove'|trans }} {{ slot.title }}</h1>
     <div class="row">
         <div class="col-md-12">
             <p>Do you really want remove slot #{{ slot.id }}?</p>

@@ -52,11 +52,28 @@ class Slot
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull()
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
         $this->status = 'new';
         $this->createdAt = new \DateTimeImmutable();
+        $this->type = 'online';
     }
 
     public function getId(): ?int
@@ -132,6 +149,42 @@ class Slot
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }

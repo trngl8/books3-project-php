@@ -24,7 +24,7 @@
         <h2 class="mt-5">Events</h2>
         <ul>
         {% for item in events %}
-            <li><a href="{{ path('slots_show', { id: item.id }) }}">{{ item.startAt|date }}</a></li>
+            <li><a href="{{ path('slots_show', { id: item.id }) }}">{{ item.title }}</a> {{ item.startAt|date }}</li>
         {% endfor %}
         </ul>
     {% else %}
@@ -36,8 +36,10 @@
     {% if form is defined %}
         <p><b>{{ 'Add event'|trans }}</b></p>
         {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+            {{ form_row(form.title) }}
             {{ form_row(form.startAt) }}
             {{ form_row(form.duration, {label : 'Duration, minutes'}) }}
+            {{ form_row(form.url) }}
             <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
         {{ form_end(form) }}
     {% endif %}
