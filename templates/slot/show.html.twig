@@ -18,6 +18,6 @@
     </div>
     <a href="{{ path('slots_order', { id: slot.id }) }}" class="btn btn-outline-primary">{{ 'action.order'|trans }}</a>
 
-    <a href="{{ path('slots_remove', { id: slot.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+    <a href="{{ path('manager_slots_remove', { id: slot.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
 
 {% endblock %}

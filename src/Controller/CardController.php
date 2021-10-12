@@ -64,7 +64,8 @@ class CardController extends AbstractController
     public function order(Card $card, ProfileRepository $repo, Request $request, MailerInterface $mailer, NotifierInterface $notifier, string $adminEmail): Response
     {
         $values = [];
-        if($user = $this->getUser()) {
+        $user = $this->getUser();
+        if($user) {
             $profile = $repo->findOneBy(['email' => $user->getUserIdentifier()]);
             $values['name'] = $profile->getName();
             $values['email'] = $profile->getEmail();
@@ -110,7 +111,6 @@ class CardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Order $order */
             $result = $form->getData();
-
 
             $order = (new Order())
                 ->setEmail($result['email'])
@@ -164,21 +164,21 @@ class CardController extends AbstractController
 
             $message = (new Inbox())
                 ->setProvider('email')
+                ->setAddress($order->getEmail()) //TODO: get from profile
                 ->setSender($adminEmail)
                 ->setSubject(sprintf('You ordered book #%s', $order->getId()))
                 ->setText('message.please_confirm')
             ;
-
             $this->getDoctrine()->getManager()->persist($message);
             $this->getDoctrine()->getManager()->flush();
 
             $path = $this->generateUrl('orders_show', ['id' => $order->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $notification = (new Notification('New order in Scriptorium', ['chat']))
-                ->content(sprintf('Request to order book *%s* from %s. <%s|Details>', $orderItem->getCard()->getTitle(), $order->getName(), $path));
+            $notification = (new Notification(sprintf('New order %s', $order->getId()), ['chat']))
+                ->content(sprintf('[%s] Request to order book *%s* from %s. <%s|Details>', $order->getCreatedAt()->format('H:i:s'), $orderItem->getCard()->getTitle(), $order->getName(), $path));
 
             $recipient = new Recipient(
-                $result['email'], //TODO: get from profile
+                $order->getEmail(), //TODO: get from profile
             );
 
             $notifier->send($notification, $recipient);

@@ -9,7 +9,6 @@ use App\Repository\ProfileRepository;
 use App\Repository\SlotRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\MailerInterface;
@@ -24,8 +23,7 @@ class SlotController extends AbstractController
      */
     public function list(SlotRepository $repo): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_MANAGER');
-
+        //TODO: check public
         $slots = $repo->findBy([], ['createdAt' => 'DESC']);
 
         return $this->render('slot/list.html.twig', [
@@ -38,30 +36,8 @@ class SlotController extends AbstractController
      */
     public function show(Slot $slot): Response
     {
+        //TODO: check public
         return $this->render('slot/show.html.twig', [
-            'slot' => $slot,
-        ]);
-    }
-
-    /**
-     * @Route("/events/{id}/remove", name="slots_remove")
-     */
-    public function remove(Slot $slot, Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        $submittedToken = $request->request->get('token');
-
-        if ($this->isCsrfTokenValid('remove', $submittedToken)) {
-            $this->getDoctrine()->getManager()->remove($slot);
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success', 'Slot removed');
-
-            return $this->redirectToRoute('slots_list');
-        }
-
-        return $this->render('slot/remove.html.twig', [
             'slot' => $slot,
         ]);
     }

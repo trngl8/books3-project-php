@@ -27,9 +27,9 @@ class OrderController extends AbstractController
      */
     public function list(OrderRepository $repo): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $this->denyAccessUnlessGranted('ROLE_MANAGER');
-
+        //TODO: check owner
         $orders = $repo->findBy([], ['createdAt' => 'DESC']);
 
         return $this->render('order/list.html.twig', [
@@ -42,30 +42,10 @@ class OrderController extends AbstractController
      */
     public function show(Order $order): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        //TODO: check owner
         return $this->render('order/show.html.twig', [
-            'order' => $order,
-        ]);
-    }
-
-    /**
-     * @Route("/orders/{id}/remove", name="orders_remove")
-     */
-    public function remove(Order $order, Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        $submittedToken = $request->request->get('token');
-
-        if ($this->isCsrfTokenValid('remove', $submittedToken)) {
-            $this->getDoctrine()->getManager()->remove($order);
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success', 'Order removed');
-
-            return $this->redirectToRoute('orders_list');
-        }
-
-        return $this->render('order/remove.html.twig', [
             'order' => $order,
         ]);
     }

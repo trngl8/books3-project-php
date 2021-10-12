@@ -9,17 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
-    private static $cookies = [
-        'message1' =>  'Accept cookie policy',
-        'message2' =>  'Accept personal data agreement',
-        'message3' =>  'Read the docs',
-        'message4' =>  'Test cards',
-    ];
-
     private $repository;
 
     public function __construct(EntityManagerInterface $em)
@@ -49,47 +41,6 @@ class DefaultController extends AbstractController
 
         return $this->render('default/index.html.twig', [
             'cards' => $cards,
-        ]);
-    }
-
-    /**
-     * @Route("/messages", name="messages")
-     */
-    public function messages(Request $request, TranslatorInterface $translator): Response
-    {
-        $cookies = $request->cookies;
-
-        $form = $this->createFormBuilder()
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->addFlash(
-                'success',
-                $translator->trans('flash.messages_cleared')
-            );
-
-            $response = $this->redirectToRoute('messages');
-
-            foreach (self::$cookies as $key => $cookie) {
-                $response->headers->clearCookie($key);
-            }
-
-            return $response;
-        }
-
-        $messages = [];
-
-        foreach ($cookies as $key => $cookie) {
-            if (in_array($key, array_keys(self::$cookies))) {
-                $messages[$key] = $request->cookies->get($key);
-            }
-        }
-
-        return $this->render('default/messages.html.twig', [
-            'messages' => $messages,
-            'form' => $form->createView(),
         ]);
     }
 
@@ -132,7 +83,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    //TODO: must be in train or in abstract class
+    //TODO: must be in trait or in abstract class
     private function getCardsPaginator(Request $request) : array
     {
         $page = $request->get('page', 1);
