@@ -93,7 +93,7 @@
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         {% for page in pages %}
-                            <a href="{{ path('cards', {'page' : page }) }}"
+                            <a href="{{ path('index_locale', {'page' : page }) }}"
                                class="btn btn-outline-secondary
                                 {% if page == app.request.get('page') %}
                                     disabled
