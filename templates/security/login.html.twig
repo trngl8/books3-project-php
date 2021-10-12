@@ -13,7 +13,7 @@
     <div class="col-md-12">
         <h1 class="mb-4"><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</h1>
         <p>
-            <a href="{{ path('register') }}">Register</a>
+            {{ 'message.if_have_not_account_do_register'|trans }}<a href="{{ path('register') }}">{{ 'action.register'|trans }}</a>
         </p>
         <form method="post">
             {% if error %}

@@ -10,7 +10,9 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="mb-4"><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.register'|trans }}</h1>
-
+            <p>
+                {{ 'message.if_have_not_account_do_register'|trans }}<a href="{{ path('login', {_locale : app.request.locale}) }}">{{ 'action.login'|trans }}</a>
+            </p>
             <div>
                 {{ form_start(registrationForm, { attr: {novalidate: 'novalidate'}}) }}
                     {{ form_row(registrationForm.username, { label: 'form.label.email' }) }}
