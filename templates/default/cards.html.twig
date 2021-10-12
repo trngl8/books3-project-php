@@ -66,7 +66,7 @@
                         {% for page in pages %}
                               <a href="{{ path('cards', {'page' : page }) }}"
                                  class="btn btn-outline-secondary
-                                {% if page == app.request.get('page') or page == 1 %}
+                                {% if page == app.request.get('page') %}
                                     disabled
                                 {% endif %}">
                                 {{ page }}
