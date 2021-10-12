@@ -1,0 +1,3 @@
+custom:
+  validation:
+    already_registered: Користувач з таким email вже існує
