@@ -46,6 +46,7 @@ title:
   slot: Event
   profile_edit: Profile edit
   add_event: Add event
+  search: Search
   options:
     delivery: Delivery options
 
