@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
@@ -61,7 +63,7 @@ class CardController extends AbstractController
     /**
      * @Route("/{_locale}/cards/{id}/order", name="card_order")
      */
-    public function order(Card $card, ProfileRepository $repo, Request $request, MailerInterface $mailer, NotifierInterface $notifier, string $adminEmail): Response
+    public function order(Card $card, ProfileRepository $repo, Request $request, MailerInterface $mailer, NotifierInterface $notifier, HubInterface $hub, string $adminEmail): Response
     {
         $values = [];
         if($user = $this->getUser()) {
@@ -182,6 +184,12 @@ class CardController extends AbstractController
             );
 
             $notifier->send($notification, $recipient);
+            $update = new Update(
+                'messages',
+                json_encode(['status' => 'new'])
+            );
+
+            $hub->publish($update);
 
             $this->addFlash(
                 'warning',
