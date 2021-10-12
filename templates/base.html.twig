@@ -129,6 +129,7 @@
                 <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>
                 <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>
                 <li><a href="{{ path('slots_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/events' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.slots'|trans }}</a></li>
+                <li><a href="{{ path('search') }}" class="btn btn-outline"><i class="bi bi-search"></i></a></li>
             </ul>
 
             <div class="col-md-3 text-end">

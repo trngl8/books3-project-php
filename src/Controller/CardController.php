@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CardController extends AbstractController
 {

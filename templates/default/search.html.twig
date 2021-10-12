@@ -2,19 +2,22 @@
 
 {% block body %}
 
-    <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
+    <h1 class="mb-4">{{ 'title.search'|trans }}</h1>
 
     {% block search %}
+        <div class="row mb-4">
+            <form action="{{ path('search') }}">
+                <div class="mb-3">
+                    <label for="isbn" class="form-label">ISBN</label>
+                    <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" name="isbn" value="{{ app.request.get('isbn') }}" placeholder="{{ 'form.placeholder.13_digit'|trans }}">
+                    {#            <div id="isbnHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <button type="submit" class="btn btn-outline-primary">{{ 'action.search'|trans }}</button>
+            </form>
+        </div>
     {% endblock %}
 
     {% block breadcrumbs %}
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">{{ 'title.index'|trans }}</li>
-            <li class="breadcrumb-item active"><a href="{{ path('cards') }}">{{ 'title.cards'|trans }}</a></li>
-            {#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
-        </ol>
-        </nav>
     {% endblock %}
 
     <div class="mt-3">
@@ -23,27 +26,27 @@
 
     {% block content %}
         <div class="row mb-4">
-
+            {% if cards is defined %}
             <div class="col-md-4">
                 {% if cards|length > 0 %}
-                <div class="list-group mb-5">
-                    {% for item in cards %}
-                        {% if loop.index is divisible by(2)  %}
-                        <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ item.title }}</h5>
-                                <small>{{ item.year }}</small>
-                            </div>
-                            <p class="mb-1">{{ item.description }}</p>
-                            <small>{{ item.author }}</small>
-                            {# TODO: add count of resctipts functionality #}
-{#                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}#}
-{#                                <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
-{#                            {% endif %}#}
-                        </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                    <div class="list-group mb-5">
+                        {% for item in cards %}
+                            {% if loop.index is divisible by(2)  %}
+                                <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ item.title }}</h5>
+                                        <small>{{ item.year }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ item.description }}</p>
+                                    <small>{{ item.author }}</small>
+                                    {# TODO: add count of resctipts functionality #}
+                                    {#                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}#}
+                                    {#                                <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
+                                    {#                            {% endif %}#}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
 
                 {% else %}
                     <p>{{ 'text.no_items_found'|trans }}</p>
@@ -68,18 +71,11 @@
                     </div>
                 {% endif %}
             </div>
-
+            {% endif %}
             <div class="col-md-4">
-                {% if is_granted('ROLE_MANAGER') %}
-                <ul>
-                    {% for profile in profiles %}
-                        <li>{{ profile.emoji|trans({}, 'emoji')|raw }} <a title="{{ profile.status }}" href="{{ path('profile_show', { id: profile.id }) }}"> {{ profile.name }}</a></li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
             </div>
 
-            {% if pages|length > 1 %}
+            {% if pages is defined and pages|length > 1 %}
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         {% for page in pages %}

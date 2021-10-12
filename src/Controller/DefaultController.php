@@ -3,12 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Entity\Slot;
+use App\Form\SlotType;
+use App\Repository\ProfileRepository;
+use App\Repository\SlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DefaultController extends AbstractController
 {
@@ -27,19 +36,15 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="search")
+     * @Route("/{_locale}/search", name="search")
      */
     public function search(Request $request) : Response
     {
         $isbn = $request->get('isbn');
 
-        if(!$isbn) {
-            return $this->redirectToRoute('index');
-        }
+        $cards = [];//$this->repository->findBy(['isbn' => $isbn]);
 
-        $cards = $this->repository->findBy(['isbn' => $isbn]);
-
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/search.html.twig', [
             'cards' => $cards,
         ]);
     }
