@@ -93,7 +93,13 @@
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         {% for page in pages %}
-                            <a href="{{ path('index', {'page' : page }) }}" class="btn btn-outline-secondary">{{ page }}</a>
+                            <a href="{{ path('cards', {'page' : page }) }}"
+                               class="btn btn-outline-secondary
+                                {% if page == app.request.get('page') %}
+                                    disabled
+                                {% endif %}">
+                                {{ page }}
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
