@@ -92,6 +92,9 @@ text:
   no_items_found: Нічого не знайдено
   page_not_found: Сторінка не знайдена
 
+message:
+  if_have_not_account_do_register: ''
+
 form:
   label:
     email: Email

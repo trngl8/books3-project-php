@@ -92,6 +92,9 @@ text:
   no_items_found: No items found
   page_not_found: Page not found
 
+message:
+  if_have_not_account_do_register: ''
+
 form:
   label:
     email: Email
