@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ message.subject }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ message.subject }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            {{ message.text }}
+        </div>
+
+    </div>
+
+{% endblock %}

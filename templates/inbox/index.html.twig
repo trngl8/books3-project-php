@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4">{{ 'title.messages'|trans }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            {% if messages|length > 0 %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in messages %}
+                        <tr>
+                            <th scope="row"><a href="{{ path('inbox_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                            <td>
+                                {{ item.id }}
+                            </td>
+                            <td>
+                                {{ item.sender }}
+                            </td>
+                            <td>
+                                {{ item.subject }}
+                            </td>
+                            <td>
+                                <a href="#">{{ 'action.remove'|trans }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{{ 'text.no_items_found'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
