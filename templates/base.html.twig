@@ -6,14 +6,8 @@
         <title>Scriptorium.cloud - {% block title %}high-quality used books for trainee, juniors, middle, medium, medium rare and other hierarchy level{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="{% block content_description %}Media library digital platform{% endblock %}">
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
-
-            <!-- Renders a link tag (if your module requires any CSS)
-                 <link rel="stylesheet" href="/build/app.css"> -->
         {% endblock %}
 
         <style>
@@ -116,11 +110,6 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-
-            <!-- Renders app.js & a webpack runtime.js file
-                <script src="/build/runtime.js" defer></script>
-                <script src="/build/app.js" defer></script>
-                See note below about the "defer" attribute -->
         {% endblock %}
     </head>
     <body>
@@ -140,20 +129,21 @@
                 <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>
                 <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>
                 <li><a href="{{ path('slots_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/events' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.slots'|trans }}</a></li>
-
-{#                {% if 'message1' in app.request.cookies|keys or  'message2' in app.request.cookies|keys %}#}
-                {% if global_messages is defined %}
-                    <li><a href="{{ path('inbox_list') }}" class="btn btn-outline-danger me-2"><i class="bi bi-bell"></i> </a></li>
-                {% endif %}
             </ul>
 
             <div class="col-md-3 text-end">
-                {% if app.user %}
+                <div class="dropdown">
+                    {% if app.user %}
 
-                    <div class="dropdown">
+                        {#                {% if 'message1' in app.request.cookies|keys or  'message2' in app.request.cookies|keys %}#}
+                        {% if global_messages is defined %}
+                            <a href="{{ path('inbox_list') }}" class="btn btn-outline-danger"><i class="bi bi-bell"></i> </a>
+                        {% endif %}
+
                         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ app.user.userIdentifier }}
                         </button>
+
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
                             {% if 'ROLE_ADMIN' in app.user.roles %}
@@ -162,14 +152,13 @@
                             <hr class="dropdown-divider">
                             <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
                         </div>
-                    </div>
 
-                {% else %}
+                    {% else %}
 
-                    <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuLocales" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                             {{ app.request.locale|locale_name(app.request.locale)|u.title }}
                         </button>
+
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLocales">
                             <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'uk'}) }}"> Ukrainian</a></li>
                             <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'en'}) }}"> English</a></li>
@@ -177,11 +166,11 @@
                             <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'bg'}) }}"> Bulgarian</a></li>
                         </ul>
                         <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
-                    </div>
 
-{#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
+    {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
 
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </header>
     </div>
