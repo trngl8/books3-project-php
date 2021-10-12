@@ -9,6 +9,7 @@ class Registration {
 
     /**
      * @AppAssert\ContainsValidUsername(mode="strict")
+     * @Assert\NotNull()
      */
     private $username;
 
