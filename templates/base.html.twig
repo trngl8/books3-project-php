@@ -147,8 +147,9 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
-                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                            {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">{{ 'action.admin'|trans }}</a>
+                            <a class="dropdown-item" href="{{ path('manager_dashboard') }}" target="_blank">manager</a>
                             {% endif %}
                             <hr class="dropdown-divider">
                             <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>

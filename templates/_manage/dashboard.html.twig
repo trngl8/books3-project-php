@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <link type="image/x-icon" rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <title>Scriptorium.cloud - {% block title %}high-quality used books for trainee, juniors, middle, medium, medium rare and other hierarchy level{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block content_description %}Media library digital platform{% endblock %}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        /*
+         * Footer
+         */
+        .footer {
+            padding: 2.5rem 0;
+            color: #727272;
+            background-color: #f9f9f9;
+            border-top: .05rem solid #e5e5e5;
+            margin-top: 10rem;
+        }
+        .footer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .bg-isometric {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  linear-gradient(30deg, #b5b7db 12%, transparent 12.5%, transparent 87%, #b5b7db 87.5%, #b5b7db), linear-gradient(150deg, #b5b7db 12%, transparent 12.5%, transparent 87%, #b5b7db 87.5%, #b5b7db), linear-gradient(30deg, #b5b7db 12%, transparent 12.5%, transparent 87%, #b5b7db 87.5%, #b5b7db), linear-gradient(150deg, #b5b7db 12%, transparent 12.5%, transparent 87%, #b5b7db 87.5%, #b5b7db), linear-gradient(60deg, #b5b7db77 25%, transparent 25.5%, transparent 75%, #b5b7db77 75%, #b5b7db77), linear-gradient(60deg, #b5b7db77 25%, transparent 25.5%, transparent 75%, #b5b7db77 75%, #b5b7db77);
+            background-size: 20px 35px;
+            background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+            border-radius: 4px;
+        }
+
+        .bg-lines {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image: linear-gradient(0deg, #e5e5f7 50%, #b5b7db 50%);
+            background-size: 10px 10px;
+            border-radius: 4px;
+        }
+
+        .bg-wavy {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #b5b7db55, #b5b7db );
+            border-radius: 4px;
+        }
+
+        .bg-rhombus {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  linear-gradient(135deg, #b5b7db 25%, transparent 25%), linear-gradient(225deg, #b5b7db 25%, transparent 25%), linear-gradient(45deg, #b5b7db 25%, transparent 25%), linear-gradient(315deg, #b5b7db 25%, #e5e5f7 25%);
+            background-position:  10px 0, 10px 0, 0 0, 0 0;
+            background-size: 10px 10px;
+            background-repeat: repeat;
+            border-radius: 4px;
+        }
+
+        .bg-zigzag {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  linear-gradient(135deg, #b5b7db 25%, transparent 25%), linear-gradient(225deg, #b5b7db 25%, transparent 25%), linear-gradient(45deg, #b5b7db 25%, transparent 25%), linear-gradient(315deg, #b5b7db 25%, #e5e5f7 25%);
+            background-position:  10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            background-repeat: repeat;
+            border-radius: 4px;
+        }
+
+        .bg-moon {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image: radial-gradient( ellipse farthest-corner at 10px 10px , #b5b7db, #b5b7db 50%, #e5e5f7 50%);
+            background-size: 10px 10px;
+            border-radius: 4px;
+        }
+
+        .bg-diagonal {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background: repeating-linear-gradient( 45deg, #b5b7db, #b5b7db 5px, #e5e5f7 5px, #e5e5f7 25px );
+            border-radius: 4px;
+        }
+
+        .bg-paper {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  linear-gradient(#b5b7db 2px, transparent 2px), linear-gradient(90deg, #b5b7db 2px, transparent 2px), linear-gradient(#b5b7db 1px, transparent 1px), linear-gradient(90deg, #b5b7db 1px, #e5e5f7 1px);
+            background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+            border-radius: 4px;
+        }
+    </style>
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <!--
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        -->
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+{#            <li><a href="{{ path('index') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.home'|trans }}</a></li>#}
+{#            <li><a href="{{ path('cards') }}" class="nav-link px-2 {% if app.request.pathInfo == '/cards' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.cards'|trans }}</a></li>#}
+{#            <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.donate'|trans }}</a></li>#}
+{#            <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.about'|trans }}</a></li>#}
+{#            <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>#}
+{#            <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>#}
+{#            <li><a href="{{ path('slots_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/events' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.slots'|trans }}</a></li>#}
+{#            <li><a href="{{ path('search') }}" class="btn btn-outline"><i class="bi bi-search"></i></a></li>#}
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <div class="dropdown">
+                {% if app.user %}
+
+                    {#                {% if 'message1' in app.request.cookies|keys or  'message2' in app.request.cookies|keys %}#}
+                    {% if global_messages is defined %}
+                        <a href="{{ path('inbox_list') }}" class="btn btn-outline-danger"><i class="bi bi-bell"></i> </a>
+                    {% endif %}
+
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.userIdentifier }}
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">{{ 'action.admin'|trans }}</a>
+                            <a class="dropdown-item" href="{{ path('manager_dashboard') }}" target="_blank">manager</a>
+                        {% endif %}
+                        <hr class="dropdown-divider">
+                        <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
+                    </div>
+
+                {% else %}
+
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuLocales" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                        {{ app.request.locale|locale_name(app.request.locale)|u.title }}
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLocales">
+                        <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'uk'}) }}"> Ukrainian</a></li>
+                        <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'en'}) }}"> English</a></li>
+                        <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'ru'}) }}"> Russian</a></li>
+                        <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'bg'}) }}"> Bulgarian</a></li>
+                    </ul>
+                    <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+
+                    {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
+
+                {% endif %}
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message|trans }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'action.close'|trans }}"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<main class="container">
+    {% block body %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <span class="text-muted">{{ 'article.personal_data'|trans }}</span>
+                    </li>
+                    <li>
+                        <span class="text-muted">{{ 'article.service'|trans }}</span>
+                    </li>
+                    <li>
+                        <span class="text-muted">{{ 'article.about'|trans }}</span>
+                    </li>
+                    <li>
+                        <a href="{{ path('donation')}}">{{ 'article.donate'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

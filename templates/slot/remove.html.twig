@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <p>Do you really want remove slot #{{ slot.id }}?</p>
-            <form action="{{ url('slots_remove', { id: slot.id }) }}" method="post" data-confirmation="true" id="delete-form">
+            <form action="{{ url('manager_slots_remove', { id: slot.id }) }}" method="post" data-confirmation="true" id="delete-form">
                 <input type="hidden" name="token" value="{{ csrf_token('remove') }}" />
                 <button type="submit" class="btn btn-outline-danger">
                     <i class="fa fa-trash" aria-hidden="true"></i>

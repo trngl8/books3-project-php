@@ -19,6 +19,11 @@ logout:
   methods: GET
   controller: App\Controller\SecurityController::logout
 
+manager_dashboard:
+  path: /manager
+  methods: GET
+  controller: App\Controller\DefaultController::manage
+
 register:
   path: /{_locale}/subscribe
   requirements:
