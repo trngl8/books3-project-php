@@ -1,0 +1,55 @@
+{% extends '_manage/default/index.html.twig' %}
+
+{% block title %}{{ 'title.cards'|trans }}{% endblock %}
+
+{% block section_title %}{{ 'title.cards'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% if cards|length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Year</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in cards %}
+                <tr>
+                    <th scope="row"><a href="{{ path('manager_card_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                    <td>
+                        <a href="{{ path('manager_card_show', { id: item.id }) }}">{{ item.title }}</a>
+                    </td>
+                    <td>
+                        {{ item.title }}
+                    </td>
+                    <td>
+                        {{ item.author }}
+                    </td>
+                    <td>
+                        {{ item.year }}
+                    </td>
+                    <td>
+                        {{ item.isbn }}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+                            <a href="{{ path('manager_cards_edit', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ path('manager_card_show', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-eye"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{{ 'text.no_items_found'|trans }}</p>
+    {% endif %}
+
+{% endblock %}
