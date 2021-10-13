@@ -28,7 +28,9 @@ class DefaultController extends AbstractController
 
     public function manage(): Response
     {
-        return $this->render('_manage/dashboard.html.twig', [
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
+        return $this->render('_manage/default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
     }

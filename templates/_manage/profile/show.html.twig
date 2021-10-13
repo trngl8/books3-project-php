@@ -1,0 +1,25 @@
+{% extends '_manage/default/index.html.twig' %}
+
+{% block title %}{{ 'title.profile'|trans }} {% endblock %}
+
+{% block section_title %}{{ 'title.profile'|trans }}{% endblock %}
+
+{% block body %}
+
+    <p>{{ profile.emoji|trans({}, 'emoji')|raw }}</p>
+    <p>Name: {{ profile.name }}</p>
+    <p>Email: {{ profile.email }}</p>
+    <p>Status: {{ profile.status }}</p>
+    <p>Locale: {{ profile.locale }}</p>
+    <p>Timezone: {{ profile.timezone }}</p>
+    <p>Active: {{ profile.active }}</p>
+
+    {% if is_granted('ROLE_MANAGER') %}
+        <a href="{{ path('manager_profiles_edit', { id: profile.id }) }}" class="btn btn-outline-primary">{{ 'action.edit'|trans }}</a>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="#remove" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+    {% endif %}
+
+{% endblock %}

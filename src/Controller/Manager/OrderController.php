@@ -35,7 +35,7 @@ class OrderController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        return $this->render('order/show.html.twig', [
+        return $this->render('_manage/order/show.html.twig', [
             'order' => $order,
         ]);
     }
@@ -58,7 +58,7 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('manager_orders_list');
         }
 
-        return $this->render('order/remove.html.twig', [
+        return $this->render('_manage/order/remove.html.twig', [
             'order' => $order,
         ]);
     }

@@ -1,0 +1,19 @@
+{% extends '_manage/default/index.html.twig' %}
+
+{% block title %}{{ 'title.slot'|trans }} {{ slot.title }}{% endblock %}
+
+{% block section_title %}{{ 'title.slot'|trans }} {{ slot.title }}{% endblock %}
+
+{% block body %}
+
+    <h2>{{ slot.title }}</h2>
+    <p>Start At: {{ slot.startAt|date }}</p>
+    <p>Duration: {{ slot.duration }}</p>
+    <p>Type: {{ slot.type }}</p>
+    <p>URL: {{ slot.url }}</p>
+
+    <a href="{{ path('slots_order', { id: slot.id }) }}" class="btn btn-outline-primary">{{ 'action.order'|trans }}</a>
+
+    <a href="{{ path('manager_slots_remove', { id: slot.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+
+{% endblock %}

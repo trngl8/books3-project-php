@@ -1,0 +1,63 @@
+{% extends '_manage/default/index.html.twig' %}
+
+{% block title %}{{ 'title.profiles'|trans }}{% endblock %}
+
+{% block section_title %}{{ 'title.profiles'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% if profiles|length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+                <th scope="col">Locale</th>
+                <th scope="col">Timezone</th>
+                <th scope="col">Active</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in profiles %}
+                <tr>
+                    <th scope="row"><a href="{{ path('manager_profiles_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                    <td>
+                        {{ item.emoji|trans({}, 'emoji')|raw }}
+                    </td>
+                    <td>
+                        <a href="{{ path('manager_profiles_show', { id: item.id }) }}">{{ item.name }}</a>
+                    </td>
+                    <td>
+                        {{ item.email }}
+                    </td>
+                    <td>
+                        {{ item.status }}
+                    </td>
+                    <td>
+                        {{ item.locale }}
+                    </td>
+                    <td>
+                        {{ item.timezone }}
+                    </td>
+                    <td>
+                        {{ item.active }}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+                            <a href="{{ path('manager_profiles_edit', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ path('manager_profiles_show', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-eye"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{{ 'text.no_items_found'|trans }}</p>
+    {% endif %}
+
+{% endblock %}

@@ -60,16 +60,6 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/slots/{id}/show", name="slots_show")
-     */
-    public function slots(Slot $slot): Response
-    {
-        return $this->render('slot/show.html.twig', [
-            'slot' => $slot
-        ]);
-    }
-
-    /**
      * @Route("/profile/edit", name="profile_edit")
      */
     public function edit(Request $request, RequestStack $requestStack, ProfileRepository $repo): Response

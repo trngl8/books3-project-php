@@ -46,7 +46,7 @@ class SlotController extends AbstractController
             return $this->redirectToRoute('manager_slots_list');
         }
 
-        return $this->render('slot/remove.html.twig', [
+        return $this->render('_manage/slot/remove.html.twig', [
             'slot' => $slot,
         ]);
     }
