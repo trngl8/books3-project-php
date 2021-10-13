@@ -23,7 +23,7 @@ class OrderController extends AbstractController
 
         $orders = $repo->findBy([], ['createdAt' => 'DESC']);
 
-        return $this->render('order/list.html.twig', [
+        return $this->render('_manage/order/list.html.twig', [
             'orders' => $orders,
         ]);
     }

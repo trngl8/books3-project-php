@@ -23,7 +23,7 @@ class SlotController extends AbstractController
 
         $slots = $repo->findBy([], ['createdAt' => 'DESC']);
 
-        return $this->render('slot/list.html.twig', [
+        return $this->render('_manage/slot/list.html.twig', [
             'slots' => $slots,
         ]);
     }

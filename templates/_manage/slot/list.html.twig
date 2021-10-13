@@ -1,0 +1,53 @@
+{% extends '_manage/dashboard.html.twig' %}
+
+{% block title %}{{ 'title.slots'|trans }}{% endblock %}
+
+{% block section_title %}{{ 'title.slots'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% if slots|length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                {#                        <th scope="col">Created</th>#}
+                <th scope="col">Title</th>
+                <th scope="col">Start At</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Status</th>
+                <th scope="col">Type</th>
+                <th scope="col">Organizer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in slots %}
+                <tr>
+                    <th scope="row"><a href="{{ path('slots_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                    <td>
+                        {{ item.title }}
+                    </td>
+                    <td>
+                        {{ item.startAt|date }}
+                    </td>
+                    <td>
+                        {{ item.duration }}
+                    </td>
+                    <td>
+                        {{ item.status }}
+                    </td>
+                    <td>
+                        {{ item.type }}
+                    </td>
+                    <td>
+                        {{ item.owner }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{{ 'text.no_items_found'|trans }}</p>
+    {% endif %}
+
+{% endblock %}
