@@ -54,10 +54,15 @@
                 {% endif %}
             </td>
             <td>
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                    <a title="Edit" href="{{ path('manager_profiles_edit', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-pencil-square"></i>
-                    <a title="Open" href="{{ path('manager_profiles_show', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-arrow-right-square"></i>
-                </div>
+                <a title="Edit" href="{{ path('manager_profiles_edit', { id: item.id }) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-pencil-square"></i></a>
+                <a title="Open" href="{{ path('manager_profiles_show', { id: item.id }) }}" class="btn  btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-right-square"></i>
+                </a>
+
+{#                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">#}
+{#                    #}
+{#                    </div>#}
             </td>
         </tr>
     {% endfor %}
