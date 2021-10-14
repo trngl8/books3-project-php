@@ -5,14 +5,15 @@
 {% block section_title %}{{ 'title.profile_edit'|trans }}{% endblock %}
 
 {% block body %}
-
+    {% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
     {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
         {{ form_row(form.name, { label: 'label.name' }) }}
         {{ form_row(form.email, { label: 'label.email' }) }}
         {{ form_row(form.locale, { label: 'label.locale' }) }}
         {{ form_row(form.timezone, { label: 'label.timezone' }) }}
-        {{ form_row(form.emoji, { label: 'label.emoji', help: 'help.book_color'}) }}
-        {{ form_row(form.status, { label: 'label.status', help: 'help.status'}) }}
+        {{ form_row(form.emoji, { label: 'label.emoji'}) }}
+        {{ form_row(form.status, { label: 'label.status'}) }}
+        {{ form_row(form.active, { label: 'label.active'}) }}
         <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
     {{ form_end(form) }}
 
