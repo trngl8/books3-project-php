@@ -3,6 +3,7 @@
 namespace App\Controller\Manager;
 
 use App\Entity\Card;
+use App\Entity\Slot;
 use App\Form\CardType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/manager/card/list", name="manager_cards_list")
+     * @Route("/manager/cards", name="manager_cards_list")
      */
     public function list(Request $request): Response
     {
@@ -34,7 +35,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/manager/card/{id}/edit", name="manager_cards_edit")
+     * @Route("/manager/cards/{id}/edit", name="manager_cards_edit")
      */
     public function edit(Card $card, Request $request): Response
     {
@@ -63,11 +64,34 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/manager/card/{id}/show", name="manager_card_show")
+     * @Route("/manager/cards/{id}/show", name="manager_cards_show")
      */
     public function index(Card $card): Response
     {
         return $this->render('_manage/card/show.html.twig', [
+            'card' => $card,
+        ]);
+    }
+
+    /**
+     * @Route("/manager/cards/{id}/remove", name="manager_cards_remove")
+     */
+    public function remove(Card $card, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $submittedToken = $request->request->get('token');
+
+        if ($this->isCsrfTokenValid('remove', $submittedToken)) {
+            $this->getDoctrine()->getManager()->remove($card);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Card removed');
+
+            return $this->redirectToRoute('manager_cards_list');
+        }
+
+        return $this->render('_manage/card/remove.html.twig', [
             'card' => $card,
         ]);
     }

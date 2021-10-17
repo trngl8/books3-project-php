@@ -12,13 +12,12 @@
     {% if profiles|length > 0 %}
         <th scope="col">#</th>
         <th scope="col"></th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Status</th>
-        <th scope="col">Locale</th>
-        <th scope="col">Timezone</th>
-        <th scope="col">Active</th>
-        <th scope="col"></th>
+        <th scope="col">{{ 'table.caption.name'|trans }}</th>
+        <th scope="col">{{ 'table.caption.email'|trans }}</th>
+        <th scope="col">{{ 'table.caption.status'|trans }}Status</th>
+        <th scope="col">{{ 'table.caption.locale'|trans }}</th>
+        <th scope="col">{{ 'table.caption.timezone'|trans }}</th>
+        <th scope="col">{{ 'table.caption.active'|trans }}</th>
     {% else %}
         <p>{{ 'text.no_items_found'|trans }}</p>
     {% endif %}
@@ -52,17 +51,6 @@
                 {% else %}
                     <i class="bi bi-square"></i>
                 {% endif %}
-            </td>
-            <td>
-                <a title="Edit" href="{{ path('manager_profiles_edit', { id: item.id }) }}" class="btn btn-sm btn-outline-secondary">
-                    <i class="bi bi-pencil-square"></i></a>
-                <a title="Open" href="{{ path('manager_profiles_show', { id: item.id }) }}" class="btn  btn-sm btn-outline-secondary">
-                    <i class="bi bi-arrow-right-square"></i>
-                </a>
-
-{#                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">#}
-{#                    #}
-{#                    </div>#}
             </td>
         </tr>
     {% endfor %}

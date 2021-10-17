@@ -11,12 +11,10 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">ISBN</th>
-                <th scope="col">Year</th>
-                <th scope="col"></th>
+                <th scope="col">{{ 'table.caption.title'|trans }}</th>
+                <th scope="col">{{ 'table.caption.author'|autnor }}</th>
+                <th scope="col">{{ 'table.caption.isbn'|trans }}</th>
+                <th scope="col">{{ 'table.caption.year'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -27,9 +25,6 @@
                         <a href="{{ path('manager_card_show', { id: item.id }) }}">{{ item.title }}</a>
                     </td>
                     <td>
-                        {{ item.title }}
-                    </td>
-                    <td>
                         {{ item.author }}
                     </td>
                     <td>
@@ -37,12 +32,6 @@
                     </td>
                     <td>
                         {{ item.isbn }}
-                    </td>
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                            <a href="{{ path('manager_cards_edit', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-pencil"></i></a>
-                            <a href="{{ path('manager_card_show', { id: item.id }) }}" class="btn btn-outline"><i class="bi bi-eye"></i></a>
-                        </div>
                     </td>
                 </tr>
             {% endfor %}
