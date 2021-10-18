@@ -68,6 +68,11 @@ class Slot
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $publicActive;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
@@ -185,6 +190,18 @@ class Slot
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getPublicActive(): ?bool
+    {
+        return $this->publicActive;
+    }
+
+    public function setPublicActive(?bool $publicActive): self
+    {
+        $this->publicActive = $publicActive;
 
         return $this;
     }

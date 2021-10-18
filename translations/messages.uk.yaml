@@ -47,6 +47,7 @@ title:
   profile_edit: Редагування профілю
   add_event: Додати подію
   search: Пошук
+  profiles: Профілі
   options:
     delivery: Опції доставки
 
@@ -69,6 +70,7 @@ label:
   start: Початок
   duration: Час, хв.
   url: Лінк
+  public_active: Публічно
 
 help:
   status: Опишіть коротко словами поточний стан, дію або персонажа
@@ -118,3 +120,30 @@ email:
 
 caption:
   language: Мова
+
+manage:
+  dashboard: Панель управління
+  cards: Картки
+  orders: Замовлення
+  events: Події
+  profiles: Профілі
+  saved_reports: Збережені звіти
+  current_month: Поточний місяць
+  share: Поширити
+  export: Експорт
+  this_week: Цього місяця
+
+table:
+  caption:
+    name: Ім'я
+    title: Заголовок
+    author: Автор
+    isbn: ISBN
+    year: Рік
+    created: Створено
+    email: Email
+    status: Статус
+    locale: Мова
+    timezone: Часовий пояс
+    active: Активний
+    public_active: Активний

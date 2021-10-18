@@ -3,6 +3,7 @@
 namespace App\Controller\Manager;
 
 use App\Entity\Slot;
+use App\Form\SlotType;
 use App\Repository\SlotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +49,35 @@ class SlotController extends AbstractController
 
         return $this->render('_manage/slot/remove.html.twig', [
             'slot' => $slot,
+        ]);
+    }
+
+    /**
+     * @Route("/events/{id}/edit", name="slots_edit")
+     */
+    public function edit(Slot $slot, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
+        $form = $this->createForm(SlotType::class, $slot);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'message.slot.updated'
+            );
+
+            return $this->redirectToRoute('manager_slots_list');
+        }
+
+        return $this->render('_manage/slot/edit.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

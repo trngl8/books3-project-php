@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/{_locale}/orders/{id}/checkout", name="order_checkout")
+     * @Route("/{_locale}/orders/{id}/checkout", name="order_checkout", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function checkout(Order $order): Response
     {

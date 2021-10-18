@@ -23,8 +23,7 @@ class SlotController extends AbstractController
      */
     public function list(SlotRepository $repo): Response
     {
-        //TODO: check public
-        $slots = $repo->findBy([], ['createdAt' => 'DESC']);
+        $slots = $repo->findBy(['publicActive' => true], ['createdAt' => 'DESC']);
 
         return $this->render('slot/list.html.twig', [
             'slots' => $slots,
@@ -36,7 +35,10 @@ class SlotController extends AbstractController
      */
     public function show(Slot $slot): Response
     {
-        //TODO: check public
+        if($slot->getPublicActive() || !$this->isGranted('ROLE_MANAGER')) {
+            throw new \RuntimeException(sprintf("Slot is inactive"));
+        }
+
         return $this->render('slot/show.html.twig', [
             'slot' => $slot,
         ]);

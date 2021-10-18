@@ -47,6 +47,7 @@ title:
   profile_edit: Profile edit
   add_event: Add event
   search: Search
+  profiles: Profiles
   options:
     delivery: Delivery options
 
@@ -69,6 +70,7 @@ label:
   start: Start
   duration: Duration
   url: Url
+  public_active: Public
 
 help:
   status: Describe yourself
@@ -118,3 +120,30 @@ email:
 
 caption:
   language: Language
+
+manage:
+  dashboard: Dashboard
+  cards: Cards
+  orders: Orders
+  events: Events
+  profiles: Profiles
+  saved_reports: Saved reports
+  current_month: Current month
+  share: Share
+  export: Export
+  this_week: This week
+
+table:
+  caption:
+    name: Name
+    title: Title
+    author: Author
+    isbn: ISBN
+    year: Year
+    created: Created
+    email: Email
+    status: Status
+    locale: Language
+    timezone: Time zone
+    active: Active
+    public_active: Публічний

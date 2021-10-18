@@ -37,7 +37,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/cards", name="cards")
+     * @Route("/{_locale}/cards", name="cards", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function cards(Request $request): Response
     {
@@ -48,7 +48,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/cards/{id}", name="card_show")
+     * @Route("/{_locale}/cards/{id}", name="card_show", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function index(Card $card): Response
     {
@@ -58,7 +58,7 @@ class CardController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/cards/{id}/order", name="card_order")
+     * @Route("/{_locale}/cards/{id}/order", name="card_order", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function order(Card $card, ProfileRepository $repo, Request $request, MailerInterface $mailer, NotifierInterface $notifier, string $adminEmail): Response
     {

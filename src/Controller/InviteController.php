@@ -49,7 +49,7 @@ class InviteController extends AbstractController
             $data = $form->getData();
 
             $user = (new User())
-                ->setEmail($data['email'])
+                ->setUsername($data['email'])
                 ->setRoles(['ROLE_ADMIN'])
             ;
 

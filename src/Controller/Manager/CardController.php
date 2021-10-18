@@ -3,7 +3,6 @@
 namespace App\Controller\Manager;
 
 use App\Entity\Card;
-use App\Entity\Slot;
 use App\Form\CardType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

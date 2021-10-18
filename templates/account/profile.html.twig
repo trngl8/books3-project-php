@@ -41,6 +41,7 @@
             {{ form_row(form.startAt, { label: 'label.start'}) }}
             {{ form_row(form.duration, {label : 'label.duration'}) }}
             {{ form_row(form.url, { label: 'label.url'}) }}
+            {{ form_row(form.publicActive, { label: 'label.public_active'}) }}
             <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'action.save'|trans }}</button>
         {{ form_end(form) }}
     {% endif %}

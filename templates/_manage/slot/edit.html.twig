@@ -1,0 +1,14 @@
+{% extends '_manage/default/index.html.twig' %}
+
+{% block title %}{{ 'title.slot_edit'|trans }}{% endblock %}
+
+{% block section_title %}{{ 'title.slot_edit'|trans }}{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

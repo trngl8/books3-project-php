@@ -18,6 +18,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Type</th>
                 <th scope="col">Organizer</th>
+                <th scope="col">{{ 'table.caption.public_active'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,9 @@
                     </td>
                     <td>
                         {{ item.owner }}
+                    </td>
+                    <td>
+                        {{ item.publicActive }}
                     </td>
                 </tr>
             {% endfor %}

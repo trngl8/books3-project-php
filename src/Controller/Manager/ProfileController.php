@@ -4,7 +4,6 @@ namespace App\Controller\Manager;
 
 use App\Entity\Profile;
 use App\Form\ProfileManagerType;
-use App\Form\ProfileType;
 use App\Repository\ProfileRepository;
 use App\Repository\SlotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

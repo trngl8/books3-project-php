@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/search", name="search")
+     * @Route("/{_locale}/search", name="search", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function search(Request $request) : Response
     {
@@ -50,7 +50,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/about", name="about")
+     * @Route("/{_locale}/about", name="about", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function about(): Response
     {
@@ -60,7 +60,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/donation", name="donation")
+     * @Route("/{_locale}/donation", name="donation", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function donation(): Response
     {
@@ -70,7 +70,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/contact", name="contact")
+     * @Route("/{_locale}/contact", name="contact", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function contact(): Response
     {
@@ -79,7 +79,7 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{_locale}/docs", name="docs")
+     * @Route("/{_locale}/docs", name="docs", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function docs(): Response
     {
