@@ -146,4 +146,5 @@ table:
     locale: Language
     timezone: Time zone
     active: Active
-    public_active: Публічний
+    public_active: Public
+    updated_at: Updated at

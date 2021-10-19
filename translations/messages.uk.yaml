@@ -147,3 +147,4 @@ table:
     timezone: Часовий пояс
     active: Активний
     public_active: Активний
+    updated_at: Оновлено
