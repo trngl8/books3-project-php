@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <!--
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            -->
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{{ path('index') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.home'|trans }}</a></li>
+                <li><a href="{{ path('cards') }}" class="nav-link px-2 {% if app.request.pathInfo == '/cards' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.cards'|trans }}</a></li>
+                <li><a href="{{ path('donation') }}" class="nav-link px-2 {% if app.request.pathInfo == '/donation' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.donate'|trans }}</a></li>
+                <li><a href="{{ path('about') }}" class="nav-link px-2 {% if app.request.pathInfo == '/about' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.about'|trans }}</a></li>
+                <li><a href="{{ path('docs') }}" class="nav-link px-2 {% if app.request.pathInfo == '/docs' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.docs'|trans }}</a></li>
+                <li><a href="{{ path('orders_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/orders' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.orders'|trans }}</a></li>
+                <li><a href="{{ path('slots_list') }}" class="nav-link px-2 {% if app.request.pathInfo == '/events' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.slots'|trans }}</a></li>
+                <li><a href="{{ path('search') }}" class="btn btn-outline"><i class="bi bi-search"></i></a></li>
+            </ul>
+
+            <div class="col-md-3 text-end">
+                <div class="dropdown">
+                    {% if app.user %}
+
+                        {#                {% if 'message1' in app.request.cookies|keys or  'message2' in app.request.cookies|keys %}#}
+                        {% if global_messages is defined %}
+                            <a href="{{ path('inbox_list') }}" class="btn btn-outline-danger"><i class="bi bi-bell"></i> </a>
+                        {% endif %}
+
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.userIdentifier }}
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ path('profile') }}">{{ 'action.profile'|trans }}</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">{{ 'action.admin'|trans }}</a>
+                                <a class="dropdown-item" href="{{ path('manager_dashboard') }}" target="_blank">manager</a>
+                            {% endif %}
+                            <hr class="dropdown-divider">
+                            <a href="{{ path('logout') }}" class="dropdown-item">{{ 'action.logout'|trans }}</a>
+                        </div>
+
+                    {% else %}
+
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuLocales" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            {{ app.request.locale|locale_name(app.request.locale)|u.title }}
+                        </button>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLocales">
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'uk'}) }}"> Ukrainian</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'en'}) }}"> English</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'ru'}) }}"> Russian</a></li>
+                            <li><a class="dropdown-item" href="{{ path('index_locale', {_locale: 'bg'}) }}"> Bulgarian</a></li>
+                        </ul>
+                        <a href="{{ path('login') }}" class="btn btn-outline-primary me-2">{{ 'action.login'|trans }}</a>
+
+                        {#                <button type="button" class="btn btn-primary">{{ 'action.sign-up'|trans }}</button>#}
+
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message|trans }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'action.close'|trans }}"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <main class="container">
+
+    </main>
+
+    <h1 class="mb-4">{{ 'title.index'|trans }}</h1>
+
+    {% block search %}
+    {% endblock %}
+
+    {% block breadcrumbs %}
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">{{ 'title.index'|trans }}</li>
+            <li class="breadcrumb-item active"><a href="{{ path('cards') }}">{{ 'title.cards'|trans }}</a></li>
+            {#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
+        </ol>
+        </nav>
+    {% endblock %}
+
+    <div class="mt-3">
+        <p class="small">Total <b>{{ cards|length }}</b> books</p>
+    </div>
+
+    {% block content %}
+        <div class="row mb-4">
+
+            <div class="col-md-4">
+                {% if cards|length > 0 %}
+                <div class="list-group mb-5">
+                    {% for item in cards %}
+                        {% if loop.index is divisible by(2)  %}
+                        <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ item.title }}</h5>
+                                <small>{{ item.year }}</small>
+                            </div>
+                            <p class="mb-1">{{ item.description }}</p>
+                            <small>{{ item.author }}</small>
+                            {# TODO: add count of resctipts functionality #}
+{#                            {% if item.rescripts.first and item.rescripts.first.loans|length > 0%}#}
+{#                                <span class="badge bg-secondary">{{ 'text.not_available'|trans }}</span>#}
+{#                            {% endif %}#}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% else %}
+                    <p>{{ 'text.no_items_found'|trans }}</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                {% if cards|length > 0 %}
+                    <div class="list-group mb-5">
+                        {% for item in cards %}
+                            {% if not loop.index is divisible by(2)  %}
+                                <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ item.title }}</h5>
+                                        <small>{{ item.year }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ item.description }}</p>
+                                    <small>{{ item.author }}</small>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                {% if is_granted('ROLE_MANAGER') %}
+                <ul>
+                    {% for profile in profiles %}
+                        <li>{{ profile.emoji|trans({}, 'emoji')|raw }} <a title="{{ profile.status }}" href="{{ path('profile_show', { id: profile.id }) }}"> {{ profile.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            {% if pages|length > 1 %}
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        {% for page in pages %}
+                            <a href="{{ path('index_locale', {'page' : page }) }}"
+                               class="btn btn-outline-secondary
+                                {% if page == app.request.get('page') %}
+                                    disabled
+                                {% endif %}">
+                                {{ page }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>
+                            <span class="text-muted">{{ 'article.personal_data'|trans }}</span>
+                        </li>
+                        <li>
+                            <span class="text-muted">{{ 'article.service'|trans }}</span>
+                        </li>
+                        <li>
+                            <span class="text-muted">{{ 'article.about'|trans }}</span>
+                        </li>
+                        <li>
+                            <a href="{{ path('donation')}}">{{ 'article.donate'|trans }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

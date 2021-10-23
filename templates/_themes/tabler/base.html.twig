@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <link type="image/x-icon" rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <title>{{ app.environment }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block content_description %}{% endblock %}">
+    {% block meta %}
+    {% endblock %}
+
+    {% block icons %}
+    {% endblock %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block add_stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+    {% block add_javascripts %}
+
+    {% endblock %}
+</head>
+<body>
+
+{% block body %}
+    You ar running this application on {{ app.environment }} environment
+{% endblock %}
+
+</body>
+</html>
