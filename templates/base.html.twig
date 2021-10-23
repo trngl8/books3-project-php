@@ -116,11 +116,12 @@
 
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <!--
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+
+            <a href="/">
+                <img width="32" height="32" src="{{ asset('build/images/logo.svg') }}" alt="Logo">
+                Booking
             </a>
-            -->
+
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{ path('index') }}" class="nav-link px-2 {% if app.request.pathInfo == '/' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.home'|trans }}</a></li>
                 <li><a href="{{ path('cards') }}" class="nav-link px-2 {% if app.request.pathInfo == '/cards' %}link-secondary{% else %}link-dark{% endif %}">{{ 'menu.cards'|trans }}</a></li>
