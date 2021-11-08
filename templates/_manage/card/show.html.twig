@@ -14,7 +14,12 @@
     <p>{{ card.publisher }}</p>
     <p>{{ card.publishing }}</p>
     <p>{{ card.isbn }}</p>
+
     <p>{{ card.description }}</p>
+
+    {% if card.coverFilename %}
+        <p><img src="{{ card.coverFilename }}" alt="{{ card.title }}" width="200"></p>
+    {% endif %}
 
     {% if is_granted('ROLE_MANAGER') %}
         <a href="{{ path('manager_cards_edit', { id: card.id }) }}" class="btn btn-outline-primary">{{ 'action.edit'|trans }}</a>

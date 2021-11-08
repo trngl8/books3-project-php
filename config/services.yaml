@@ -6,6 +6,7 @@
 parameters:
     default_admin_email: admin@example.com
     default_locale: uk
+    upload_dsn:  "%env(CLOUDINARY_URL)%"
 
 services:
     # default configuration for services in *this* file
@@ -17,6 +18,7 @@ services:
             $adminEmail: "%env(string:default:default_admin_email:ADMIN_EMAIL)%"
             $defaultTimezone: "%env(DEFAULT_TIMEZONE)%"
             $defaultLocale: "%env(string:default:default_locale:LOCALE)%"
+            $uploadDsn: "%env(CLOUDINARY_URL)%"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

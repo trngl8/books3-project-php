@@ -4,19 +4,27 @@ namespace App\Controller\Manager;
 
 use App\Entity\Card;
 use App\Form\CardType;
+use App\Service\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CardController extends AbstractController
 {
     private $repository;
 
-    public function __construct(EntityManagerInterface $em)
+    private $uploader;
+
+    public function __construct(EntityManagerInterface $em, Uploader $uploader)
     {
+        //TODO: make $em dependency
+
         $this->repository = $em->getRepository(Card::class);
+        $this->uploader = $uploader;
     }
 
     /**
@@ -46,12 +54,28 @@ class CardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $cardCover = $form->get('image')->getData();
+
+            if ($cardCover instanceof UploadedFile) {
+                $originalFilename = pathinfo($cardCover->getClientOriginalName(), PATHINFO_FILENAME);
+                //$newFilename = $originalFilename . '-' . uniqid() . '.' . $cardCover->guessExtension();
+
+                try {
+                    $url = $this->uploader->upload($cardCover->getRealPath());
+
+                } catch (FileException $e) {
+                    throw new \RuntimeException($e->getMessage());
+                }
+
+                $card->setCoverFilename($url);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             $this->addFlash(
                 'success',
-                'message.profile.updated'
+                'message.card.updated'
             );
 
             return $this->redirectToRoute('manager_cards_list');

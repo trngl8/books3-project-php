@@ -14,10 +14,10 @@
 
     <div class="card mb-4">
         <div class="row g-0">
-            {% if card.cover %}
+            {% if card.coverFilename %}
                 <div class="col-md-4" id="#{{ index }}" style="padding: 50px;">
                     <a href="{{ path('card_show', {'id': card.id}) }}">
-                        <img class="img-fluid rounded-start" src="{{ asset('uploads/images/cover/' ~ card.cover) }}" alt="">
+                        <img class="img-fluid rounded-start" src="{{ card.coverFilename }}" alt="{{ card.title }}">
                     </a>
                 </div>
             {% else %}

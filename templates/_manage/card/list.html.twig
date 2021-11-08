@@ -21,7 +21,14 @@
             <tbody>
             {% for item in cards %}
                 <tr>
-                    <th scope="row"><a href="{{ path('manager_cards_show', { id: item.id }) }}">{{ item.id }}</a></th>
+                    <td>
+                        {% if item.coverFilename %}
+                            <a href="{{ path('manager_cards_show', { id: item.id }) }}"><img src="{{ item.coverFilename }}" alt="{{ item.title }}" width="100"></a>
+                        {% endif %}
+                    </td>
+{#                    <td>#}
+{#                        <a href="{{ path('manager_cards_show', { id: item.id }) }}">{{ item.id }}</a>#}
+{#                    </td>#}
                     <td>
                         <a href="{{ path('manager_cards_show', { id: item.id }) }}">{{ item.title }}</a>
                     </td>
@@ -35,7 +42,7 @@
                         {{ item.isbn }}
                     </td>
                     <td>
-                        {{ item.updatedAt }}
+                        {{ item.updatedAt|date }}
                     </td>
                 </tr>
             {% endfor %}

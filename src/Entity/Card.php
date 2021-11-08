@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CardRepository::class)
  * @ApiResource()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Card
 {
@@ -84,11 +85,6 @@ class Card
     private ?string $copyrights;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $cover;
-
-    /**
      * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="card")
      */
     private $orderItems;
@@ -113,6 +109,16 @@ class Card
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cover;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coverFilename;
+
     public function __construct(?string $uuidValue = null)
     {
         if(!$this->id) {
@@ -123,6 +129,14 @@ class Card
 
         $this->rescripts = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function updateTimestamps()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
     public function __toString()
@@ -371,6 +385,18 @@ class Card
     public function setUpdatedBy(?string $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getCoverFilename(): ?string
+    {
+        return $this->coverFilename;
+    }
+
+    public function setCoverFilename(?string $coverFilename): self
+    {
+        $this->coverFilename = $coverFilename;
 
         return $this;
     }

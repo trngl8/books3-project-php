@@ -16,6 +16,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "cloudinary/cloudinary_php": {
+        "version": "2.4.1"
+    },
     "clue/stream-filter": {
         "version": "v1.5.0"
     },
@@ -153,6 +156,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "1.x-dev"
     },
+    "guzzlehttp/guzzle": {
+        "version": "7.4.0"
+    },
     "guzzlehttp/promises": {
         "version": "1.4.1"
     },
@@ -269,6 +275,9 @@
             "version": "3.0",
             "ref": "9746f0823302d7980e5273ef7a69ef3f5ac80914"
         }
+    },
+    "shrikeh/teapot": {
+        "version": "v2.3.1"
     },
     "symfony/asset": {
         "version": "5.x-dev"
@@ -672,6 +681,9 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.5.0"
+    },
+    "teapot/status-code": {
+        "version": "v1.1.2"
     },
     "twig/extra-bundle": {
         "version": "3.x-dev"
