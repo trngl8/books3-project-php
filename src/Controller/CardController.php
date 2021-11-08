@@ -47,10 +47,17 @@ class CardController extends AbstractController
 
     }
 
+    public function index(Request $request): Response
+    {
+        //TODO: check referrer to route locales
+
+        return $this->render('default/index.html.twig', $this->getCardsPaginator($request));
+    }
+
     /**
      * @Route("/{_locale}/cards/{id}", name="card_show", requirements={"_locale": "uk|en|ru|bg"})
      */
-    public function index(Card $card): Response
+    public function show(Card $card): Response
     {
         return $this->render('card/show.html.twig', [
             'card' => $card,

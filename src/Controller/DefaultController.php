@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Card;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,18 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    private $repository;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->repository = $em->getRepository(Card::class);
-    }
-
     public function index(Request $request): Response
     {
-        //TODO: check referrer to route locales
-
-        return $this->render('default/index.html.twig', $this->getCardsPaginator($request));
+        return $this->forward('App\Controller\CardController::index');
     }
 
     public function manage(): Response
@@ -86,29 +74,5 @@ class DefaultController extends AbstractController
         return $this->render('default/docs.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
-    }
-
-    //TODO: must be in trait or in abstract class
-    private function getCardsPaginator(Request $request) : array
-    {
-        $page = $request->get('page', 1);
-        $max = $request->get('max', 40);
-        $first = ($page - 1) * $max;
-
-        $query = $this->repository->createQueryWithPaginator($first, $max);
-
-        $paginator = new Paginator($query, true);
-
-        $c = count($paginator);
-
-        $totalPages = (int)(($c + $max - 1) / $max);
-
-        $pages = $c < $max ? [1] : range(1, $totalPages);
-
-        return [
-            'count' => $c,
-            'pages' => $pages,
-            'cards' => $paginator,
-        ];
     }
 }
