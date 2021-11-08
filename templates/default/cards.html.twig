@@ -25,7 +25,7 @@
                     <div class="card mb-4">
                         <div class="row g-0">
                             {% if item.coverFilename %}
-                                <div class="col-md-4" id="#{{ index }}" style="padding: 50px;">
+                                <div class="col-md-4" id="#{{ index }}">
                                     <a href="{{ path('card_show', {'id': item.id}) }}">
                                         <img class="img-fluid rounded-start" src="{{ item.coverFilename }}" alt="{{ item.title }}">
                                     </a>
