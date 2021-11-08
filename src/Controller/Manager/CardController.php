@@ -82,7 +82,8 @@ class CardController extends AbstractController
         }
 
         return $this->render('_manage/card/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'card' => $card
         ]);
     }
 

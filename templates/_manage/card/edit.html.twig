@@ -6,6 +6,10 @@
 
 {% block body %}
 
+    {% if card.coverFilename %}
+        <p><img src="{{ card.coverFilename }}" alt="{{ card.title }}" width="200"></p>
+    {% endif %}
+
     {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
         {{ form_rest(form) }}
         <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
