@@ -74,32 +74,32 @@ class CardController extends AbstractController
             ->add('name', TextType::class, [
                 'label' => 'form.label.name',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotBlank(),
                 ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'form.label.email',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotBlank(),
                     new Assert\Email()
                 ]
             ])
             ->add('phone', TextType::class, [
                 'label' => 'label.phone',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'label.city',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('number', IntegerType::class, [
                 'label' => 'label.number',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('save', SubmitType::class, ['label' => 'submit.save'])
