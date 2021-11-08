@@ -8,9 +8,9 @@
 <div class="row">
     <div class="col-md-12">
         {% if not app.user %}
-            {# You can buld html with links in cotroller #}
-            You can <a href="{{ path('login', { _locale: app.request.locale}) }}">{{ 'action.can_login'|trans }}</a> or
-            <a href="{{ path('register',{ _locale: app.request.locale}) }}">{{ 'action.can_register'|trans }}</a> to save time with order process in future.
+            {# TODO: make complex translations in better way #}
+            {{ 'message.you_can'|trans }} <a href="{{ path('login', { _locale: app.request.locale}) }}">{{ 'action.can_login'|trans }}</a> {{ 'message.or'|trans }}
+            <a href="{{ path('register',{ _locale: app.request.locale}) }}">{{ 'action.can_register'|trans }}</a> {{ 'message.to_save_time'|trans }}.
         {% endif %}
     </div>
 </div>

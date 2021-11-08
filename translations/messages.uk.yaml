@@ -97,6 +97,9 @@ text:
 
 message:
   if_have_not_account_do_register: ''
+  you_can: Ви можете
+  or: або
+  to_save_time: для пришвидшення обробки замовлення #TODO: need valid english translation
 
 form:
   label:

@@ -97,6 +97,9 @@ text:
 
 message:
   if_have_not_account_do_register: ''
+  you_can: You can
+  or: or
+  to_save_time: to save time with order process in future
 
 form:
   label:
