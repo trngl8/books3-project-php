@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    public function index(Request $request): Response
+    public function index(): Response
     {
         return $this->forward('App\Controller\CardController::index');
     }
@@ -18,9 +18,7 @@ class DefaultController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        return $this->render('_manage/default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->render('_manage/default/index.html.twig');
     }
 
     /**
@@ -42,9 +40,7 @@ class DefaultController extends AbstractController
      */
     public function about(): Response
     {
-        return $this->render('default/about.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->render('default/about.html.twig');
     }
 
     /**
@@ -62,17 +58,13 @@ class DefaultController extends AbstractController
      */
     public function contact(): Response
     {
-        return $this->render('default/contact.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->render('default/contact.html.twig');
     }
     /**
      * @Route("/{_locale}/docs", name="docs", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function docs(): Response
     {
-        return $this->render('default/docs.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->render('default/docs.html.twig');
     }
 }
