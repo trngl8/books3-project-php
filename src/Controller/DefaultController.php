@@ -26,6 +26,7 @@ class DefaultController extends AbstractController
      */
     public function search(Request $request) : Response
     {
+        //TODO: implement search by params and keywords
         $isbn = $request->get('isbn');
 
         $cards = [];//$this->repository->findBy(['isbn' => $isbn]);
@@ -48,9 +49,7 @@ class DefaultController extends AbstractController
      */
     public function donation(): Response
     {
-        return $this->render('default/donation.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->render('default/donation.html.twig');
     }
 
     /**
