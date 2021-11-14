@@ -59,11 +59,22 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/contact.html.twig');
     }
+
     /**
      * @Route("/{_locale}/docs", name="docs", requirements={"_locale": "uk|en|ru|bg"})
      */
     public function docs(): Response
     {
         return $this->render('default/docs.html.twig');
+    }
+
+    /**
+     * @Route("/thankyoy", name="thankyoy")
+     */
+    public function success(): Response
+    {
+        //TODO: implement params checkers
+
+        return $this->render('default/success.html.twig');
     }
 }
