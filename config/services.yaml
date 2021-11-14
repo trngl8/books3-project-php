@@ -50,3 +50,9 @@ services:
               event: 'prePersist'
               priority: 490
               connection: 'default'
+
+when@test:
+    services:
+        test.user_password_hasher:
+            alias: 'security.user_password_hasher'
+            public: true
