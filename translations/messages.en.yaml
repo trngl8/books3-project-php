@@ -102,6 +102,7 @@ message:
   you_can: You can
   or: or
   to_save_time: to save time with order process in future
+  logged_as: You are logged as
 
 form:
   label:

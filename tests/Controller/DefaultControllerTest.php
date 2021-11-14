@@ -12,13 +12,13 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'List books');
+        $this->assertSelectorTextContains('h1', 'Індекс'); //TODO: check other translations
     }
 
     public function testAbout(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/about');
-        $this->assertResponseStatusCodeSame(200);
+        $client->request('GET', '/404');
+        $this->assertResponseStatusCodeSame(404);
     }
 }

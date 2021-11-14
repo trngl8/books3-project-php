@@ -126,7 +126,7 @@ class AddUserCommand extends Command
         // create the user and encode its password
         $user = new User();
 
-        $user->setEmail($email);
+        $user->setUsername($email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
 
         $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);
@@ -148,7 +148,7 @@ class AddUserCommand extends Command
     private function validateUserData($email, $plainPassword): void
     {
         // first check if a user with the same username already exists.
-        $existingUser = $this->users->findOneBy(['email' => $email]);
+        $existingUser = $this->users->findOneBy(['username' => $email]);
 
         if (null !== $existingUser) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" email.', $email));

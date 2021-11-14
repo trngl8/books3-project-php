@@ -11,7 +11,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 class AddUserCommandTest extends KernelTestCase
 {
     private $userData = [
-        'email' => 'test@test.com',
+        'email' => 'test1@test.com',
         'password' => 'foobar',
     ];
 
@@ -82,7 +82,7 @@ class AddUserCommandTest extends KernelTestCase
         $container = self::$container;
 
         /** @var \App\Entity\User $user */
-        $user = $container->get(UserRepository::class)->findOneByEmail($this->userData['email']);
+        $user = $container->get(UserRepository::class)->findOneBy(['username' => $this->userData['email']]);
         $this->assertNotNull($user);
 
         $this->assertTrue($container->get('security.password_encoder')->isPasswordValid($user, $this->userData['password']));

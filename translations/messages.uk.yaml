@@ -100,6 +100,7 @@ message:
   you_can: Ви можете
   or: або
   to_save_time: для пришвидшення обробки замовлення #TODO: need valid english translation
+  logged_as: Ви ввійшли як
 
 form:
   label:
