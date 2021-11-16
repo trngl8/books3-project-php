@@ -134,6 +134,7 @@ class Card
 
         $this->rescripts = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
+        $this->active = true;
     }
 
     /**
@@ -406,9 +407,9 @@ class Card
         return $this;
     }
 
-    public function isActive(): ?bool
+    public function isActive(): bool
     {
-        return $this->active;
+        return $this->active == true;
     }
 
     public function setActive(?bool $active): self
