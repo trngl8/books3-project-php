@@ -1,8 +1,8 @@
 {% extends '_manage/default/index.html.twig' %}
 
-{% block title %}{{ 'title.card'|trans }} {% endblock %}
+{% block title %}{{ card.title }}{% endblock %}
 
-{% block section_title %}{{ 'title.card'|trans }}{% endblock %}
+{% block section_title %}{{ card.description }}{% endblock %}
 
 {% block body %}
 
@@ -25,7 +25,7 @@
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="#remove" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
+        <a href="{{ path('manager_cards_remove', { id: card.id }) }}" class="btn btn-outline-danger">{{ 'action.remove'|trans }}</a>
     {% endif %}
 
 {% endblock %}
