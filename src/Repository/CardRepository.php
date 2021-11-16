@@ -21,7 +21,7 @@ class CardRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->leftJoin('c.rescripts', 'r')
             ->where('c.active = :active')
-            ->orderBy('c.updatedAt', 'DESC')
+            ->orderBy('c.createdAt', 'ASC')
             ->setParameter('active', true)
         ;
 

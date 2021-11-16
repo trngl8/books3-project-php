@@ -153,4 +153,5 @@ table:
     timezone: Time zone
     active: Active
     public_active: Public
-    updated_at: Updated at
+    updated_at: Updated At
+    created_at: Created At

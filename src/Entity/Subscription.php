@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SubscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=SubscriptionRepository::class)
@@ -42,6 +43,8 @@ class Subscription
     {
         $this->type = $type;
         $this->externalCode = $externalcode;
+
+        $this->uuid = $this->uuid ?? Uuid::v4();
     }
 
     public function getId(): ?int

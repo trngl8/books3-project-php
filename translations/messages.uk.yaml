@@ -152,3 +152,4 @@ table:
     active: Активний
     public_active: Активний
     updated_at: Оновлено
+    created_at: Створено

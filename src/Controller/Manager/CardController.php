@@ -34,7 +34,7 @@ class CardController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        $cards = $this->repository->findBy([], ['updatedAt' => 'DESC']);
+        $cards = $this->repository->findBy([], ['updatedAt' => 'ASC']);
 
         return $this->render('_manage/card/list.html.twig', [
             'cards' => $cards,

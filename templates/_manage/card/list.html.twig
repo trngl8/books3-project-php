@@ -15,6 +15,7 @@
                 <th scope="col">{{ 'table.caption.author'|trans }}</th>
                 <th scope="col">{{ 'table.caption.year'|trans }}</th>
                 <th scope="col">{{ 'table.caption.isbn'|trans }}</th>
+                <th scope="col">{{ 'table.caption.created_at'|trans }}</th>
                 <th scope="col">{{ 'table.caption.updated_at'|trans }}</th>
                 <th scope="col">{{ 'table.caption.active'|trans }}</th>
             </tr>
@@ -45,6 +46,11 @@
                     <td>
                         {% if item.updatedAt %}
                             {{ item.updatedAt|date }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if item.createdAt %}
+                            {{ item.createdAt|date }}
                         {% endif %}
                     </td>
                     <td>
