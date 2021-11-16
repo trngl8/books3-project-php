@@ -120,7 +120,7 @@ class Card
     private $coverFilename;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
     private $active;
 
@@ -134,7 +134,7 @@ class Card
 
         $this->rescripts = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
-        $this->active = true;
+        $this->active = false;
     }
 
     /**
