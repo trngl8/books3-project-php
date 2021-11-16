@@ -131,7 +131,6 @@ class Card
         }
 
         $this->createdAt = new \DateTimeImmutable();
-
         $this->rescripts = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
         $this->active = false;
@@ -142,6 +141,10 @@ class Card
      */
     public function updateTimestamps()
     {
+        if(!$this->createdAt) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
+
         $this->updatedAt = new \DateTime();
     }
 
