@@ -35,8 +35,12 @@ class SlotController extends AbstractController
      */
     public function show(Slot $slot): Response
     {
-        if($slot->getPublicActive() || !$this->isGranted('ROLE_MANAGER')) {
-            throw new \RuntimeException(sprintf("Slot is inactive"));
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if(!$slot->getPublicActive()) {
+            return $this->render('slot/show_inactive.html.twig', [
+                'slot' => $slot,
+            ]);
         }
 
         return $this->render('slot/show.html.twig', [
