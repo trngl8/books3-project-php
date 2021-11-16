@@ -6,9 +6,8 @@ use App\Entity\Card;
 use App\Entity\Inbox;
 use App\Entity\Order;
 use App\Entity\OrderItem;
+use App\Repository\CardRepository;
 use App\Repository\ProfileRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -31,9 +30,9 @@ class CardController extends AbstractController
 {
     private $repository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(CardRepository $repository)
     {
-        $this->repository = $em->getRepository(Card::class);
+        $this->repository = $repository;
     }
 
     /**
@@ -41,17 +40,30 @@ class CardController extends AbstractController
      */
     public function cards(Request $request): Response
     {
-        $result = $this->getCardsPaginator($request);
+        $page = $request->get('page', 1);
 
-        return $this->render('default/cards.html.twig', $result);
+        $latestCards = $this->repository->findLatest($page);
+
+        return $this->render('default/cards.html.twig', [
+            'cards' => $latestCards
+        ]);
 
     }
 
+    /**
+     * @Route("/page/{page<[1-9]\d*>}", methods="GET", name="index_paginated")
+     */
     public function index(Request $request): Response
     {
         //TODO: check referrer to route locales
 
-        return $this->render('default/index.html.twig', $this->getCardsPaginator($request));
+        $page = $request->get('page', 1);
+
+        $latestCards = $this->repository->findLatest($page);
+
+        return $this->render('default/index.html.twig', [
+            'cards' => $latestCards
+        ]);
     }
 
     /**
@@ -202,28 +214,4 @@ class CardController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    private function getCardsPaginator(Request $request) : array
-    {
-        $page = $request->get('page', 1);
-        $max = $request->get('max', 40);
-        $first = ($page - 1) * $max;
-
-        $query = $this->repository->createQueryWithPaginator($first, $max);
-
-        $paginator = new Paginator($query, true);
-
-        $c = count($paginator);
-
-        $totalPages = (int)(($c + $max - 1) / $max);
-
-        $pages = $c < $max ? [1] : range(1, $totalPages);
-
-        return [
-            'count' => $c,
-            'pages' => $pages,
-            'cards' => $paginator,
-        ];
-    }
-
 }

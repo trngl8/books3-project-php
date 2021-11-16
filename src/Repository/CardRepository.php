@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Card;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,23 +15,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CardRepository extends ServiceEntityRepository
 {
-    private CONST DQL = 'SELECT c 
-                        FROM App\Entity\Card c 
-                        LEFT JOIN c.rescripts r 
-                        WHERE c.active IS NULL or c.active=TRUE 
-                        ORDER BY c.updatedAt DESC';
+    public function findLatest(int $page = 1): Paginator
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->addSelect('c')
+            ->leftJoin('c.rescripts', 'r')
+            ->where('c.active = :active')
+            ->orderBy('c.updatedAt', 'DESC')
+            ->setParameter('active', true)
+        ;
 
-    private CONST MAX_RESULT = 20;
+        return (new Paginator($qb))->paginate($page);
+    }
 
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Card::class);
-    }
-
-    public function createQueryWithPaginator(int $firstResult = 0, int $maxResult = self::MAX_RESULT) : Query
-    {
-        return $this->getEntityManager()->createQuery(self::DQL)
-            ->setFirstResult($firstResult)
-            ->setMaxResults($maxResult);
     }
 }

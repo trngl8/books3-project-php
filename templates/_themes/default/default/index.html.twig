@@ -25,9 +25,9 @@
         <div class="row mb-4">
 
             <div class="col-md-4">
-                {% if cards|length > 0 %}
+                {% if cards.results|length > 0 %}
                     <div class="list-group mb-5">
-                        {% for item in cards %}
+                        {% for item in cards.results %}
                             {% if loop.index is divisible by(2)  %}
                                 <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
@@ -51,9 +51,9 @@
             </div>
 
             <div class="col-md-4">
-                {% if cards|length > 0 %}
+                {% if cards.results|length > 0 %}
                     <div class="list-group mb-5">
-                        {% for item in cards %}
+                        {% for item in cards.results %}
                             {% if not loop.index is divisible by(2)  %}
                                 <a href="{{ path('card_show', {'id' : item.id}) }}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
@@ -79,17 +79,15 @@
                 {% endif %}
             </div>
 
-            {% if pages|length > 1 %}
-                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                        {% for page in pages %}
-                            <a href="{{ path('index_locale', {'page' : page }) }}"
-                               class="btn btn-outline-secondary
-                                {% if page == app.request.get('page') %}
-                                    disabled
-                                {% endif %}">
-                                {{ page }}
-                            </a>
+            {% if cards.hasToPaginate %}
+                <div class="btn-toolbar mb-3" role="toolbar">
+                    <div class="btn-group mr-2" role="group">
+                        {% for i in 1..cards.lastPage %}
+                            {% if i == cards.currentPage %}
+                                <a href="{{ path('index_paginated', {'page' : i }) }}" class="btn btn-outline-secondary disabled">{{ i }}</a>
+                            {% else %}
+                                <a href="{{ path('index_paginated', {'page' : i }) }}" class="btn btn-outline-secondary">{{ i }}</a>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
