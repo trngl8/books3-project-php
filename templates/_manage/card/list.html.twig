@@ -46,7 +46,12 @@
                         {{ item.updatedAt|date }}
                     </td>
                     <td>
-                        {{ item.active }}
+                        {% if item.active %}
+                            <i class="bi bi-toggle-on"></i>
+                        {% else %}
+                            <i class="bi bi-toggle-off"></i> {{ item.active }}
+                        {% endif %}
+
                     </td>
                 </tr>
             {% endfor %}
