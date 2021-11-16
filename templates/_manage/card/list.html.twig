@@ -43,7 +43,9 @@
                         {{ item.isbn }}
                     </td>
                     <td>
-                        {{ item.updatedAt|date }}
+                        {% if item.updatedAt %}
+                            {{ item.updatedAt|date }}
+                        {% endif %}
                     </td>
                     <td>
                         {% if item.active %}
@@ -51,7 +53,6 @@
                         {% else %}
                             <i class="bi bi-toggle-off"></i> {{ item.active }}
                         {% endif %}
-
                     </td>
                 </tr>
             {% endfor %}
