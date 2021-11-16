@@ -15,7 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CardRepository extends ServiceEntityRepository
 {
-    private CONST DQL = 'SELECT c FROM App\Entity\Card c left join c.rescripts r ORDER BY c.updatedAt DESC';
+    private CONST DQL = 'SELECT c 
+                        FROM App\Entity\Card c 
+                        LEFT JOIN c.rescripts r 
+                        WHERE c.active IS NULL or c.active=TRUE 
+                        ORDER BY c.updatedAt DESC';
 
     private CONST MAX_RESULT = 20;
 

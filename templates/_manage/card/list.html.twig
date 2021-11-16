@@ -16,6 +16,7 @@
                 <th scope="col">{{ 'table.caption.year'|trans }}</th>
                 <th scope="col">{{ 'table.caption.isbn'|trans }}</th>
                 <th scope="col">{{ 'table.caption.updated_at'|trans }}</th>
+                <th scope="col">{{ 'table.caption.active'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +44,9 @@
                     </td>
                     <td>
                         {{ item.updatedAt|date }}
+                    </td>
+                    <td>
+                        {{ item.active }}
                     </td>
                 </tr>
             {% endfor %}

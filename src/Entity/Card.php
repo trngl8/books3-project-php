@@ -119,6 +119,11 @@ class Card
      */
     private $coverFilename;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct(?string $uuidValue = null)
     {
         if(!$this->id) {
@@ -397,6 +402,18 @@ class Card
     public function setCoverFilename(?string $coverFilename): self
     {
         $this->coverFilename = $coverFilename;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }
