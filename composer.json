@@ -19,7 +19,7 @@
     "symfony/polyfill-php72": "*"
   },
   "require": {
-    "php": "8.1",
+    "php": "8.0",
     "ext-intl": "*",
     "ext-mbstring": "*",
     "ext-pgsql": "*",
@@ -81,7 +81,7 @@
       "*": "dist"
     },
     "platform": {
-      "php": "8.1"
+      "php": "8.0"
     },
     "sort-packages": true
   },
