@@ -21,9 +21,9 @@ class UsersChangePasswordCommand extends Command
 
     private $passwordEncoder;
 
-    public function __construct(string $name = null, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
-        parent::__construct($name);
+        parent::__construct($this::$defaultName);
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
     }

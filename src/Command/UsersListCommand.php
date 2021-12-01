@@ -16,9 +16,9 @@ class UsersListCommand extends Command
 
     private $repository;
 
-    public function __construct(string $name = null, UserRepository $repository)
+    public function __construct(UserRepository $repository)
     {
-        parent::__construct($name);
+        parent::__construct($this::$defaultName);
         $this->repository = $repository;
     }
 
