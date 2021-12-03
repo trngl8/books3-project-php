@@ -6,6 +6,7 @@ use App\Entity\Card;
 use App\Form\CardType;
 use App\Repository\CardRepository;
 use App\Service\Uploader;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,14 @@ class CardController extends AbstractController
 {
     private $cards;
 
+    private $em;
+
     private $uploader;
 
-    public function __construct(CardRepository $cardRepository, Uploader $uploader)
+    public function __construct(CardRepository $cardRepository, Uploader $uploader, ManagerRegistry $em)
     {
         $this->cards = $cardRepository;
+        $this->em = $em;
         $this->uploader = $uploader;
     }
 
@@ -105,8 +109,8 @@ class CardController extends AbstractController
         $submittedToken = $request->request->get('token');
 
         if ($this->isCsrfTokenValid('remove', $submittedToken)) {
-            $this->getDoctrine()->getManager()->remove($card);
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->getManager()->remove($card);
+            $this->em->getManager()->flush();
 
             $this->addFlash('success', 'Card removed');
 

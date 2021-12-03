@@ -70,7 +70,7 @@ class Card
     private ?string $language;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rescript::class, mappedBy="card")
+     * @ORM\OneToMany(targetEntity=Rescript::class, mappedBy="card", cascade={"persist", "remove"})
      */
     private $rescripts;
 

@@ -1,19 +1,19 @@
 {% extends '_manage/default/index.html.twig' %}
 
-{% block title %}{{ 'title.remove'|trans }} #{{ order.id }}{% endblock %}
+{% block title %}{{ 'title.remove'|trans }} #{{ card.id }}{% endblock %}
 
-{% block section_title %}{{ 'title.remove'|trans }} #{{ order.id }}{% endblock %}
+{% block section_title %}{{ 'title.remove'|trans }} #{{ card.id }}{% endblock %}
 
 {% block body %}
 
-    <p>{{ 'message.removing_agree'|trans }} #{{ slot.id }}?</p>
-    <form action="{{ url('manager_cards_remove', { id: order.id }) }}" method="post" data-confirmation="true" id="delete-form">
+    <p>{{ 'message.removing_agree'|trans }} #{{ card.id }}?</p>
+    <form action="{{ url('manager_cards_remove', { id: card.id }) }}" method="post" data-confirmation="true" id="delete-form">
         <input type="hidden" name="token" value="{{ csrf_token('remove') }}" />
         <button type="submit" class="btn btn-outline-danger">
             <i class="fa fa-trash" aria-hidden="true"></i>
             {{ 'action.yes'|trans }}
         </button>
-        <a href="{{ path('manager_orders_show', { id: order.id }) }}" class="btn btn-outline-primary">{{ 'action.no'|trans }}</a>
+        <a href="{{ path('manager_cards_show', { id: card.id }) }}" class="btn btn-outline-primary">{{ 'action.no'|trans }}</a>
     </form>
 
 {% endblock %}
