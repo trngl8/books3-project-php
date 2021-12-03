@@ -4,8 +4,8 @@ namespace App\Controller\Manager;
 
 use App\Entity\Card;
 use App\Form\CardType;
+use App\Repository\CardRepository;
 use App\Service\Uploader;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,15 +15,13 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CardController extends AbstractController
 {
-    private $repository;
+    private $cards;
 
     private $uploader;
 
-    public function __construct(EntityManagerInterface $em, Uploader $uploader)
+    public function __construct(CardRepository $cardRepository, Uploader $uploader)
     {
-        //TODO: make $em dependency
-
-        $this->repository = $em->getRepository(Card::class);
+        $this->cards = $cardRepository;
         $this->uploader = $uploader;
     }
 
@@ -34,7 +32,7 @@ class CardController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        $cards = $this->repository->findBy([], ['updatedAt' => 'ASC']);
+        $cards = $this->cards->findBy([], ['createdAt' => 'DESC', 'active' => 'ASC']);
 
         return $this->render('_manage/card/list.html.twig', [
             'cards' => $cards,
