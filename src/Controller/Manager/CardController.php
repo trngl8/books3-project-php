@@ -32,7 +32,7 @@ class CardController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        $cards = $this->cards->findBy([], ['createdAt' => 'DESC', 'active' => 'ASC']);
+        $cards = $this->cards->findBy([], ['active' => 'DESC', 'createdAt' => 'ASC', ]);
 
         return $this->render('_manage/card/list.html.twig', [
             'cards' => $cards,
