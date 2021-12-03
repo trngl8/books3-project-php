@@ -31,7 +31,7 @@ class Rescript
     private $condition;
 
     /**
-     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="rescript", git cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="rescript", cascade={"persist", "remove"})
      */
     private $loans;
 
