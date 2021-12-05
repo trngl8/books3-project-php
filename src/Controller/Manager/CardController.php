@@ -30,13 +30,40 @@ class CardController extends AbstractController
     }
 
     /**
+     * @Route("/manager/cards/new", name="manager_cards_new")
+     */
+    public function new(Request $request) : Response
+    {
+        $form = $this->createForm(CardType::class, new Card());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->em->getManager()->persist($form->getData());
+            $this->em->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'message.card.created'
+            );
+
+            return $this->redirectToRoute('manager_cards_list');
+        }
+
+        return $this->render('_manage/card/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/manager/cards", name="manager_cards_list")
      */
     public function list(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
-        $cards = $this->cards->findBy([], ['active' => 'DESC', 'createdAt' => 'ASC', ]);
+        $cards = $this->cards->findBy([], ['active' => 'DESC', 'createdAt' => 'DESC']);
 
         return $this->render('_manage/card/list.html.twig', [
             'cards' => $cards,
@@ -72,8 +99,7 @@ class CardController extends AbstractController
                 $card->setCoverFilename($url);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+            $this->em->getManager()->flush();
 
             $this->addFlash(
                 'success',

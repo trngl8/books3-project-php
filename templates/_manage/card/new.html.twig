@@ -1,22 +1,20 @@
 {% extends '_manage/default/index.html.twig' %}
 
-{% block title %}{{ 'title.card_edit'|trans }}{% endblock %}
+{% block title %}{{ 'title.card_new'|trans }}{% endblock %}
 
 {% block section_title %}{% endblock %}
 
 {% block h1 %}
-    <h1 class="h2">{{ 'title.cards.edit'|trans }}</h1>
+    <h1 class="h2">{{ 'title.cards.card_new'|trans }}</h1>
 {% endblock %}
 
 {% block body %}
 
-    {% if card.coverFilename %}
-        <p><img src="{{ card.coverFilename }}" alt="{{ card.title }}" width="200"></p>
-    {% endif %}
-
     {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+
         {{ form_rest(form) }}
         <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
+
     {{ form_end(form) }}
 
 {% endblock %}

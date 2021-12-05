@@ -15,6 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CardRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Card::class);
+    }
+
     public function findLatest(int $page = 1): Paginator
     {
         $qb = $this->createQueryBuilder('c')
@@ -26,10 +31,5 @@ class CardRepository extends ServiceEntityRepository
         ;
 
         return (new Paginator($qb))->paginate($page);
-    }
-
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Card::class);
     }
 }

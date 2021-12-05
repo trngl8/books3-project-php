@@ -2,9 +2,15 @@
 
 {% block title %}{{ 'title.cards'|trans }}{% endblock %}
 
-{% block section_title %}{{ 'title.cards'|trans }}{% endblock %}
+{% block section_title %}{% endblock %}
+
+{% block h1 %}
+    <h1 class="h2">{{ 'title.cards.list'|trans }}</h1>
+{% endblock %}
 
 {% block body %}
+
+    <a href="{{ path('manager_cards_new') }}" class="btn btn-outline-primary">{{ 'add_card'|trans }}</a>
 
     {% if cards|length > 0 %}
         <table class="table">
@@ -25,7 +31,7 @@
                 <tr>
                     <td>
                         {% if item.coverFilename %}
-                            <a href="{{ path('manager_cards_show', { id: item.id }) }}"><img src="{{ item.coverFilename }}" alt="{{ item.title }}" width="100"></a>
+                            <a href="{{ path('manager_cards_show', { id: item.id }) }}"><img src="{{ item.coverFilename }}" alt="{{ item.title }}" width="24"></a>
                         {% endif %}
                     </td>
 {#                    <td>#}
