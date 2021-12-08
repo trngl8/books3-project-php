@@ -73,6 +73,7 @@ label:
   duration: Duration
   url: Url
   public_active: Public
+  books_list: Books list
 
 help:
   status: Describe yourself

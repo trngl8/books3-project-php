@@ -73,6 +73,7 @@ label:
   duration: Час, хв.
   url: Лінк
   public_active: Публічно
+  books_list: Перелік книжок
 
 help:
   status: Опишіть коротко словами поточний стан, дію або персонажа

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\DonationType;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -47,9 +52,36 @@ class DefaultController extends AbstractController
     /**
      * @Route("/{_locale}/donation", name="donation", requirements={"_locale": "uk|en|ru|bg"})
      */
-    public function donation(): Response
+    public function donation(Request $request, MailerInterface $mailer, string $adminEmail): Response
     {
-        return $this->render('default/donation.html.twig');
+        $form = $this->createForm(DonationType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $donation = $form->getData();
+
+            $email = (new TemplatedEmail())
+                ->from($donation->email)
+                ->to(new Address($adminEmail))
+                ->priority(Email::PRIORITY_HIGH)
+                ->subject(sprintf('Donation request from #%s', $donation->email))
+                ->htmlTemplate('email/donation_request.html.twig')
+                ->context([
+                    'name' => $donation->name,
+                    'mail' => $donation->email,
+                    'text' => $donation->text
+                ])
+            ;
+
+            $mailer->send($email);
+            $this->addFlash('success', 'message.donation_added');
+
+            $this->redirectToRoute('donation');
+        }
+        return $this->render('default/donation.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

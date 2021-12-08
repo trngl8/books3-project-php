@@ -6,5 +6,16 @@
 
     <h1 class="mb-4">{{ 'title.books_donation'|trans }}</h1>
     <p>{{ 'message.donation_description'|trans }}</p>
+    <br>
+    <br>
+    {% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
+    {{ form_start(form, { attr: {novalidate: 'novalidate'}}) }}
+    {{ form_row(form.name, { label: 'label.name' }) }}
+    {{ form_row(form.email, { label: 'label.email' }) }}
+    {{ form_row(form.text, { label: 'label.books_list'}) }}
+    <button type="submit" class="btn btn-outline-primary btn-lg">{{ 'submit.save'|trans }}</button>
+    {{ form_end(form) }}
+
+
 
 {% endblock %}
