@@ -48,6 +48,8 @@ title:
   add_event: Додати подію
   search: Пошук
   profiles: Профілі
+  books_donation: Пожертви книжок
+  donation: Пожертви
   options:
     delivery: Опції доставки
 
@@ -101,6 +103,7 @@ message:
   or: або
   to_save_time: для пришвидшення обробки замовлення #TODO: need valid english translation
   logged_as: Ви ввійшли як
+  donation_description: Ви можете пожертвувати в бібліотеку будь-які книжки
 
 form:
   label:
