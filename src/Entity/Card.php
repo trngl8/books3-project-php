@@ -148,16 +148,6 @@ class Card
         }
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
-    public function updateCreated()
-    {
-        if(!$this->createdAt) {
-            $this->createdAt = new \DateTimeImmutable();
-        }
-    }
-
     public function __toString()
     {
         return $this->getTitle();
