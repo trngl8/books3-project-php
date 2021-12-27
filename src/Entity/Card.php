@@ -90,7 +90,7 @@ class Card
     private $orderItems;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
 
@@ -141,11 +141,21 @@ class Card
      */
     public function updateTimestamps()
     {
+        $this->updatedAt = new \DateTime();
+
         if(!$this->createdAt) {
             $this->createdAt = new \DateTimeImmutable();
         }
+    }
 
-        $this->updatedAt = new \DateTime();
+    /**
+     * @ORM\PostLoad()
+     */
+    public function updateCreated()
+    {
+        if(!$this->createdAt) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function __toString()
