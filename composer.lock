@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v2.6.7",
+            "version": "v2.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "8a19950a816ccd7cbf38323addbba72b14ac2372"
+                "reference": "ff3aab5b196709c721960c0bb4f1d52759af737d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/8a19950a816ccd7cbf38323addbba72b14ac2372",
-                "reference": "8a19950a816ccd7cbf38323addbba72b14ac2372",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/ff3aab5b196709c721960c0bb4f1d52759af737d",
+                "reference": "ff3aab5b196709c721960c0bb4f1d52759af737d",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v2.6.7"
+                "source": "https://github.com/api-platform/core/tree/v2.6.8"
             },
             "funding": [
                 {
@@ -165,28 +165,28 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-24T14:12:38+00:00"
+            "time": "2022-01-11T10:29:54+00:00"
         },
         {
             "name": "cloudinary/cloudinary_php",
-            "version": "2.5.1",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "7d5d5eeb56df7cda1acd5a6310285ad6e55b9f82"
+                "reference": "9fd5228908b75b3f523c754aa1459f5b4f8b3484"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/7d5d5eeb56df7cda1acd5a6310285ad6e55b9f82",
-                "reference": "7d5d5eeb56df7cda1acd5a6310285ad6e55b9f82",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/9fd5228908b75b3f523c754aa1459f5b4f8b3484",
+                "reference": "9fd5228908b75b3f523c754aa1459f5b4f8b3484",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6|^7",
-                "monolog/monolog": "*",
+                "monolog/monolog": "^1|^2",
                 "php": ">=5.6.0",
-                "psr/log": "^1",
+                "psr/log": "^1|^2|^3",
                 "shrikeh/teapot": "^1|^2"
             },
             "require-dev": {
@@ -227,9 +227,9 @@
             "support": {
                 "email": "info@cloudinary.com",
                 "issues": "https://github.com/cloudinary/cloudinary_php/issues",
-                "source": "https://github.com/cloudinary/cloudinary_php/tree/2.5.1"
+                "source": "https://github.com/cloudinary/cloudinary_php/tree/2.6.0"
             },
-            "time": "2021-11-24T17:04:15+00:00"
+            "time": "2022-01-10T12:27:45+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1593,38 +1593,39 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "2.2.3",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee"
+                "reference": "f8af155c1e7963f3d2b4415097d55757bbaa53d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee",
-                "reference": "5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/f8af155c1e7963f3d2b4415097d55757bbaa53d8",
+                "reference": "f8af155c1e7963f3d2b4415097d55757bbaa53d8",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "^1.0",
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/collections": "^1.0",
                 "doctrine/deprecations": "^0.5.3",
                 "doctrine/event-manager": "^1.0",
                 "php": "^7.1 || ^8.0",
-                "psr/cache": "^1.0|^2.0|^3.0"
+                "psr/cache": "^1.0 || ^2.0 || ^3.0"
             },
             "conflict": {
+                "doctrine/annotations": "<1.0 || >=2.0",
                 "doctrine/common": "<2.10@dev"
             },
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.11",
+                "doctrine/annotations": "^1.0",
                 "doctrine/coding-standard": "^6.0 || ^9.0",
                 "doctrine/common": "^3.0",
-                "phpstan/phpstan": "0.12.84",
+                "phpstan/phpstan": "1.2.0",
                 "phpunit/phpunit": "^7.5.20 || ^8.0 || ^9.0",
-                "symfony/cache": "^4.4|^5.0",
-                "vimeo/psalm": "4.7.0"
+                "symfony/cache": "^4.4 || ^5.0 || ^6.0",
+                "vimeo/psalm": "4.13.1"
             },
             "type": "library",
             "autoload": {
@@ -1674,9 +1675,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/2.2.3"
+                "source": "https://github.com/doctrine/persistence/tree/2.3.0"
             },
-            "time": "2021-10-25T19:59:10+00:00"
+            "time": "2022-01-09T19:58:46+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -1732,16 +1733,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v3.5.17",
+            "version": "v3.5.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "152c48f8ee8e0952633344c0dc7e2d6eb44a138f"
+                "reference": "aa15b32391b578cd6a2928e6fb7aeb2acb96af64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/152c48f8ee8e0952633344c0dc7e2d6eb44a138f",
-                "reference": "152c48f8ee8e0952633344c0dc7e2d6eb44a138f",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/aa15b32391b578cd6a2928e6fb7aeb2acb96af64",
+                "reference": "aa15b32391b578cd6a2928e6fb7aeb2acb96af64",
                 "shasum": ""
             },
             "require": {
@@ -1812,7 +1813,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v3.5.17"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v3.5.18"
             },
             "funding": [
                 {
@@ -1820,7 +1821,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-15T07:19:30+00:00"
+            "time": "2022-01-09T16:17:31+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3667,30 +3668,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.4",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+                "reference": "ef29f6d262798707a9edd554e2b82517ef3a9376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/ef29f6d262798707a9edd554e2b82517ef3a9376",
+                "reference": "ef29f6d262798707a9edd554e2b82517ef3a9376",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
+                    "Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3711,9 +3712,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
+                "source": "https://github.com/php-fig/log/tree/2.0.0"
             },
-            "time": "2021-05-03T11:20:27+00:00"
+            "time": "2021-07-14T16:41:46+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3999,16 +4000,16 @@
         },
         {
             "name": "sentry/sentry-symfony",
-            "version": "4.2.5",
+            "version": "4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-symfony.git",
-                "reference": "2d3016484d83291a5da137d1a9347e70f0fe526a"
+                "reference": "c3f2c687b45e3e42573372ac75e643c9e4f3f896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/2d3016484d83291a5da137d1a9347e70f0fe526a",
-                "reference": "2d3016484d83291a5da137d1a9347e70f0fe526a",
+                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/c3f2c687b45e3e42573372ac75e643c9e4f3f896",
+                "reference": "c3f2c687b45e3e42573372ac75e643c9e4f3f896",
                 "shasum": ""
             },
             "require": {
@@ -4016,7 +4017,7 @@
                 "php": "^7.2||^8.0",
                 "php-http/discovery": "^1.11",
                 "sentry/sdk": "^3.1",
-                "symfony/cache-contracts": "^1.1||^2.4",
+                "symfony/cache-contracts": "^1.1||^2.4||^3.0",
                 "symfony/config": "^3.4.44||^4.4.20||^5.0.11||^6.0",
                 "symfony/console": "^3.4.44||^4.4.20||^5.0.11||^6.0",
                 "symfony/dependency-injection": "^3.4.44||^4.4.20||^5.0.11||^6.0",
@@ -4097,7 +4098,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-symfony/issues",
-                "source": "https://github.com/getsentry/sentry-symfony/tree/4.2.5"
+                "source": "https://github.com/getsentry/sentry-symfony/tree/4.2.6"
             },
             "funding": [
                 {
@@ -4109,7 +4110,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-12-13T08:52:25+00:00"
+            "time": "2022-01-10T08:56:54+00:00"
         },
         {
             "name": "shrikeh/teapot",
